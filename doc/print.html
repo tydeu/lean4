@@ -1235,7 +1235,7 @@ The following command declares the enumerated type <code>Weekday</code>.</p>
   | saturday  : Weekday
 </code></pre>
 <p>The <code>Weekday</code> type has 7 constructors/elements. The constructors live in the <code>Weekday</code> namespace
-Think of <code>sunday</code>, <code>monday</code>, …, saturday as being distinct elements of <code>Weekday</code>,
+Think of <code>sunday</code>, <code>monday</code>, …, <code>saturday</code> as being distinct elements of <code>Weekday</code>,
 with no other distinguishing properties.</p>
 <pre><code class="language-lean"><span class="boring">inductive Weekday where
 </span><span class="boring"> | sunday    : Weekday
@@ -1797,11 +1797,9 @@ This causes class inference to chain through instances recursively, backtracking
   default := fun _ =&gt; arbitrary
 </code></pre>
 <p>As an exercise, try defining default instances for other types, such as <code>List</code> and <code>Sum</code> types.</p>
-<p>The Lean standard library contains the definition <code>inferInstance</code>. It has type <code>{α : Type u} → [i : α] → α</code>,
+<p>The Lean standard library contains the definition <code>inferInstance</code>. It has type <code>{α : Sort u} → [i : α] → α</code>,
 and is useful for triggering the type class resolution procedure when the expected type is an instance.</p>
-<pre><code class="language-lean">#check @inferInstance  -- {α : Type u} → [i : α] → α
-
-#check (inferInstance : Inhabited Nat) -- Inhabited Nat
+<pre><code class="language-lean">#check (inferInstance : Inhabited Nat) -- Inhabited Nat
 
 def foo : Inhabited (Nat × Nat) :=
   inferInstance
@@ -1915,7 +1913,7 @@ instance [HMul α β γ] : HMul α (Array β) (Array γ) where
 
 #eval hMul 4 3                    -- 12
 #eval hMul 4 #[2, 3, 4]           -- #[8, 12, 16]
-#eval hMul (-2) #[3, -1, 4]       -- #[-6, 2, -4]
+#eval hMul (-2) #[3, -1, 4]       -- #[-6, 2, -8]
 #eval hMul 2 #[#[2, 3], #[0, 4]]  -- #[#[4, 6], #[0, 8]]
 <span class="boring">end Ex
 </span></code></pre>
@@ -2128,7 +2126,7 @@ It is defined as</p>
 <p>but its execution time representation is optimized, and it is similar to C++ <code>std::vector&lt;T&gt;</code> and Rust <code>Vec&lt;T&gt;</code>.
 The Lean type checker has no special support for reducing <code>Array</code>s.</p>
 <p>You can create arrays in several ways. You can create a small array by listing consecutive values between
-<code>#[</code> and <code>]</code> and separated by colons, as shown in the following examples.</p>
+<code>#[</code> and <code>]</code> and separated by commas, as shown in the following examples.</p>
 <pre><code class="language-lean">#check #[1, 2, 3] -- Array Nat
 
 #check #[] -- Array ?m
@@ -2544,11 +2542,11 @@ theorem ex (x : Nat) {y : Nat} (h : y &gt; 0) : x % y &lt; y := by
     rw [Nat.mod_eq_sub_mod h₁.2]
     exact ih h
   | base x y h₁ =&gt;
-     have ¬ 0 &lt; y ∨ ¬ y ≤ x from Iff.mp (Decidable.notAndIffOrNot ..) h₁
+     have : ¬ 0 &lt; y ∨ ¬ y ≤ x := Iff.mp (Decidable.notAndIffOrNot ..) h₁
      match this with
      | Or.inl h₁ =&gt; exact absurd h h₁
      | Or.inr h₁ =&gt;
-       have hgt : y &gt; x from Nat.gtOfNotLe h₁
+       have hgt : y &gt; x := Nat.gtOfNotLe h₁
        rw [← Nat.mod_eq_of_lt hgt] at hgt
        assumption
 </code></pre>
@@ -2689,8 +2687,8 @@ macro &quot;begin &quot; ts:tactic,*,? &quot;end&quot;%i : term =&gt; do
 
 theorem ex1 (x : Nat) : x + 0 = 0 + x :=
   begin
-    rw Nat.zero_add,
-    rw Nat.add_zero,
+    rw [Nat.zero_add],
+    rw [Nat.add_zero],
   end
 </code></pre>
 <h1><a class="header" href="#syntax-extensions" id="syntax-extensions">Syntax Extensions</a></h1>
@@ -3169,7 +3167,7 @@ We expect similar independent checkers will be built for Lean 4.</p>
 <ul>
 <li>Should I open a new issue?</li>
 </ul>
-<p>We use <a href="https://github.com/leanprover/lean4/issues">github</a> to track bugs and new features.
+<p>We use <a href="https://github.com/leanprover/lean4/issues">GitHub</a> to track bugs and new features.
 Bug reports are always welcome, but nitpicking issues are not (e.g., the error message is confusing).
 RFC issues are created by developers only.</p>
 <h1><a class="header" href="#significant-changes-from-lean-3" id="significant-changes-from-lean-3">Significant changes from Lean 3</a></h1>
@@ -3824,7 +3822,7 @@ This is because modules are discovered not from a directory listing anymore but 
 </ul>
 <h1><a class="header" href="#editor-integration" id="editor-integration">Editor Integration</a></h1>
 <p>As in the standard Nix setup.
-After adding <code>src/</code> as an LSP workspace using <code>lsp-workspace-folder-add</code>, it should automatically fall back to using stage 0 in there.</p>
+After adding <code>src/</code> as an LSP workspace, it should automatically fall back to using stage 0 in there.</p>
 <p>Note that the UX of <code>emacs/vscode-dev</code> is quite different from the Make-based setup regarding the compilation of dependencies:
 there is no mutable directory incrementally filled by the build that we could point the editor at for .olean files.
 Instead, <code>emacs-dev</code> will gather the individual dependency outputs from the Nix store when checking a file -- and build them on the fly when necessary.

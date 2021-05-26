@@ -325,11 +325,11 @@ theorem ex (x : Nat) {y : Nat} (h : y &gt; 0) : x % y &lt; y := by
     rw [Nat.mod_eq_sub_mod h₁.2]
     exact ih h
   | base x y h₁ =&gt;
-     have ¬ 0 &lt; y ∨ ¬ y ≤ x from Iff.mp (Decidable.notAndIffOrNot ..) h₁
+     have : ¬ 0 &lt; y ∨ ¬ y ≤ x := Iff.mp (Decidable.notAndIffOrNot ..) h₁
      match this with
      | Or.inl h₁ =&gt; exact absurd h h₁
      | Or.inr h₁ =&gt;
-       have hgt : y &gt; x from Nat.gtOfNotLe h₁
+       have hgt : y &gt; x := Nat.gtOfNotLe h₁
        rw [← Nat.mod_eq_of_lt hgt] at hgt
        assumption
 </code></pre>
@@ -470,8 +470,8 @@ macro &quot;begin &quot; ts:tactic,*,? &quot;end&quot;%i : term =&gt; do
 
 theorem ex1 (x : Nat) : x + 0 = 0 + x :=
   begin
-    rw Nat.zero_add,
-    rw Nat.add_zero,
+    rw [Nat.zero_add],
+    rw [Nat.add_zero],
   end
 </code></pre>
 
