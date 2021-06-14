@@ -196,7 +196,7 @@ Foo/
   A/...   # further nesting
 build/  # `leanpkg` output directory
 </code></pre>
-<p>Note however that <code>leanpkg</code> currently depends on <code>make</code> (and <code>sh</code>) for recursive compilation.
+<p>Note however that producing native binaries and libraries (<code>leanpkg build bin/lb</code>) currently depends on <code>make</code> and an external C compiler for recursive compilation.
 It has been tested on Windows by installing these tools using <a href="https://www.msys2.org/">MSYS2</a>, but <a href="http://www.mingw.org/">MinGW</a> or WSL should work, too.</p>
 <h3><a class="header" href="#editing" id="editing">Editing</a></h3>
 <p>Lean implements the <a href="https://microsoft.github.io/language-server-protocol/">Language Server Protocol</a> that can be used for interactive development in <a href="https://github.com/leanprover/lean4/tree/master/lean4-mode/README.md">Emacs</a>, <a href="https://github.com/mhuisi/vscode-lean4">VS Code</a>, and possibly other editors.</p>

@@ -427,7 +427,7 @@ Foo/
   A/...   # further nesting
 build/  # `leanpkg` output directory
 </code></pre>
-<p>Note however that <code>leanpkg</code> currently depends on <code>make</code> (and <code>sh</code>) for recursive compilation.
+<p>Note however that producing native binaries and libraries (<code>leanpkg build bin/lb</code>) currently depends on <code>make</code> and an external C compiler for recursive compilation.
 It has been tested on Windows by installing these tools using <a href="https://www.msys2.org/">MSYS2</a>, but <a href="http://www.mingw.org/">MinGW</a> or WSL should work, too.</p>
 <h3><a class="header" href="#editing" id="editing">Editing</a></h3>
 <p>Lean implements the <a href="https://microsoft.github.io/language-server-protocol/">Language Server Protocol</a> that can be used for interactive development in <a href="https://github.com/leanprover/lean4/tree/master/lean4-mode/README.md">Emacs</a>, <a href="https://github.com/mhuisi/vscode-lean4">VS Code</a>, and possibly other editors.</p>
@@ -490,8 +490,8 @@ See <a href="./setup.html">Setup</a> for other ways and more details on setting 
 <li>Install the latest Lean 4 nightly through <a href="https://github.com/leanprover/elan"><code>elan</code></a>: in any bash-compatible shell, run
 <pre><code class="language-sh">$ curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- --default-toolchain leanprover/lean4:nightly
 </code></pre>
-See the <code>elan</code> link above for other installation options and details.
-Note that using Lean with multi-file projects on Windows currently comes with some <a href="./setup.html#leanpkg">additional limitations</a>.</li>
+Alternatively, on Windows, download <a href="https://github.com/leanprover/elan/releases/latest/download/elan-x86_64-pc-windows-msvc.zip">the latest release</a> and run the contained <code>elan-init.exe</code>.<br />
+See the <code>elan</code> link above for other installation options and details.</li>
 <li>Install <a href="https://code.visualstudio.com/">VS Code</a>.</li>
 <li>Open VS Code and install the <code>lean4</code> extension.<br />
 <img src="images/code-ext.png" alt="installing the vscode-lean4 extension" /></li>
@@ -3169,7 +3169,7 @@ We expect similar independent checkers will be built for Lean 4.</p>
 </ul>
 <p>We use <a href="https://github.com/leanprover/lean4/issues">GitHub</a> to track bugs and new features.
 Bug reports are always welcome, but nitpicking issues are not (e.g., the error message is confusing).
-RFC issues are created by developers only.</p>
+See also our <a href="../CONTRIBUTING.html">contribution guidelines</a>.</p>
 <h1><a class="header" href="#significant-changes-from-lean-3" id="significant-changes-from-lean-3">Significant changes from Lean 3</a></h1>
 <p>Lean 4 is not backward compatible with Lean 3.
 We have rewritten most of the system, and took the opportunity to cleanup the syntax,
