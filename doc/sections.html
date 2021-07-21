@@ -204,7 +204,7 @@ def doThrice := h (h (h x))
 #print doThrice
 </code></pre>
 <p>Printing them out shows that all three groups of definitions have exactly the same effect.</p>
-<p>The <code>variable</code> command instruct Lean to insert the declared variables as bound variables in definitions that refer to them.
+<p>The <code>variable</code> command instructs Lean to insert the declared variables as bound variables in definitions that refer to them.
 Lean is smart enough to figure out which variables are used explicitly or implicitly in a definition. We can therefore proceed as
 though <code>α</code>, <code>β</code>, <code>γ</code>, <code>g</code>, <code>f</code>, <code>h</code>, and <code>x</code> are fixed objects when we write our definitions, and let Lean abstract
 the definitions for us automatically.</p>

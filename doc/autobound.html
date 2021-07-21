@@ -171,7 +171,7 @@
 <p>In the previous section, we have shown how implicit arguments make functions more convenient to use.
 However, functions such as <code>compose</code> are still quite verbose to define. Note that the universe
 polymorphic <code>compose</code> is even more verbose than the one previously defined.</p>
-<pre><code class="language-lean">universes u v w
+<pre><code class="language-lean">universe u v w
 def compose {α : Type u} {β : Type v} {γ : Type w}
             (g : β → γ) (f : α → β) (x : α) : γ :=
   g (f x)
