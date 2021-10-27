@@ -489,10 +489,14 @@ See <a href="./setup.html">Setup</a> for other ways and more details on setting 
 <ol>
 <li>
 <p>Install the latest Lean 4 nightly through <a href="https://github.com/leanprover/elan"><code>elan</code></a>: in any bash-compatible shell, run</p>
-<pre><code class="language-sh">$ curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- --default-toolchain leanprover/lean4:nightly
+<pre><code class="language-sh">curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- --default-toolchain leanprover/lean4:nightly
 </code></pre>
-<p>Alternatively, on Windows, download <a href="https://github.com/leanprover/elan/releases/latest/download/elan-x86_64-pc-windows-msvc.zip">the latest release</a> and run the contained <code>elan-init.exe</code>.
-See the <a href="https://github.com/leanprover/elan">elan repo</a> for other installation options and details.</p>
+<p>On Windows, instead run in <code>cmd</code></p>
+<pre><code class="language-sh">curl -O --location https://raw.githubusercontent.com/leanprover/elan/master/elan-init.ps1
+powershell -f elan-init.ps1 --default-toolchain leanprover/lean4:nightly
+del elan-init.ps1
+</code></pre>
+<p>See the <a href="https://github.com/leanprover/elan">elan repo</a> for other installation options and details.</p>
 </li>
 <li>
 <p>Install <a href="https://code.visualstudio.com/">VS Code</a>.</p>
