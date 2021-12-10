@@ -223,18 +223,17 @@ It can be set up analogously as a cache for your own project.</p>
 <h3><a class="header" href="#basic-commands" id="basic-commands">Basic Commands</a></h3>
 <p>From a Lean shell, run</p>
 <pre><code class="language-bash">$ nix flake new mypkg -t github:leanprover/lean4
-$ cd mypkg &amp;&amp; git init &amp;&amp; git add flake.nix
 </code></pre>
 <p>to create a new Lean package in directory <code>mypkg</code> using the latest commit of Lean 4.
-Note that Nix Flakes will not recognize your <code>flake.nix</code> file unless it is visible to Git.
-Such packages follow the same directory layout as described in the basic setup above, except for a <code>leanpkg.toml</code> replaced by a <code>flake.nix</code> file set up so you can run Nix commands on it, for example:</p>
+Such packages follow the same directory layout as described in the basic setup above, except for a <code>leanpkg.toml</code>/<code>lakefile.lean</code> replaced by a <code>flake.nix</code> file set up so you can run Nix commands on it, for example:</p>
 <pre><code class="language-bash">$ nix build  # build package and all dependencies
 $ nix build .#executable  # compile `main` definition into executable (after you've added one)
 $ nix run .#emacs-dev  # open a pinned version of Emacs with lean4-mode fully set up
 $ nix run .#emacs-dev MyPackage.lean  # arguments can be passed as well, e.g. the file to open
 $ nix run .#vscode-dev MyPackage.lean  # ditto, using VS Code
 </code></pre>
-<p>Note that if you rename <code>MyPackage.lean</code>, you also have to adjust the <code>name</code> attribute in <code>flake.nix</code> accordingly.</p>
+<p>Note that if you rename <code>MyPackage.lean</code>, you also have to adjust the <code>name</code> attribute in <code>flake.nix</code> accordingly.
+Also note that if you turn the package into a Git repository, only tracked files will be visible to Nix.</p>
 <p>As in the basic setup, changes need to be saved to be visible in other files, which have then to be invalidated via an editor command.</p>
 <p>If you don't want to or cannot start the pinned editor from Nix, e.g. because you're running Lean inside WSL/a container/on a different machine, you can manually point your editor at the <code>lean</code> wrapper script the commands above use internally:</p>
 <pre><code class="language-bash">$ nix build .#lean-dev -o result-lean-dev
