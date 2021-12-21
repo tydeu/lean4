@@ -191,19 +191,17 @@ del elan-init.ps1
 </li>
 <li>
 <p>Create a new file with the extension <code>.lean</code> and add the following code:</p>
-<pre><code class="language-lean">import Leanpkg
-
-#eval Leanpkg.leanVersionString
+<pre><code class="language-lean">#eval Lean.versionString
 </code></pre>
 <p>You should get a syntax-highlighted file with a &quot;Lean Infoview&quot; on the right that tells you the installed Lean version when placing your cursor on the last line.</p>
 <p><img src="images/code-success.png" alt="successful setup" /></p>
 </li>
 <li>
-<p>You are set up! Try opening a Lean folder containing a package file <code>leanpkg.toml</code>. You can create your own packages using <code>leanpkg init</code> on the command line.
-Packages <strong>have</strong> to be opened using &quot;File &gt; Open Folder...&quot; for imports to work.
-Saved changes are visible in other files after running &quot;Lean 4: Refresh File Dependencies&quot; (<code>Ctrl+Shift+X</code>).</p>
+<p>You are set up! You can now also run <code>lake init foo</code> from the command line to create a package, followed by <code>lake build</code> to get an executable version of your Lean program.</p>
 </li>
 </ol>
+<p>Note: Packages <strong>have</strong> to be opened using &quot;File &gt; Open Folder...&quot; for imports to work.
+Saved changes are visible in other files after running &quot;Lean 4: Refresh File Dependencies&quot; (<code>Ctrl+Shift+X</code>).</p>
 
                     </main>
 

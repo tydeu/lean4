@@ -437,26 +437,26 @@ theorem ex3 (x : α) (h : p) : x = x ∧ p := by
 <h1><a class="header" href="#let-rec" id="let-rec"><code>let-rec</code></a></h1>
 <p>You can use <code>let rec</code> to write local recursive functions. We lifted it to the tactic DSL,
 and you can use it to create proofs by induction.</p>
-<pre><code class="language-lean">theorem length_replicate {α} (n : Nat) (a : α) : (List.replicate n a).length = n := by
+<pre><code class="language-lean">theorem length_replicateTR {α} (n : Nat) (a : α) : (List.replicateTR n a).length = n := by
   let rec aux (n : Nat) (as : List α)
-      : (List.replicate.loop a n as).length = n + as.length := by
+      : (List.replicateTR.loop a n as).length = n + as.length := by
     match n with
     | 0   =&gt; rw [Nat.zero_add]; rfl
     | n+1 =&gt;
-      show List.length (List.replicate.loop a n (a::as)) = Nat.succ n + as.length
+      show List.length (List.replicateTR.loop a n (a::as)) = Nat.succ n + as.length
       rw [aux n, List.length_cons, Nat.add_succ, Nat.succ_add]
   exact aux n []
 </code></pre>
 <p>You can also introduce auxiliary recursive declarations using <code>where</code> clause after your definition.
 Lean converts them into a <code>let rec</code>.</p>
-<pre><code class="language-lean">theorem length_replicate {α} (n : Nat) (a : α) : (List.replicate n a).length = n :=
+<pre><code class="language-lean">theorem length_replicateTR {α} (n : Nat) (a : α) : (List.replicateTR n a).length = n :=
   loop n []
 where
-  loop n as : (List.replicate.loop a n as).length = n + as.length := by
+  loop n as : (List.replicateTR.loop a n as).length = n + as.length := by
     match n with
     | 0   =&gt; rw [Nat.zero_add]; rfl
     | n+1 =&gt;
-      show List.length (List.replicate.loop a n (a::as)) = Nat.succ n + as.length
+      show List.length (List.replicateTR.loop a n (a::as)) = Nat.succ n + as.length
       rw [loop n, List.length_cons, Nat.add_succ, Nat.succ_add]
 </code></pre>
 <h1><a class="header" href="#begin-end-lovers" id="begin-end-lovers"><code>begin-end</code> lovers</a></h1>
