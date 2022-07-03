@@ -168,25 +168,32 @@ The Lean type checker has no special support for reducing <code>Array</code>s.</
 </code></pre>
 <h2 id="accessing-elements"><a class="header" href="#accessing-elements">Accessing elements</a></h2>
 <p>You can access array elements by using brackets (<code>[</code> and <code>]</code>).</p>
-<pre><code class="language-lean">#eval #['a', 'b', 'c'][1]
--- 'b'
-
-def getThird (xs : Array Nat) : Nat :=
-  xs[2]
-
-#eval getThird #[10, 20, 30, 40]
--- 30
+<pre><code class="language-lean">def f (a : Array Nat) (i : Fin a.size) :=
+  a[i] + a[i]
 </code></pre>
-<p>The bracket operator is whitespace sensitive.</p>
+<p>Note that the index <code>i</code> has type <code>Fin a.size</code>, i.e., it is natural number less than <code>a.size</code>.
+The bracket operator is whitespace sensitive.</p>
 <pre><code class="language-lean">def f (xs : List Nat) : List Nat :=
   xs ++ xs
 
 def as : Array Nat :=
   #[1, 2, 3, 4]
 
+def idx : Fin 4 :=
+  2
+
 #eval f [1, 2, 3] -- This is a function application
 
-#eval as[2] -- This is an array access
+#eval as[idx] -- This is an array access
+</code></pre>
+<p>The notation <code>a[i]</code> has two variants: <code>a[i]!</code> and <code>a[i]?</code>. In both cases, <code>i</code> has type <code>Nat</code>. The first one
+produces a panic error message if the index <code>i</code> is out of bounds. The latter returns an <code>Option</code> type.</p>
+<pre><code class="language-lean">#eval #['a', 'b', 'c'][1]?
+-- some 'b'
+#eval #['a', 'b', 'c'][5]?
+-- none
+#eval #['a', 'b', 'c'][1]!
+-- 'b!
 </code></pre>
 
                     </main>

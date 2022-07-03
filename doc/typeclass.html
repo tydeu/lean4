@@ -302,7 +302,7 @@ This causes class inference to chain through instances recursively, backtracking
 </span><span class="boring"> default := true
 </span><span class="boring">instance : Inhabited Nat where
 </span><span class="boring"> default := 0
-</span><span class="boring">constant default [Inhabited a] : a :=
+</span><span class="boring">opaque default [Inhabited a] : a :=
 </span><span class="boring"> Inhabited.default
 </span>instance [Inhabited a] [Inhabited b] : Inhabited (a × b) where
   default := (default, default)

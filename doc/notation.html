@@ -156,7 +156,7 @@ quotes (the whitespace is used for pretty printing), then the function
 this operator should be translated to after the arrow <code>=&gt;</code>.</p>
 <p>The precedence is a natural number describing how &quot;tightly&quot; an
 operator binds to its arguments, encoding the order of operations. We
-can make this more precise by looking at the commands above unfold to:</p>
+can make this more precise by looking at what the commands above unfold to:</p>
 <pre><code class="language-lean">notation:65 lhs:65 &quot; + &quot; rhs:66 =&gt; HAdd.hAdd lhs rhs
 notation:50 lhs:51 &quot; = &quot; rhs:51 =&gt; Eq lhs rhs
 notation:80 lhs:81 &quot; ^ &quot; rhs:80 =&gt; HPow.hPow lhs rhs
