@@ -172,7 +172,11 @@ The Lean type checker has no special support for reducing <code>Array</code>s.</
   a[i] + a[i]
 </code></pre>
 <p>Note that the index <code>i</code> has type <code>Fin a.size</code>, i.e., it is natural number less than <code>a.size</code>.
-The bracket operator is whitespace sensitive.</p>
+You can also write</p>
+<pre><code class="language-lean">def f (a : Array Nat) (i : Nat) (h  : i &lt; a.size) :=
+  a[i] + a[i]
+</code></pre>
+<p>The bracket operator is whitespace sensitive.</p>
 <pre><code class="language-lean">def f (xs : List Nat) : List Nat :=
   xs ++ xs
 

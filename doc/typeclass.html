@@ -455,9 +455,9 @@ instance : HMul Int Int Int where
 
 def xs : List Int := [1, 2, 3]
 
--- Error &quot;failed to create type class instance for HMul Int ?m.1767 (?m.1797 x)&quot;
-<span class="boring">-- FIXME: should fail
-</span>#check fun y =&gt; xs.map (fun x =&gt; hMul x y)
+<span class="boring">-- TODO: fix error message
+</span>-- Error &quot;failed to create type class instance for HMul Int ?m.1767 (?m.1797 x)&quot;
+-- #check fun y =&gt; xs.map (fun x =&gt; hMul x y)
 <span class="boring">end Ex
 </span></code></pre>
 <p>The instance <code>HMul</code> is not synthesized by Lean because the type of <code>y</code> has not been provided.
