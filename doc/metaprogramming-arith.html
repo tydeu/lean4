@@ -206,9 +206,9 @@ syntax &quot;`[Arith| &quot; arith &quot;]&quot; : term
 <pre><code class="language-lean ignore">macro_rules
   | `(`[Arith| $s:str]) =&gt; `(Arith.symbol $s)
   | `(`[Arith| $num:num]) =&gt; `(Arith.int $num)
-  | `(`[Arith| $x:arith + $y:arith]) =&gt; `(Arith.add `[Arith| $x] `[Arith| $y])
-  | `(`[Arith| $x:arith * $y:arith]) =&gt; `(Arith.mul `[Arith| $x] `[Arith| $y])
-  | `(`[Arith| ($x:arith)]) =&gt; `(`[Arith| $x])
+  | `(`[Arith| $x + $y]) =&gt; `(Arith.add `[Arith| $x] `[Arith| $y])
+  | `(`[Arith| $x * $y]) =&gt; `(Arith.mul `[Arith| $x] `[Arith| $y])
+  | `(`[Arith| ($x)]) =&gt; `(`[Arith| $x])
 </code></pre>
 <p>And some examples:</p>
 <pre><code class="language-lean ignore">#check `[Arith| &quot;x&quot; * &quot;y&quot;]  -- mul
@@ -285,9 +285,9 @@ syntax &quot;`[Arith| &quot; arith &quot;]&quot; : term
 macro_rules
   | `(`[Arith| $s:str]) =&gt; `(Arith.symbol $s)
   | `(`[Arith| $num:num]) =&gt; `(Arith.int $num)
-  | `(`[Arith| $x:arith + $y:arith]) =&gt; `(Arith.add `[Arith| $x] `[Arith| $y])
-  | `(`[Arith| $x:arith * $y:arith]) =&gt; `(Arith.mul `[Arith| $x] `[Arith| $y])
-  | `(`[Arith| ($x:arith)]) =&gt; `(`[Arith| $x])
+  | `(`[Arith| $x + $y]) =&gt; `(Arith.add `[Arith| $x] `[Arith| $y])
+  | `(`[Arith| $x * $y]) =&gt; `(Arith.mul `[Arith| $x] `[Arith| $y])
+  | `(`[Arith| ($x)]) =&gt; `(`[Arith| $x])
 
 #check `[Arith| &quot;x&quot; * &quot;y&quot;]  -- mul
 -- Arith.mul (Arith.symbol &quot;x&quot;) (Arith.symbol &quot;y&quot;)
