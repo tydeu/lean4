@@ -210,7 +210,7 @@ def id5 : {α : Type} → α → α :=
 <span class="boring">end ex2
 </span></code></pre>
 <h2 id="sugar-for-simple-functions"><a class="header" href="#sugar-for-simple-functions">Sugar for simple functions</a></h2>
-<p>In Lean 3, we can create simple functions from infix operators by using parentheses. For example, <code>(+1)</code> is sugar for <code>fun x, x + 1</code>. In Lean 4, we generalize this notation using <code>·</code> As a placeholder. Here are a few examples:</p>
+<p>In Lean 3, we can create simple functions from infix operators by using parentheses. For example, <code>(+1)</code> is sugar for <code>fun x, x + 1</code>. In Lean 4, we generalize this notation using <code>·</code> as a placeholder. Here are a few examples:</p>
 <pre><code class="language-lean"><span class="boring">namespace ex3
 </span>#check (· + 1)
 -- fun a =&gt; a + 1
