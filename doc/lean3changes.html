@@ -306,6 +306,7 @@ to avoid a sequence of <code>_</code>s.</p>
 <pre><code class="language-lean">example (f : Nat → Nat) (a b c : Nat) : f (a + b + c) = f (a + (b + c)) :=
   congrArg f (Nat.add_assoc ..)
 </code></pre>
+<p>In Lean 4, writing <code>f(x)</code> in place of <code>f x</code> is no longer allowed, you must use whitespace between the function and its arguments (e.g., <code>f (x)</code>).</p>
 <h2 id="dependent-function-types"><a class="header" href="#dependent-function-types">Dependent function types</a></h2>
 <p>Given <code>α : Type</code> and <code>β : α → Type</code>, <code>(x : α) → β x</code> denotes the type of functions <code>f</code> with the property that,
 for each <code>a : α</code>, <code>f a</code> is an element of <code>β a</code>. In other words, the type of the value returned by <code>f</code> depends on its input.
