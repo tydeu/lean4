@@ -7156,6 +7156,7 @@ This support is however currently limited to transferring Lean data types; in pa
 It can also be used with <code>def</code> to provide an internal definition, but ensuring consistency of both definitions is up to the user.</li>
 <li><code>@[export sym] def leanSym : ...</code> exports <code>leanSym</code> under the unmangled symbol name <code>sym</code>.</li>
 </ul>
+<p>For simple examples of how to call foreign code from Lean and vice versa, see <a href="https://github.com/leanprover/lean4/blob/master/src/lake/examples/ffi">https://github.com/leanprover/lean4/blob/master/src/lake/examples/ffi</a> and <a href="https://github.com/leanprover/lean4/blob/master/src/lake/examples/reverse-ffi">https://github.com/leanprover/lean4/blob/master/src/lake/examples/reverse-ffi</a>, respectively.</p>
 <h2 id="the-lean-abi"><a class="header" href="#the-lean-abi">The Lean ABI</a></h2>
 <p>The Lean Application Binary Interface (ABI) describes how the signature of a Lean declaration is encoded as a native calling convention.
 It is based on the standard C ABI and calling convention of the target platform.
