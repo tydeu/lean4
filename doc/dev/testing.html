@@ -224,6 +224,15 @@ even trust the .olean files (i.e., trust 0).</p>
 <code>lean</code> via the <code>--plugin</code> command line option.</p>
 </li>
 </ul>
+<h2 id="writing-good-tests"><a class="header" href="#writing-good-tests">Writing Good Tests</a></h2>
+<p>Every test file should contain:</p>
+<ul>
+<li>an initial <code>/-! -/</code> module docstring summarizing the test's purpose</li>
+<li>a module docstring for each test section that describes what is tested
+and, if not 100% clear, why that is the desirable behavior</li>
+</ul>
+<p>At the time of writing, most tests do not follow these new guidelines yet.
+For an example of a conforming test, see <code>tests/lean/1971.lean</code>.</p>
 <h2 id="fixing-tests"><a class="header" href="#fixing-tests">Fixing Tests</a></h2>
 <p>When the Lean source code or the standard library are modified, some of the
 tests break because the produced output is slightly different, and we have
