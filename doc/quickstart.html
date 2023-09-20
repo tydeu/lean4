@@ -155,12 +155,12 @@ See <a href="./setup.html">Setup</a> for other ways, supported platforms, and mo
 <p>Create a new file using &quot;File &gt; New Text File&quot; (<code>Ctrl+N</code>). Click the <code>Select a language</code> prompt, type in <code>lean4</code>, and hit ENTER.  You should see the following popup:
 <img src="images/install_elan.png" alt="elan" /></p>
 <p>Click the &quot;Install Lean using Elan&quot; button. You should see some progress output like this:</p>
-<pre><code>info: syncing channel updates for 'nightly'
-info: latest update on nightly, lean version nightly-2023-06-27
+<pre><code>info: syncing channel updates for 'stable'
+info: latest update on stable, lean version v4.0.0
 info: downloading component 'lean'
 </code></pre>
 <p>If there is no popup, you probably have Elan installed already.
-You may want to make sure that your default toolchain is Lean 4 in this case by running <code>elan default leanprover/lean4:nightly</code> and reopen the file, as the next step will fail otherwise.</p>
+You may want to make sure that your default toolchain is Lean 4 in this case by running <code>elan default leanprover/lean4:stable</code> and reopen the file, as the next step will fail otherwise.</p>
 </li>
 <li>
 <p>While it is installing, you can paste the following Lean program into the new file:</p>
