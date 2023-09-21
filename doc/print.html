@@ -173,7 +173,7 @@ def main : IO Unit :=
 <li><a href="./monads/intro.html">Monads</a></li>
 <li><a href="./syntax.html">Extensible syntax</a></li>
 <li>Hygienic macros</li>
-<li><a href="https://leanprover.github.io/theorem_proving_in_lean4/dependent_type_theory.html">Dependent types</a></li>
+<li><a href="https://lean-lang.org/theorem_proving_in_lean4/dependent_type_theory.html">Dependent types</a></li>
 <li><a href="./metaprogramming.html">Metaprogramming</a></li>
 <li>Multithreading</li>
 <li>Verification: you can prove properties of your functions using Lean itself</li>
@@ -511,10 +511,10 @@ This includes selecting the correct stage of Lean (which it will compile on the 
 <p>Note that the package information in <code>flake.nix</code> is currently completely independent from <code>lakefile.lean</code> used in the standard setup.
 Unifying the two formats is TBD.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="theorem-proving-in-lean"><a class="header" href="#theorem-proving-in-lean">Theorem Proving in Lean</a></h1>
-<p>We strongly encourage you to read the book <a href="https://leanprover.github.io/theorem_proving_in_lean4/title_page.html">Theorem Proving in Lean</a>.
+<p>We strongly encourage you to read the book <a href="https://lean-lang.org/theorem_proving_in_lean4/title_page.html">Theorem Proving in Lean</a>.
 Many Lean users consider it to be the Lean Bible.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="functional-programming-in-lean"><a class="header" href="#functional-programming-in-lean">Functional Programming in Lean</a></h1>
-<p>The goal of <a href="https://leanprover.github.io/functional_programming_in_lean/">this book</a> is to be an accessible introduction to using Lean 4 as a programming language.
+<p>The goal of <a href="https://lean-lang.org/functional_programming_in_lean/">this book</a> is to be an accessible introduction to using Lean 4 as a programming language.
 It should be useful both to people who want to use Lean as a general-purpose programming language and to mathematicians who want to develop larger-scale proof automation but do not have a background in functional programming.
 It does not assume any background with functional programming, though it's probably not a good first book on programming in general.
 New content will be added once per month until it's done.</p>
@@ -3051,7 +3051,7 @@ sides of the equality reduce to the same term.</p>
 <span class="boring">end Weekday
 </span></code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="inductive-types"><a class="header" href="#inductive-types">Inductive Types</a></h1>
-<p><a href="https://leanprover.github.io/theorem_proving_in_lean4/inductive_types.html">Theorem Proving in Lean</a> has a chapter about inductive datatypes.</p>
+<p><a href="https://lean-lang.org/theorem_proving_in_lean4/inductive_types.html">Theorem Proving in Lean</a> has a chapter about inductive datatypes.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="structures"><a class="header" href="#structures">Structures</a></h1>
 <p>Structure is a special case of inductive datatype. It has only one constructor and is not recursive.
 Similar to the <code>inductive</code> command, the <code>structure</code> command introduces a namespace with the same name.
@@ -5778,7 +5778,7 @@ A public and very active chat room dedicated to Lean is open on <a href="https:/
 It is a good place to interact with other Lean users.</p>
 <h3 id="should-i-use-lean-to-teach-a-course"><a class="header" href="#should-i-use-lean-to-teach-a-course">Should I use Lean to teach a course?</a></h3>
 <p>Lean has been used to teach courses on logic, type theory and programming languages at CMU and the University of Washington.
-The lecture notes for the CMU course <a href="https://leanprover.github.io/logic_and_proof">Logic and Proof</a> are available online,
+The lecture notes for the CMU course <a href="https://lean-lang.org/logic_and_proof">Logic and Proof</a> are available online,
 but they are for Lean 3.
 If you decide to teach a course using Lean, we suggest you prepare all material before the beginning of the course, and
 make sure that Lean attends all your needs. You should not expect we will fix bugs and/or add features needed for your course.</p>
@@ -6401,7 +6401,7 @@ export default function(props) {
 <pre class="alectryon-io type-info-hidden highlight"><!-- Generator: Alectryon --><span class="alectryon-wsp"><span class="alectryon-token"><span class="bp">#</span>widget</span><span class="alectryon-token"> insertTextWidget </span><span class="alectryon-token"><div class="alectryon-type-info-wrapper"><small class="alectryon-type-info"><div class="alectryon-goals"><blockquote class="alectryon-goal"><div class="goal-hyps"><span class="hyp-type"><var>.null</var><b>: </b><span>Json</span></span></div></blockquote></div></small></div><span class="bp">.</span>null</span><span class="alectryon-token"></span></span></pre><div style="break-before: page; page-break-before: always;"></div><h2 id="semantic-highlighting"><a class="header" href="#semantic-highlighting">Semantic Highlighting</a></h2>
 <p>The Lean language server provides semantic highlighting information to editors. In order to benefit from this in VSCode, you may need to activate the &quot;Editor &gt; Semantic Highlighting&quot; option in the preferences (this is translates to <code>&quot;editor.semanticHighlighting.enabled&quot;: true,</code>
 in <code>settings.json</code>). The default option here is to let your color theme decides whether it activates semantic highlighting (the default themes Dark+ and Light+ do activate it for instance).</p>
-<p>However this may be insufficient if your color theme does not distinguish enough syntax categories or distinguishes them very subtly. For instance the default Light+ theme uses color <code>#001080</code> for variables. This is awfully close to <code>#000000</code> that is used as the default text color. This makes it very easy to miss an accidental use of <a href="https://leanprover.github.io/lean4/doc/autobound.html">auto bound implicit arguments</a>. For instance in</p>
+<p>However this may be insufficient if your color theme does not distinguish enough syntax categories or distinguishes them very subtly. For instance the default Light+ theme uses color <code>#001080</code> for variables. This is awfully close to <code>#000000</code> that is used as the default text color. This makes it very easy to miss an accidental use of <a href="https://lean-lang.org/lean4/doc/autobound.html">auto bound implicit arguments</a>. For instance in</p>
 <pre><code class="language-lean">def my_id (n : nat) := n
 </code></pre>
 <p>maybe <code>nat</code> is a typo and <code>Nat</code> was intended. If your color theme is good enough then you should see that <code>n</code> and <code>nat</code> have the same color since they are both marked as variables by semantic highlighting. If you rather write <code>(n : Nat)</code> then <code>n</code> keeps its variable color but <code>Nat</code> gets the default text color.</p>
@@ -7062,7 +7062,7 @@ std::cout &lt;&lt; a &lt;&lt; &quot;\n&quot;;
 operator bool() to coerce the expression into a Boolean. This produces
 counter-intuitive behavior, and may confuse developers.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="documentation"><a class="header" href="#documentation">Documentation</a></h1>
-<p>The Lean <code>doc</code> folder contains the <a href="https://leanprover.github.io/lean4/doc/">Lean Manual</a> and is
+<p>The Lean <code>doc</code> folder contains the <a href="https://lean-lang.org/lean4/doc/">Lean Manual</a> and is
 authored in a combination of markdown (<code>*.md</code>) files and literate Lean files.  The .lean files are
 preprocessed using a tool called <a href="https://github.com/leanprover/leanink">LeanInk</a> and
 <a href="https://github.com/Kha/alectryon">Alectryon</a> which produces a generated markdown file.  We then run
@@ -7134,7 +7134,7 @@ mdbook build
 </li>
 </ol>
 <p>This will put the HTML in a <code>out</code> folder so you can load <code>out/index.html</code> in your web browser and
-it should look like https://leanprover.github.io/lean4/doc/.</p>
+it should look like https://lean-lang.org/lean4/doc/.</p>
 <ol>
 <li>
 <p>It is also handy to use e.g. <a href="https://rust-lang.github.io/mdBook/cli/watch.html"><code>mdbook watch</code></a>
