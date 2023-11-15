@@ -202,6 +202,11 @@ changes on test programs whose compilation <em>will</em> be influenced by the ch
 <p>Finally, when we want to use new language features in the library, we need to
 update the stage 0 compiler, which can be done via <code>make -C stageN update-stage0</code>.
 <code>make update-stage0</code> without <code>-C</code> defaults to stage1.</p>
+<p>Updates to <code>stage0</code> should be their own commits in the Git history. In
+other words, before running <code>make update-stage0</code>, please commit your
+work. Then, commit the updated <code>stage0</code> compiler code with the commit message:</p>
+<pre><code>chore: update stage0
+</code></pre>
 <h2 id="further-bootstrapping-complications"><a class="header" href="#further-bootstrapping-complications">Further Bootstrapping Complications</a></h2>
 <p>As written above, changes in meta code in the current stage usually will only
 affect later stages. This is an issue in two specific cases.</p>
