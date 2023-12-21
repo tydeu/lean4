@@ -31,6 +31,8 @@ def minPrec  : Nat := eval_prec min
 
 abbrev Token := String
 
+abbrev TokenKind := Name
+
 abbrev TokenTable := Lean.Data.Trie Token
 
 abbrev SyntaxNodeKindSet := PersistentHashMap SyntaxNodeKind Unit
@@ -323,8 +325,8 @@ instance : Inhabited ParserFn where
 inductive FirstTokens where
   | epsilon   : FirstTokens
   | unknown   : FirstTokens
-  | tokens    : List Token → FirstTokens
-  | optTokens : List Token → FirstTokens
+  | tokens    : List TokenKind → FirstTokens
+  | optTokens : List TokenKind → FirstTokens
   deriving Inhabited
 
 namespace FirstTokens

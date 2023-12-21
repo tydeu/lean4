@@ -1012,9 +1012,12 @@ def satisfySymbolFn (p : String → Bool) (expected : List String) : ParserFn :=
 def symbolFnAux (sym : String) (errorMsg : String) : ParserFn :=
   satisfySymbolFn (fun s => s == sym) [errorMsg]
 
+def symbolKind (sym : String) : TokenKind :=
+  .str `symbol sym
+
 def symbolInfo (sym : String) : ParserInfo := {
   collectTokens := fun tks => sym :: tks
-  firstTokens   := FirstTokens.tokens [ sym ]
+  firstTokens   := FirstTokens.tokens [ symbolKind sym ]
 }
 
 def symbolFn (sym : String) : ParserFn :=
@@ -1058,9 +1061,9 @@ def nonReservedSymbolFn (sym : String) : ParserFn :=
 def nonReservedSymbolInfo (sym : String) (includeIdent : Bool) : ParserInfo := {
   firstTokens  :=
     if includeIdent then
-      .tokens [ sym, "ident" ]
+      .tokens [ symbolKind sym, identKind ]
     else
-      .tokens [ sym ]
+      .tokens [ symbolKind sym ]
 }
 
 def nonReservedSymbolNoAntiquot (sym : String) (includeIdent := false) : Parser :=
@@ -1151,8 +1154,8 @@ def unicodeSymbolNoAntiquot (sym asciiSym : String) : Parser :=
   { info := unicodeSymbolInfo sym asciiSym
     fn   := unicodeSymbolFn sym asciiSym }
 
-def mkAtomicInfo (k : String) : ParserInfo :=
-  { firstTokens := FirstTokens.tokens [ k ] }
+def mkAtomicInfo (kind : TokenKind) : ParserInfo :=
+  { firstTokens := FirstTokens.tokens [ kind ] }
 
 /--
   Parses a token and asserts the result is of the given kind.
@@ -1165,42 +1168,42 @@ def numLitFn : ParserFn := expectTokenFn numLitKind "numeral"
 
 def numLitNoAntiquot : Parser := {
   fn   := numLitFn
-  info := mkAtomicInfo "num"
+  info := mkAtomicInfo numLitKind
 }
 
 def scientificLitFn : ParserFn := expectTokenFn scientificLitKind "scientific number"
 
 def scientificLitNoAntiquot : Parser := {
   fn   := scientificLitFn
-  info := mkAtomicInfo "scientific"
+  info := mkAtomicInfo scientificLitKind
 }
 
 def strLitFn : ParserFn := expectTokenFn strLitKind "string literal"
 
 def strLitNoAntiquot : Parser := {
   fn   := strLitFn
-  info := mkAtomicInfo "str"
+  info := mkAtomicInfo strLitKind
 }
 
 def charLitFn : ParserFn := expectTokenFn charLitKind "character literal"
 
 def charLitNoAntiquot : Parser := {
   fn   := charLitFn
-  info := mkAtomicInfo "char"
+  info := mkAtomicInfo charLitKind
 }
 
 def nameLitFn : ParserFn := expectTokenFn nameLitKind "Name literal"
 
 def nameLitNoAntiquot : Parser := {
   fn   := nameLitFn
-  info := mkAtomicInfo "name"
+  info := mkAtomicInfo nameLitKind
 }
 
 def identFn : ParserFn := expectTokenFn identKind "identifier"
 
 def identNoAntiquot : Parser := {
   fn   := identFn
-  info := mkAtomicInfo "ident"
+  info := mkAtomicInfo identKind
 }
 
 def rawIdentNoAntiquot : Parser := {
@@ -1217,7 +1220,7 @@ def identEqFn (id : Name) : ParserFn := fun c s =>
 
 def identEq (id : Name) : Parser := {
   fn   := identEqFn id
-  info := mkAtomicInfo "ident"
+  info := mkAtomicInfo identKind
 }
 
 def hygieneInfoFn : ParserFn := fun c s => Id.run do
@@ -1496,7 +1499,7 @@ def eoi : Parser := {
 }
 
 /-- A multimap indexed by tokens. Used for indexing parsers by their leading token. -/
-def TokenMap (α : Type) := RBMap Name (List α) Name.quickCmp
+def TokenMap (α : Type) := RBMap TokenKind (List α) Name.quickCmp
 
 namespace TokenMap
 
@@ -1539,17 +1542,17 @@ instance : Inhabited PrattParsingTables where
 inductive LeadingIdentBehavior where
   /-- `LeadingIdentBehavior.default`: if the leading token
   is an identifier, then `prattParser` just executes the parsers
-  associated with the auxiliary token "ident". -/
+  associated with the auxiliary token `ident`. -/
   | default
   /-- `LeadingIdentBehavior.symbol`: if the leading token is
   an identifier `<foo>`, and there are parsers `P` associated with
   the token `<foo>`, then it executes `P`. Otherwise, it executes
-  only the parsers associated with the auxiliary token "ident". -/
+  only the parsers associated with the auxiliary token `ident`. -/
   | symbol
   /-- `LeadingIdentBehavior.both`: if the leading token
   an identifier `<foo>`, the it executes the parsers associated
   with token `<foo>` and parsers associated with the auxiliary
-  token "ident". -/
+  token `ident`. -/
   | both
   deriving Inhabited, BEq, Repr
 
@@ -1595,23 +1598,20 @@ def indexed {α : Type} (map : TokenMap α) (c : ParserContext) (s : ParserState
     | some as => (s, as)
     | _       => (s, [])
   match stx with
-  | .ok (.atom _ sym)      => find (.mkSimple sym)
-  | .ok (.ident _ _ val _) =>
+  | .ok (.atom _ sym)      => find (symbolKind sym)
+  | .ok (.ident _ rawVal _ _) =>
     match behavior with
     | .default => find identKind
     | .symbol =>
-      match map.find? val with
+      match map.find? (symbolKind rawVal.toString) with
       | some as => (s, as)
       | none    => find identKind
     | .both =>
-      match map.find? val with
+      match map.find? (symbolKind rawVal.toString) with
       | some as =>
-        if val == identKind then
-          (s, as)  -- avoid running the same parsers twice
-        else
-          match map.find? identKind with
-          | some as' => (s, as ++ as')
-          | _        => (s, as)
+        match map.find? identKind with
+        | some as' => (s, as ++ as')
+        | _        => (s, as)
       | none    => find identKind
   | .ok (.node _ k _) => find k
   | .ok _             => (s, [])
@@ -1868,9 +1868,9 @@ def fieldIdxFn : ParserFn := fun c s =>
     s.mkErrorAt "field index" iniPos initStackSz
 
 def fieldIdx : Parser :=
-  withAntiquot (mkAntiquot "fieldIdx" `fieldIdx) {
+  withAntiquot (mkAntiquot "fieldIdx" fieldIdxKind) {
     fn   := fieldIdxFn
-    info := mkAtomicInfo "fieldIdx"
+    info := mkAtomicInfo fieldIdxKind
   }
 
 def skip : Parser := {
