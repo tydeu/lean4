@@ -268,6 +268,7 @@ structure EnvExtensionInterface where
   setState     (e : ext σ) (exts : Array EnvExtensionState) : σ → Array EnvExtensionState
   modifyState  (e : ext σ) (exts : Array EnvExtensionState) : (σ → σ) → Array EnvExtensionState
   getState     [Inhabited σ] (e : ext σ) (exts : Array EnvExtensionState) : σ
+  getState?    (e : ext σ) (exts : Array EnvExtensionState) : Option σ
   mkInitialExtStates : IO (Array EnvExtensionState)
   ensureExtensionsSize : Array EnvExtensionState → IO (Array EnvExtensionState)
 
@@ -280,6 +281,7 @@ instance : Inhabited EnvExtensionInterface where
     setState             := fun _ exts _ => exts
     modifyState          := fun _ exts _ => exts
     getState             := fun ext _ => ext
+    getState?            := fun ext _ => some ext
     mkInitialExtStates   := pure #[]
   }
 
@@ -338,6 +340,13 @@ unsafe def getState {σ} [Inhabited σ] (ext : Ext σ) (exts : Array EnvExtensio
   else
     panic! invalidExtMsg
 
+unsafe def getState? {σ} (ext : Ext σ) (exts : Array EnvExtensionState) : Option σ :=
+  if h : ext.idx < exts.size then
+    let s : EnvExtensionState := exts.get ⟨ext.idx, h⟩
+    some (unsafeCast s)
+  else
+    panic! invalidExtMsg
+
 unsafe def registerExt {σ} (mkInitial : IO σ) : IO (Ext σ) := do
   unless (← initializing) do
     throw (IO.userError "failed to register environment, extensions can only be registered during initialization")
@@ -362,6 +371,7 @@ unsafe def imp : EnvExtensionInterface := {
   setState             := setState
   modifyState          := modifyState
   getState             := getState
+  getState?            := getState?
   mkInitialExtStates   := mkInitialExtStates
 }
 
@@ -377,6 +387,10 @@ private def ensureExtensionsArraySize (env : Environment) : IO Environment := do
   return { env with extensions := exts }
 
 namespace EnvExtension
+
+instance {σ} [h : Nonempty σ] : Nonempty (EnvExtension σ) :=
+  .intro (EnvExtensionInterfaceImp.inhabitedExt ⟨Classical.choice h⟩).default
+
 instance {σ} [s : Inhabited σ] : Inhabited (EnvExtension σ) := EnvExtensionInterfaceImp.inhabitedExt s
 
 def setState {σ : Type} (ext : EnvExtension σ) (env : Environment) (s : σ) : Environment :=
@@ -387,6 +401,9 @@ def modifyState {σ : Type} (ext : EnvExtension σ) (env : Environment) (f : σ 
 
 def getState {σ : Type} [Inhabited σ] (ext : EnvExtension σ) (env : Environment) : σ :=
   EnvExtensionInterfaceImp.getState ext env.extensions
+
+def getState? {σ : Type} (ext : EnvExtension σ) (env : Environment) : Option σ :=
+  EnvExtensionInterfaceImp.getState? ext env.extensions
 
 end EnvExtension
 
