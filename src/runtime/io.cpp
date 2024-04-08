@@ -1033,6 +1033,15 @@ extern "C" LEAN_EXPORT obj_res lean_io_bind_task(obj_arg t, obj_arg f, obj_arg p
     return io_result_mk_ok(t2);
 }
 
+/*  bindMaybeTask (t : Task α) (f : α → BaseIO (MaybeTask β)) (prio : Nat) (sync : Bool) : BaseIO (Task β) */
+extern "C" LEAN_EXPORT obj_res lean_io_bind_maybe_task(obj_arg t, obj_arg f, obj_arg prio, uint8 sync,
+        obj_arg) {
+    object * c = lean_alloc_closure((void*)lean_io_bind_task_fn, 2, 1);
+    lean_closure_set(c, 0, f);
+    object * t2 = lean_task_bind_maybe_core(t, c, lean_unbox(prio), sync, /* keep_alive */ true);
+    return io_result_mk_ok(t2);
+}
+
 extern "C" LEAN_EXPORT obj_res lean_io_check_canceled(obj_arg) {
     return io_result_mk_ok(box(lean_io_check_canceled_core()));
 }

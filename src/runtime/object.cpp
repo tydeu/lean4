@@ -990,12 +990,7 @@ static obj_res task_bind_fn2(obj_arg t, obj_arg) {
     return v;
 }
 
-static obj_res task_bind_fn1(obj_arg x, obj_arg f, obj_arg) {
-    b_obj_res v = lean_to_task(x)->m_value;
-    lean_assert(v != nullptr);
-    lean_inc(v);
-    lean_dec_ref(x);
-    obj_res new_task = lean_apply_1(f, v);
+static inline obj_res task_bind_next(obj_arg f, obj_arg v) {
     lean_assert(lean_is_task(new_task));
     lean_assert(g_current_task_object->m_imp);
     lean_assert(g_current_task_object->m_imp->m_closure == nullptr);
@@ -1005,12 +1000,50 @@ static obj_res task_bind_fn1(obj_arg x, obj_arg f, obj_arg) {
     return nullptr; /* notify queue that task did not finish yet. */
 }
 
+static obj_res task_bind_fn1(obj_arg x, obj_arg f, obj_arg) {
+    b_obj_res v = lean_to_task(x)->m_value;
+    lean_assert(v != nullptr);
+    lean_inc(v);
+    lean_dec_ref(x);
+    obj_res new_task = lean_apply_1(f, v);
+    return task_bind_next(new_task);
+}
+
 extern "C" LEAN_EXPORT obj_res lean_task_bind_core(obj_arg x, obj_arg f, unsigned prio,
       bool sync, bool keep_alive) {
     if (!g_task_manager || (sync && lean_to_task(x)->m_value)) {
         return apply_1(f, lean_task_get_own(x));
     } else {
         lean_task_object * new_task = alloc_task(mk_closure_3_2(task_bind_fn1, x, f), prio, keep_alive);
+        g_task_manager->add_dep(lean_to_task(x), new_task);
+        return (lean_object*)new_task;
+    }
+}
+
+static obj_res task_bind_maybe_fn(obj_arg x, obj_arg f, obj_arg) {
+    b_obj_res v = lean_to_task(x)->m_value;
+    lean_assert(v != nullptr);
+    lean_inc(v);
+    lean_dec_ref(x);
+    v = lean_apply_1(f, v)
+    bool is_pure = lean_ptr_tag(v) == 0;
+    b_obj_res a = lean_ctor_get(v, 0);
+    lean_inc(v);
+    lean_dec_ref(x);
+    return is_pure ? a : task_bind_next(a);
+}
+
+extern "C" LEAN_EXPORT obj_res lean_task_bind_maybe_core(obj_arg x, obj_arg f, unsigned prio,
+      bool sync, bool keep_alive) {
+    if (!g_task_manager || (sync && lean_to_task(x)->m_value)) {
+        obj_res v = apply_1(f, lean_task_get_own(x));
+        bool is_pure = lean_ptr_tag(v) == 0;
+        b_obj_res a = lean_ctor_get(v, 0);
+        lean_inc(a);
+        lean_dec_ref(v);
+        return is_pure ? lean_task_pure(a) : a;
+    } else {
+        lean_task_object * new_task = alloc_task(mk_closure_3_2(task_bind_maybe_fn, x, f), prio, keep_alive);
         g_task_manager->add_dep(lean_to_task(x), new_task);
         return (lean_object*)new_task;
     }
