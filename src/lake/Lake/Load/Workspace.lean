@@ -23,6 +23,7 @@ Does not resolve dependencies.
 -/
 def loadWorkspaceRoot (config : LoadConfig) : LogIO Workspace := do
   Lean.searchPathRef.set config.lakeEnv.leanSearchPath
+  discard <| importModulesUsingCache #[`Lake] config.leanOpts 1024
   let (root, env?) ← loadPackageCore "[root]" config
   let ws : Workspace := {
     root, lakeEnv := config.lakeEnv
@@ -44,15 +45,19 @@ def loadWorkspace (config : LoadConfig) (updateDeps := false) : LogIO Workspace 
   let rc := config.reconfigure
   let leanOpts := config.leanOpts
   let ws ← loadWorkspaceRoot config
-  if updateDeps then
-    ws.updateAndMaterialize {} leanOpts
-  else if let some manifest ← Manifest.load? ws.manifestFile then
-    ws.materializeDeps manifest leanOpts rc
-  else
-    ws.updateAndMaterialize {} leanOpts
+  let ws ←
+    if updateDeps then
+      ws.updateAndMaterialize {} leanOpts
+    else if let some manifest ← Manifest.load? ws.manifestFile then
+      ws.materializeDeps manifest leanOpts rc
+    else
+      ws.updateAndMaterialize {} leanOpts
+  importEnvCache.set {}
+  return ws
 
 /-- Updates the manifest for the loaded Lake workspace (see `updateAndMaterialize`). -/
 def updateManifest (config : LoadConfig) (toUpdate : NameSet := {}) : LogIO Unit := do
   let leanOpts := config.leanOpts
   let ws ← loadWorkspaceRoot config
   discard <| ws.updateAndMaterialize toUpdate leanOpts
+  importEnvCache.set {}

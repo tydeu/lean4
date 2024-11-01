@@ -414,10 +414,7 @@ structure Package where
   /-- The driver used for `lake lint` when this package is the workspace root. -/
   lintDriver : String := config.lintDriver
 
-
-instance : Nonempty Package :=
-  have : Inhabited Environment := Classical.inhabited_of_nonempty inferInstance
-  ⟨by constructor <;> exact default⟩
+deriving Inhabited
 
 hydrate_opaque_type OpaquePackage Package
 
@@ -660,8 +657,3 @@ def isLocalModule (mod : Name) (self : Package) : Bool :=
 def isBuildableModule (mod : Name) (self : Package) : Bool :=
   self.leanLibConfigs.any (fun lib => lib.isBuildableModule mod) ||
   self.leanExeConfigs.any (fun exe => exe.root == mod)
-
-/-- Remove the package's build outputs (i.e., delete its build directory). -/
-def clean (self : Package) : IO PUnit := do
-  if (← self.buildDir.pathExists) then
-    IO.FS.removeDirAll self.buildDir

@@ -15,6 +15,7 @@ import Lake.CLI.Error
 import Lake.CLI.Actions
 import Lake.CLI.Translate
 import Lake.CLI.Serve
+import Lake.CLI.Clean
 
 -- # CLI
 
@@ -422,14 +423,17 @@ protected def clean : CliM PUnit := do
   let config ← mkLoadConfig (← getThe LakeOptions)
   let ws ← loadWorkspace config
   let pkgSpecs ← takeArgs
-  if pkgSpecs.isEmpty then
-    ws.clean
-  else
-    let pkgs ← pkgSpecs.mapM fun pkgSpec =>
-      match ws.findPackage? <| stringToLegalOrSimpleName pkgSpec with
-      | none => throw <| .unknownPackage pkgSpec
-      | some pkg => pure pkg.toPackage
-    pkgs.forM (·.clean)
+  let ok ←
+    if pkgSpecs.isEmpty then
+      ws.clean
+    else
+      let pkgs ← pkgSpecs.mapM fun pkgSpec =>
+        match ws.findPackage? <| stringToLegalOrSimpleName pkgSpec with
+        | none => throw <| .unknownPackage pkgSpec
+        | some pkg => pure pkg.toPackage
+      pkgs.foldlM (init := true) fun ok pkg => return ok && ( ← pkg.clean)
+  unless ok do
+    exit 1
 
 protected def script : CliM PUnit := do
   if let some cmd ← takeArg? then

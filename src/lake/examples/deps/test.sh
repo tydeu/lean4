@@ -21,15 +21,23 @@ $LAKE -d foo setup-file ./foo/Foo.lean A B
 
 # Test `lake clean`
 test -d a/.lake/build
+test -f a/.lake/lakefile.olean
 test -d b/.lake/build
+test -f b/.lake/lakefile.olean
 $LAKE -d foo clean a b
 test ! -d a/.lake/build
+test ! -f a/.lake/lakefile.olean
 test ! -d b/.lake/build
+test ! -f b/.lake/lakefile.olean
 test -d root/.lake/build
+test -f root/.lake/lakefile.olean
 test -d foo/.lake/build
+test -f foo/.lake/lakefile.olean
 $LAKE -d foo clean
 test ! -d root/.lake/build
+test ! -f root/.lake/lakefile.olean
 test ! -d foo/.lake/build
+test ! -f foo/.lake/lakefile.olean
 
 ./clean.sh
 

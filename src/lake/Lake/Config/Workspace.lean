@@ -31,9 +31,7 @@ structure Workspace : Type where
   /-- Name-configuration map of library facets defined in the workspace. -/
   libraryFacetConfigs : DNameMap LibraryFacetConfig
 
-instance : Nonempty Workspace :=
-  have : Inhabited Package := Classical.inhabited_of_nonempty inferInstance
-  ⟨by constructor <;> exact default⟩
+deriving Inhabited
 
 hydrate_opaque_type OpaqueWorkspace Workspace
 
@@ -198,7 +196,3 @@ def augmentedEnvVars (self : Workspace) : Array (String × Option String) :=
     vars
   else
     vars.push (sharedLibPathEnvVar, some self.augmentedSharedLibPath.toString)
-
-/-- Remove all packages' build outputs (i.e., delete their build directories). -/
-def clean (self : Workspace) : IO Unit := do
-  self.packages.forM fun pkg => pkg.clean

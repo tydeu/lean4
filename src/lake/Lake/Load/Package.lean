@@ -63,4 +63,6 @@ def loadPackageCore
 /-- Loads a Lake package as a single independent object (without dependencies). -/
 def loadPackage (config : LoadConfig) : LogIO Package := do
   Lean.searchPathRef.set config.lakeEnv.leanSearchPath
-  (·.1) <$> loadPackageCore "[root]" config
+  let (pkg, _) ← loadPackageCore "[root]" config
+  importEnvCache.set {}
+  return pkg
