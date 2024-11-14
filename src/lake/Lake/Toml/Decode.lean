@@ -84,6 +84,20 @@ class DecodeToml (α : Type u) where
 abbrev decodeToml [DecodeToml α] (v : Value) : Except (Array DecodeError) α :=
   DecodeToml.decode v
 
+/-
+class OptDecodeToml (α : Type u) where
+  decode (v : Option Value) : Except (Array DecodeError) α
+
+abbrev optDecodeToml [OptDecodeToml α] (v : Option Value) : Except (Array DecodeError) α :=
+  OptDecodeToml.decode v
+
+instance (priority := low) [DecodeToml α] : OptDecodeToml α where
+  decode | some v => decodeToml v | none => throw #[.mk .missing "expected value"]
+
+instance [DecodeToml α] : OptDecodeToml (Option α) where
+  decode | some v => some <$> decodeToml v | none => return none
+-/
+
 namespace Toml
 
 /-- Decode an array of TOML values, merging any errors from the elements into a single array. -/

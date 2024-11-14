@@ -6,6 +6,7 @@ Authors: Mac Malone
 prelude
 import Lake.Toml.Load
 import Lake.Toml.Decode
+import Lake.Toml.Deriving
 import Lake.Config.Package
 import Lake.Util.Log
 
@@ -168,7 +169,13 @@ protected def WorkspaceConfig.decodeToml (t : Table) : Except (Array DecodeError
   let packagesDir ← t.tryDecodeD `packagesDir defaultPackagesDir
   return {packagesDir}
 
+deriving instance DecodeToml for WorkspaceConfig
+
 instance : DecodeToml WorkspaceConfig := ⟨fun v => do WorkspaceConfig.decodeToml (← v.decodeTable)⟩
+
+set_option trace.Elab.Deriving.decodeToml true in
+deriving instance DecodeToml for LeanConfig
+#print Lake.LeanConfig.backend._default
 
 protected def LeanConfig.decodeToml (t : Table) : Except (Array DecodeError) LeanConfig := ensureDecode do
   let buildType ← t.tryDecodeD `buildType .release
@@ -245,6 +252,26 @@ protected def LeanLibConfig.decodeToml (t : Table) (ref := Syntax.missing) : Exc
     name, srcDir, roots, globs, libName,
     precompileModules, defaultFacets, toLeanConfig
   }
+
+/-
+private def decodeTomlLeanLibConfig (val : Toml.Value) : Except (Array DecodeError) (@Lake.LeanLibConfig) := do
+  let val ← Value.decodeTable val
+  ensureDecode do
+  let toLeanConfig ← tryDecode (decodeToml val)
+  let name ← Table.tryDecode val `name
+  let srcDir ← Table.tryDecodeD `srcDir Lake.LeanLibConfig.srcDir._default val
+  let roots ← Table.tryDecodeD `roots Lake.LeanLibConfig.roots._default val
+  let globs ← Table.tryDecodeD `globs Lake.LeanLibConfig.globs._default val
+  let libName ← Table.tryDecodeD `libName Lake.LeanLibConfig.libName._default val
+  let extraDepTargets ← Table.tryDecodeD `extraDepTargets Lake.LeanLibConfig.extraDepTargets._default val
+  let precompileModules ← Table.tryDecodeD `precompileModules Lake.LeanLibConfig.precompileModules._default val
+  let defaultFacets ← Table.tryDecodeD `defaultFacets Lake.LeanLibConfig.defaultFacets._default val
+  let nativeFacets ← Table.tryDecodeD `nativeFacets Lake.LeanLibConfig.nativeFacets._default val
+  return { toLeanConfig, name, srcDir, roots, globs, libName, extraDepTargets, precompileModules, defaultFacets, nativeFacets }
+-/
+
+set_option trace.Elab.Deriving.decodeToml true in
+deriving instance DecodeToml for LeanLibConfig
 
 instance : DecodeToml LeanLibConfig := ⟨fun v => do LeanLibConfig.decodeToml (← v.decodeTable) v.ref⟩
 
