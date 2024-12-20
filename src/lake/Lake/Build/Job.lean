@@ -85,6 +85,10 @@ instance : MonadLift LogIO JobM := ⟨ELogT.takeAndRun⟩
 /-- The monad used to spawn asynchronous Lake build jobs. Lifts into `FetchM`. -/
 abbrev SpawnM := BuildT <| ReaderT BuildTrace <| BaseIO
 
+/-- Set the caption of the job's build trace. -/
+@[inline] def setTraceCaption (caption : String) : JobM PUnit :=
+  modify fun s => {s with trace.caption := caption}
+
 @[inline] def JobM.runSpawnM (x : SpawnM α) : JobM α := fun ctx s =>
   return .ok (← x ctx s.trace) s
 

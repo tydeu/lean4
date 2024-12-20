@@ -19,12 +19,14 @@ namespace Lake
 
 /-! ## General Utilities -/
 
+open System.Platform in
 /--
 Build trace for the host platform.
 If an artifact includes this trace, it is platform-dependent
 and will be rebuilt on different host platforms.
 -/
-def platformTrace := pureHash System.Platform.target
+def platformTrace : BuildTrace :=
+  .ofHash (pureHash target) s!"System.Platform.target: {target}"
 
 /--
 Mixes the platform into the current job's trace.
@@ -39,8 +41,14 @@ and will be rebuilt on different host platforms.
   addTrace (← getLeanTrace)
 
 /-- Mixes the trace of a pure value into the current job's trace. -/
-@[inline] def addPureTrace [ComputeHash α Id] (a : α) : JobM PUnit := do
-  addTrace (pureHash a)
+@[inline] def addPureTrace
+  [ToString α] [ComputeHash α Id] (a : α) (caption := toString a)
+: JobM PUnit := do
+  addTrace <| .ofHash (pureHash a) caption
+
+inductive InputTree where
+| leaf (caption : String) (hash : Hash)
+| node (caption : String) (children : Array InputTree)
 
 /--
 The build trace file format,
@@ -48,17 +56,19 @@ which stores information about a (successful) build.
 -/
 structure BuildMetadata where
   depHash : Hash
+  inputs : JsonObject
   log : Log
   deriving ToJson
 
 def BuildMetadata.ofHash (h : Hash) : BuildMetadata :=
-  {depHash := h, log := {}}
+  {depHash := h, inputs := {}, log := {}}
 
 def BuildMetadata.fromJson? (json : Json) : Except String BuildMetadata := do
   let obj ← JsonObject.fromJson? json
   let depHash ← obj.get "depHash"
+  let inputs ← obj.getD "inputs" {}
   let log ← obj.getD "log" {}
-  return {depHash, log}
+  return {depHash, inputs, log}
 
 instance : FromJson BuildMetadata := ⟨BuildMetadata.fromJson?⟩
 
@@ -75,10 +85,21 @@ def readTraceFile? (path : FilePath) : LogIO (Option BuildMetadata) := OptionT.r
   | .error (.noFileOrDirectory ..) => failure
   | .error e => logWarning s!"{path}: read failed: {e}"; failure
 
+private partial def serializeInputs (inputs : Array BuildTrace) : JsonObject :=
+  inputs.foldl (init := {}) fun obj trace =>
+    if trace.inputs.isEmpty then
+      obj.insert trace.caption (toJson trace.hash)
+    else
+      obj.insert trace.caption (serializeInputs trace.inputs)
+
 /-- Write persistent trace data to a file. -/
 def writeTraceFile (path : FilePath) (depTrace : BuildTrace) (log : Log) := do
   createParentDirs path
-  let data := {log, depHash := depTrace.hash : BuildMetadata}
+  let data : BuildMetadata := {
+    inputs := serializeInputs depTrace.inputs
+    depHash := depTrace.hash
+    log
+  }
   IO.FS.writeFile path (toJson data).pretty
 
 /--
@@ -200,7 +221,9 @@ in a `.hash` file. If no such `.hash` file exists, recomputes and creates it.
 If `text := true`, `file` is hashed as text file rather than a binary file.
 -/
 def fetchFileTrace (file : FilePath) (text := false) : JobM BuildTrace := do
-  return .mk (← fetchFileHash file text) (← getMTime file)
+  let hash ← fetchFileHash file text
+  let mtime ← getMTime file
+  return {caption := file.toString, hash, mtime}
 
 /--
 Builds `file` using `build` unless it already exists and the current job's
@@ -324,7 +347,7 @@ which will be computed in the resulting `Job` before building.
 : SpawnM (Job FilePath) :=
   srcJob.mapM fun srcFile => do
     addPlatformTrace -- object files are platform-dependent artifacts
-    addPureTrace traceArgs
+    addPureTrace traceArgs s!"traceArgs: {traceArgs}"
     addTrace (← extraDepTrace)
     buildFileUnlessUpToDate' oFile do
       compileO oFile srcFile (weakArgs ++ traceArgs) compiler
@@ -340,7 +363,7 @@ def buildLeanO
 : SpawnM (Job FilePath) :=
   srcJob.mapM fun srcFile => do
     addLeanTrace
-    addPureTrace traceArgs
+    addPureTrace traceArgs s!"traceArgs: {traceArgs}"
     addPlatformTrace -- object files are platform-dependent artifacts
     buildFileUnlessUpToDate' oFile do
       let lean ← getLeanInstall
@@ -366,7 +389,7 @@ def buildLeanSharedLib
 : SpawnM (Job FilePath) :=
   (Job.collectArray linkJobs).mapM fun links => do
     addLeanTrace
-    addPureTrace traceArgs
+    addPureTrace traceArgs s!"traceArgs: {traceArgs}"
     addPlatformTrace -- shared libraries are platform-dependent artifacts
     buildFileUnlessUpToDate' libFile do
       let lean ← getLeanInstall
@@ -384,7 +407,7 @@ def buildLeanExe
 : SpawnM (Job FilePath) :=
   (Job.collectArray linkJobs).mapM fun links => do
     addLeanTrace
-    addPureTrace traceArgs
+    addPureTrace traceArgs s!"traceArgs: {traceArgs}"
     addPlatformTrace -- executables are platform-dependent artifacts
     buildFileUnlessUpToDate' exeFile do
       let lean ← getLeanInstall
@@ -402,7 +425,7 @@ def buildLeanSharedLibOfStatic
 : SpawnM (Job FilePath) :=
   staticLibJob.mapM fun staticLib => do
     addLeanTrace
-    addPureTrace traceArgs
+    addPureTrace traceArgs s!"traceArgs: {traceArgs}"
     addPlatformTrace -- shared libraries are platform-dependent artifacts
     let dynlib := staticLib.withExtension sharedLibExt
     buildFileUnlessUpToDate' dynlib do

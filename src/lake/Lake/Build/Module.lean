@@ -167,7 +167,7 @@ def Module.recBuildLean (mod : Module) : FetchM (Job Unit) := do
   withRegisterJob mod.name.toString do
   (← mod.deps.fetch).mapM fun (dynlibPath, dynlibs) => do
     addLeanTrace
-    addPureTrace mod.leanArgs
+    addPureTrace mod.leanArgs s!"Module.leanArgs: {mod.leanArgs}"
     let srcTrace ← computeTrace (TextFilePath.mk mod.leanFile)
     addTrace srcTrace
     let upToDate ← buildUnlessUpToDate? (oldTrace := srcTrace.mtime) mod (← getTrace) mod.traceFile do
@@ -186,6 +186,7 @@ def Module.oleanFacetConfig : ModuleFacetConfig oleanFacet :=
   mkFacetJobConfig fun mod => do
     (← mod.leanArts.fetch).mapM fun _ => do
       addTrace (← fetchFileTrace mod.oleanFile)
+      setTraceCaption s!"Module: {mod.name.toString}"
       return mod.oleanFile
 
 /-- The `ModuleFacetConfig` for the builtin `ileanFacet`. -/
@@ -310,7 +311,7 @@ def Module.recBuildDynlib (mod : Module) : FetchM (Job Dynlib) :=
   externDynlibsJob.mapM fun externDynlibs => do
     addLeanTrace
     addPlatformTrace -- shared libraries are platform-dependent artifacts
-    addPureTrace mod.linkArgs
+    addPureTrace mod.linkArgs s!"Module.linkArgs: {mod.linkArgs}"
     buildFileUnlessUpToDate' mod.dynlibFile do
       let lean ← getLeanInstall
       let libDirs := pkgLibDirs ++ externDynlibs.filterMap (·.dir?)
