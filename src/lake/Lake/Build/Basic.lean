@@ -82,7 +82,7 @@ structure JobState where
   /-- Tracks whether this job performed any significant build action. -/
   action : JobAction := .unknown
   /-- Current trace of a build job. -/
-  trace : BuildTrace := .nil
+  trace : BuildTrace := .root
   deriving Inhabited
 
 /-- The result of a Lake job. -/

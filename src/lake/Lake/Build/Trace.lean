@@ -263,25 +263,34 @@ structure BuildTrace where
 
 namespace BuildTrace
 
+@[inline] def root (caption := "<unknown>") : BuildTrace :=
+  {caption, inputs := #[], hash := .nil, mtime := 0}
+
+@[inline] def leaf (trace : BuildTrace) (caption := trace.caption) : BuildTrace :=
+  {caption, inputs := #[trace], hash := Hash.nil.mix trace.hash, mtime := trace.mtime}
+
 @[inline] def ofHash (hash : Hash) (caption := "<hash>") : BuildTrace :=
-  {caption, hash, mtime := 0}
+  leaf {caption, hash, mtime := 0}
 
 instance : Coe Hash BuildTrace := ⟨ofHash⟩
 
+@[inline] protected def pure [ComputeHash α Id] (a : α) (caption : String) : BuildTrace :=
+  ofHash (pureHash a) caption
+
 @[inline] def ofMTime (mtime : MTime) (caption := "<mtime>") : BuildTrace :=
-  {caption, hash := Hash.nil, mtime}
+  leaf {caption, hash := Hash.nil, mtime}
 
 instance : Coe MTime BuildTrace := ⟨ofMTime⟩
 
 def nil : BuildTrace :=
-  {caption := "<nil>", hash := Hash.nil, mtime := 0}
+  leaf {caption := "<nil>", hash := Hash.nil, mtime := 0}
 
 instance : NilTrace BuildTrace := ⟨nil⟩
 
 @[specialize] def compute
   [ToString α] [ComputeHash α m] [MonadLiftT m IO] [GetMTime α] (info : α)
 : IO BuildTrace :=
-  return {
+  return leaf {
     caption := toString info
     hash := ← computeHash info
     mtime := ← getMTime info
@@ -291,11 +300,15 @@ instance
   [ToString α] [ComputeHash α m] [MonadLiftT m IO] [GetMTime α]
 : ComputeTrace α IO BuildTrace := ⟨compute⟩
 
-def mix (t1 t2 : BuildTrace) : BuildTrace where
-  caption := t1.caption
-  inputs := t1.inputs.push t2
-  hash := Hash.mix t1.hash t2.hash
-  mtime := max t1.mtime t2.mtime
+def mix (t1 t2 : BuildTrace) : BuildTrace :=
+  if t1.inputs.isEmpty then
+    {t2 with caption := t1.caption}
+  else {
+    caption := t1.caption
+    inputs := t1.inputs.push t2
+    hash := Hash.mix t1.hash t2.hash
+    mtime := max t1.mtime t2.mtime
+  }
 
 instance : MixTrace BuildTrace := ⟨mix⟩
 

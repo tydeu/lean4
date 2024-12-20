@@ -72,7 +72,7 @@ instance : MonadLift LogIO JobM := ⟨ELogT.takeAndRun⟩
 
 /-- Sets the current job's build trace. -/
 @[inline] def setTrace (trace : BuildTrace) : JobM PUnit :=
-  modify fun s => {s with trace := trace}
+  modify fun s => {s with trace := .leaf trace}
 
 /-- Mix a trace into the current job's build trace. -/
 @[inline] def addTrace (trace : BuildTrace) : JobM PUnit :=
@@ -80,7 +80,7 @@ instance : MonadLift LogIO JobM := ⟨ELogT.takeAndRun⟩
 
 /-- Returns the current job's build trace and removes it from the state. -/
 @[inline] def takeTrace : JobM BuildTrace :=
-  modifyGet fun s => (s.trace, {s with trace := nilTrace})
+  modifyGet fun s => (s.trace, {s with trace := .root})
 
 /-- The monad used to spawn asynchronous Lake build jobs. Lifts into `FetchM`. -/
 abbrev SpawnM := BuildT <| ReaderT BuildTrace <| BaseIO

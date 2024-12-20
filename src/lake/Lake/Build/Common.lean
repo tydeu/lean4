@@ -26,7 +26,7 @@ If an artifact includes this trace, it is platform-dependent
 and will be rebuilt on different host platforms.
 -/
 def platformTrace : BuildTrace :=
-  .ofHash (pureHash target) s!"System.Platform.target: {target}"
+  .pure target s!"System.Platform.target: {target}"
 
 /--
 Mixes the platform into the current job's trace.
@@ -44,7 +44,7 @@ and will be rebuilt on different host platforms.
 @[inline] def addPureTrace
   [ToString α] [ComputeHash α Id] (a : α) (caption := toString a)
 : JobM PUnit := do
-  addTrace <| .ofHash (pureHash a) caption
+  addTrace <| .pure a caption
 
 inductive InputTree where
 | leaf (caption : String) (hash : Hash)
@@ -84,6 +84,20 @@ def readTraceFile? (path : FilePath) : LogIO (Option BuildMetadata) := OptionT.r
       | .error e => logVerbose s!"{path}: invalid trace file: {e}"; failure
   | .error (.noFileOrDirectory ..) => failure
   | .error e => logWarning s!"{path}: read failed: {e}"; failure
+
+/-
+mutual
+private partial def serializeInputs (inputs : Array BuildTrace) : JsonObject :=
+  inputs.foldl (init := JsonObject.empty) fun obj trace =>
+      obj.insert trace.caption (serializeInputs trace.inputs)
+
+private partial def serializeInput (trace : BuildTrace) : Json :=
+  if trace.inputs.isEmpty then
+    toJson trace.hash
+  else
+    serializeInputs trace.inputs
+end
+-/
 
 private partial def serializeInputs (inputs : Array BuildTrace) : JsonObject :=
   inputs.foldl (init := {}) fun obj trace =>

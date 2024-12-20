@@ -23,7 +23,7 @@ def mkBuildContext (ws : Workspace) (config : BuildConfig) : BaseIO BuildContext
     opaqueWs := ws,
     toBuildConfig := config,
     registeredJobs := ← IO.mkRef #[],
-    leanTrace := .ofHash (pureHash ws.lakeEnv.leanGithash)
+    leanTrace := .pure ws.lakeEnv.leanGithash
       s!"Lean {Lean.versionStringCore}, githash: {ws.lakeEnv.leanGithash}"
   }
 

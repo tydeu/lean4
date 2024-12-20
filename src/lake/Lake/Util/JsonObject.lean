@@ -24,6 +24,9 @@ namespace JsonObject
 @[inline] def mk (val : RBNode String (fun _ => Json)) : JsonObject :=
   val
 
+@[inline] def empty : JsonObject :=
+  {}
+
 @[inline] protected def toJson (obj : JsonObject) : Json :=
   .obj obj
 
