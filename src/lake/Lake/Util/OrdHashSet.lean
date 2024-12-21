@@ -48,6 +48,12 @@ instance : Append (OrdHashSet α) := ⟨OrdHashSet.append⟩
 def ofArray (arr : Array α) : OrdHashSet α :=
   mkEmpty arr.size |>.appendArray arr
 
+@[inline] def size (self : OrdHashSet α) : Nat :=
+  self.toArray.size
+
+@[inline] def contains (a : α) (self : OrdHashSet α) : Bool  :=
+  self.toHashSet.contains a
+
 @[inline] def all (f : α → Bool) (self : OrdHashSet α) : Bool  :=
   self.toArray.all f
 

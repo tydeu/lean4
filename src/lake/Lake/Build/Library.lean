@@ -20,24 +20,19 @@ open System (FilePath)
 Collect the local modules of a library.
 That is, the modules from `getModuleArray` plus their local transitive imports.
 -/
-partial def LeanLib.recCollectLocalModules (self : LeanLib) : FetchM (Job (Array Module)) := ensureJob do
-  let mut mods := #[]
-  let mut modSet := ModuleSet.empty
-  for mod in (← self.getModuleArray) do
-    (mods, modSet) ← go mod mods modSet
-  return Job.pure mods
+partial def LeanLib.recCollectLocalModules (self : LeanLib) : FetchM (Job OrdModuleSet) := ensureJob do
+  Job.pure <$> (← self.getModuleArray).foldlM go OrdModuleSet.empty
 where
-  go root mods modSet := do
+  go mods root := do
     let mut mods := mods
-    let mut modSet := modSet
-    unless modSet.contains root do
-      modSet := modSet.insert root
+    unless mods.contains root do
+      mods := {mods with toHashSet := mods.toHashSet.insert root}
       let imps ← (← root.imports.fetch).await
       for mod in imps do
         if self.isLocalModule mod.name then
-          (mods, modSet) ← go mod mods modSet
-      mods := mods.push root
-    return (mods, modSet)
+          mods ← go mods mod
+      mods := {mods with toArray := mods.toArray.push root}
+    return mods
 
 /-- The `LibraryFacetConfig` for the builtin `modulesFacet`. -/
 def LeanLib.modulesFacetConfig : LibraryFacetConfig modulesFacet :=
@@ -62,7 +57,7 @@ def LeanLib.leanArtsFacetConfig : LibraryFacetConfig leanArtsFacet :=
       ""
   withRegisterJob s!"{self.name}:static{suffix}" do
   let mods ← (← self.modules.fetch).await
-  let oJobs ← mods.flatMapM fun mod =>
+  let oJobs ← mods.toArray.flatMapM fun mod =>
     mod.nativeFacets shouldExport |>.mapM fun facet => fetch <| mod.facet facet.name
   let libFile := if shouldExport then self.staticExportLibFile else self.staticLibFile
   buildStaticLib libFile oJobs
@@ -82,7 +77,7 @@ protected def LeanLib.recBuildShared
 (self : LeanLib) : FetchM (Job FilePath) := do
   withRegisterJob s!"{self.name}:shared" do
   let mods ← (← self.modules.fetch).await
-  let oJobs ← mods.flatMapM fun mod =>
+  let oJobs ← mods.toArray.flatMapM fun mod =>
     mod.nativeFacets true |>.mapM fun facet => fetch <| mod.facet facet.name
   let pkgs := mods.foldl (·.insert ·.pkg) OrdPackageSet.empty |>.toArray
   let externJobs ← pkgs.flatMapM (·.externLibs.mapM (·.shared.fetch))

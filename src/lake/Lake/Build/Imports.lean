@@ -32,7 +32,7 @@ def buildImportsAndDeps (leanFile : FilePath) (imports : Array Module) : FetchM 
     let externLibJob := Job.collectArray <| ←
       pkgs.flatMapM (·.externLibs.mapM (·.dynlib.fetch))
     let precompileJob := Job.collectArray <| ←
-      precompileImports.mapM (·.dynlib.fetch)
+      precompileImports.toArray.mapM (·.dynlib.fetch)
     let job ←
       modJob.bindM fun _ =>
       precompileJob.bindM fun modLibs =>
