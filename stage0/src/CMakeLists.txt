@@ -761,6 +761,7 @@ install(DIRECTORY "${CMAKE_BINARY_DIR}/lib/" DESTINATION lib
   PATTERN "*.export"
   PATTERN "*.hash"
   PATTERN "*.trace"
+  PATTERN "*.rsp"
   EXCLUDE)
 
 # symlink source into expected installation location for go-to-definition, if file system allows it
@@ -814,7 +815,7 @@ toml_escape("${LEAN_EXTRA_MAKE_OPTS}" LEAN_EXTRA_OPTS_TOML)
 toml_escape("${LEANC_OPTS_TOML}" LEANC_OPTS_TOML)
 toml_escape("${LINK_OPTS_TOML}" LINK_OPTS_TOML)
 
-if(USE_LAKE AND STAGE EQUAL 1)
+if(USE_LAKE)
   configure_file(${LEAN_SOURCE_DIR}/lakefile.toml.in ${LEAN_SOURCE_DIR}/lakefile.toml)
   configure_file(${LEAN_SOURCE_DIR}/lakefile.toml.in ${LEAN_SOURCE_DIR}/../tests/lakefile.toml)
   configure_file(${LEAN_SOURCE_DIR}/lakefile.toml.in ${LEAN_SOURCE_DIR}/../lakefile.toml)
