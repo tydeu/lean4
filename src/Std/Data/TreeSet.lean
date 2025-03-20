@@ -7,3 +7,5 @@ prelude
 import Std.Data.TreeSet.Basic
 import Std.Data.TreeSet.AdditionalOperations
 import Std.Data.TreeSet.Lemmas
+import Std.Data.TreeSet.Raw.Lemmas
+import Std.Data.TreeSet.Raw.WF
