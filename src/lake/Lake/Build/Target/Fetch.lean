@@ -24,13 +24,11 @@ private def BuildKey.fetchCore (self : BuildKey) : FetchM (Job (BuildData self))
       | error s!"invalid target '{self}': package '{pkgName}' not found in workspace"
     fetch <| pkg.target target kind
   | facet target facetName =>
-    if h : target.kind.isAnonymous then
-      error s!"invalid target '{self}': facet of opaque target kind '{target.kind}'"
-    else
       let job ← target.fetchCore
-      let job : Job (TargetData target.kind) :=
-        cast (by rw [target.data_eq_of_kind h]) job
-      job.bindM fun data => fetch (.facet target data facetName)
+      if h : job.kind.isAnonymous then
+        error s!"invalid target '{self}': facet of opaque target kind '{job.kind}'"
+      else
+        (job.cast h).bindM fun data => fetch (.facet target data facetName)
 
 @[inline] protected def BuildKey.fetch
   (self : BuildKey) [FamilyOut BuildData self α] : FetchM (Job α)

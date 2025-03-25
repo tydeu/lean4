@@ -15,6 +15,15 @@ namespace Lake
 --------------------------------------------------------------------------------
 
 /--
+The open type family which maps a Lake data kind to its associated type.
+For example, `` `lean_lib `` maps to `LeanLib`.
+
+It is an open type, meaning additional mappings can be add lazily
+as needed (via `data_type`).
+-/
+opaque DataType (kind : Name) : Type u
+
+/--
 The open type family which maps a Lake target to its associated build data.
 For example, the generated static library for the `externLib.static` facet of
 an external library.
@@ -22,7 +31,26 @@ an external library.
 It is an open type, meaning additional mappings can be add lazily
 as needed (via `target_data`).
 -/
-opaque TargetData (name : Name) : Type
+opaque TargetData (name : Name) : Type u
+
+class DataKind (α : Type u) where
+  name : Name
+  wf (h : ¬ name.isAnonymous) : α = TargetData name
+
+instance : CoeOut (DataKind α) Lean.Name := ⟨(·.name)⟩
+instance : ToString (DataKind α) := ⟨(·.name.toString)⟩
+
+@[instance low]
+def DataKind.anonymous : DataKind α where
+  name := .anonymous
+  wf h := by simp [Name.isAnonymous] at h
+
+@[inline] def DataKind.isAnonymous (self : DataKind α) : Bool :=
+  self.name.isAnonymous
+
+theorem DataKind.eq_data_type
+  {self : DataKind α} (h : ¬ self.isAnonymous) : α = TargetData self.name
+:= self.wf h
 
 /--
 The open type family which maps a facet to its build data in
@@ -165,6 +193,16 @@ theorem BuildKey.data_eq_of_kind {k : BuildKey} :
 --------------------------------------------------------------------------------
 
 open Parser Command
+
+/-- Macro for declaring new `DatayType`. -/
+scoped macro (name := dataTypeDecl)
+  doc?:optional(docComment) "data_type " kind:ident " : " ty:term
+: command => do
+  let fam := mkCIdentFrom (← getRef) ``DataType
+  let kindName := Name.quoteFrom kind kind.getId
+  let id := mkIdentFrom kind (canonical := true) <|
+    kind.getId.modifyBase (kind.getId ++ ·)
+  `($[$doc?]? family_def $id : $fam $kindName := $ty)
 
 /-- Macro for declaring new `FacetData`. -/
 scoped macro (name := facetDataDecl)
