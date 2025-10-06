@@ -74,7 +74,7 @@ class MonadAwait (t : Type → Type) (m : Type → Type) where
   /--
   Awaits the result of `t α` and returns it inside the `m` monad.
   -/
-  await : t α → m α
+  await (x : t α) (prio := Task.Priority.default) (sync := false) : m α
 
 /--
 Represents monads that can launch computations asynchronously of type `t` in a monad `m`.
@@ -92,23 +92,23 @@ can function correctly within monad transformers.
 
 @[default_instance]
 instance [Monad m] [MonadAwait t m] : MonadAwait t (StateT n m) where
-  await := liftM (m := m) ∘ MonadAwait.await
+  await x prio sync := liftM (m := m) <| MonadAwait.await x prio sync
 
 @[default_instance]
 instance [Monad m] [MonadAwait t m] : MonadAwait t (ExceptT n m) where
-  await := liftM (m := m) ∘ MonadAwait.await
+  await x prio sync := liftM (m := m) <| MonadAwait.await x prio sync
 
 @[default_instance]
 instance [Monad m] [MonadAwait t m] : MonadAwait t (ReaderT n m) where
-  await := liftM (m := m) ∘ MonadAwait.await
+  await x prio sync := liftM (m := m) <| MonadAwait.await x prio sync
 
 @[default_instance]
 instance [MonadAwait t m] : MonadAwait t (StateRefT' s n m) where
-  await := liftM (m := m) ∘ MonadAwait.await
+  await x prio sync := liftM (m := m) <| MonadAwait.await x prio sync
 
 @[default_instance]
 instance [Monad m] [MonadAwait t m] : MonadAwait t (StateT s m) where
-  await := liftM (m := m) ∘ MonadAwait.await
+  await x prio sync := liftM (m := m) <| MonadAwait.await x prio sync
 
 @[default_instance]
 instance [MonadAsync t m] : MonadAsync t (ReaderT n m) where
@@ -322,8 +322,8 @@ A `MaybeTask α` represents a computation that either:
 - Is an asynchronous computation that will eventually produce an `α` value.
 -/
 inductive MaybeTask (α : Type)
-  | pure : α → MaybeTask α
-  | ofTask : Task α → MaybeTask α
+  | pure (a : α) : MaybeTask α
+  | ofTask (t : Task α) (prio := Task.Priority.default) (sync := false) : MaybeTask α
 
 namespace MaybeTask
 
@@ -333,7 +333,7 @@ Constructs an `Task` from a `MaybeTask`.
 @[inline]
 def toTask : MaybeTask α → Task α
   | .pure a => .pure a
-  | .ofTask t => t
+  | .ofTask t .. => t
 
 /--
 Gets the value of the `MaybeTask` by blocking.
@@ -341,24 +341,24 @@ Gets the value of the `MaybeTask` by blocking.
 @[inline]
 def get {α : Type} : MaybeTask α → α
   | .pure a => a
-  | .ofTask t => t.get
+  | .ofTask t .. => t.get
 
 /--
 Maps a function over a `MaybeTask`.
 -/
 @[inline]
-def map (f : α → β) (prio := Task.Priority.default) (sync := false) : MaybeTask α → MaybeTask β
+def map (f : α → β) : MaybeTask α → MaybeTask β
   | .pure a => .pure <| f a
-  | .ofTask t => .ofTask <| t.map f prio sync
+  | .ofTask t prio sync => .ofTask <| t.map f prio sync
 
 /--
 Sequences two computations, allowing the second to depend on the value computed by the first.
 -/
 @[inline]
-protected def bind (t : MaybeTask α) (f : α → MaybeTask β) (prio := Task.Priority.default) (sync := false) : MaybeTask β :=
+protected def bind (t : MaybeTask α) (f : α → MaybeTask β) : MaybeTask β :=
   match t with
   | .pure a => f a
-  | .ofTask t => .ofTask <| t.bind (f · |>.toTask) prio sync
+  | .ofTask t prio sync => .ofTask <| t.bind (f · |>.toTask) prio sync
 
 /--
 Join the `MaybeTask` to an `Task`.
@@ -367,7 +367,7 @@ Join the `MaybeTask` to an `Task`.
 def joinTask (t : Task (MaybeTask α)) : Task α :=
   t.bind (sync := true) fun
     | .pure a => .pure a
-    | .ofTask t => t
+    | .ofTask t .. => t
 
 instance : Functor MaybeTask where
   map := MaybeTask.map
@@ -424,20 +424,20 @@ protected def pure (a : α) : BaseAsync α :=
 Maps the result of a `BaseAsync` computation with a function.
 -/
 @[inline]
-protected def map (f : α → β) (self : BaseAsync α) (prio := Task.Priority.default) (sync := false) : BaseAsync β :=
-  mk <| (·.map f prio sync) <$> self.toRawBaseIO
+protected def map (f : α → β) (self : BaseAsync α) : BaseAsync β :=
+  mk <| (·.map f ) <$> self.toRawBaseIO
 
 /--
 Sequences two computations, allowing the second to depend on the value computed by the first.
 -/
 @[inline]
-protected def bind (self : BaseAsync α) (f : α → BaseAsync β) (prio := Task.Priority.default) (sync := false) : BaseAsync β :=
+protected def bind (self : BaseAsync α) (f : α → BaseAsync β) : BaseAsync β :=
   mk <| self.toRawBaseIO >>= (bindAsyncTask · f |>.toRawBaseIO)
 where
   bindAsyncTask (t : MaybeTask α) (f : α → BaseAsync β) : BaseAsync β := .mk <|
     match t with
     | .pure a => (f a) |>.toRawBaseIO
-    | .ofTask t => .ofTask <$> BaseIO.bindTask t (fun a => MaybeTask.toTask <$> (f a |>.toRawBaseIO)) prio sync
+    | .ofTask t prio sync => .ofTask <$> BaseIO.bindTask t (fun a => MaybeTask.toTask <$> (f a |>.toRawBaseIO)) prio sync
 
 /--
 Lifts a `BaseIO` action into a `BaseAsync` computation.
@@ -465,8 +465,8 @@ protected def asTask (x : BaseAsync α) (prio := Task.Priority.default) : BaseIO
 Creates a `BaseAsync` that awaits the completion of the given `Task α`.
 -/
 @[inline]
-def await (t : Task α) : BaseAsync α :=
-  .mk <| pure <| MaybeTask.ofTask t
+def await (t : Task α) (prio := Task.Priority.default) (sync := false) : BaseAsync α :=
+  .mk <| pure <| MaybeTask.ofTask t prio sync
 
 /--
 Returns the `BaseAsync` computation inside a `Task α`, so it can be awaited.
@@ -486,7 +486,7 @@ instance : MonadLift BaseIO BaseAsync where
   monadLift := BaseAsync.lift
 
 instance : MonadAwait Task BaseAsync where
-  await := BaseAsync.await
+  await x prio sync := BaseAsync.await x prio sync
 
 instance : MonadAsync Task BaseAsync where
   async t prio := BaseAsync.async t prio
@@ -659,8 +659,8 @@ protected def throw (e : ε) : EAsync ε α :=
 Handles errors in an `EAsync` computation by running a handler if one occurs.
 -/
 @[inline]
-protected def tryCatch (x : EAsync ε α) (f : ε → EAsync ε α) (prio := Task.Priority.default) (sync := false) : EAsync ε α :=
-  .mk <| BaseAsync.bind (sync := sync) (prio := prio) x fun
+protected def tryCatch (x : EAsync ε α) (f : ε → EAsync ε α) : EAsync ε α :=
+  .mk <| BaseAsync.bind x fun
     | .ok a => BaseAsync.pure (.ok a)
     | .error e => (f e)
 
@@ -668,10 +668,9 @@ protected def tryCatch (x : EAsync ε α) (f : ε → EAsync ε α) (prio := Tas
 Runs an action, ensuring that some other action always happens afterward.
 -/
 protected def tryFinally'
-    (x : EAsync ε α) (f : Option α → EAsync ε β)
-    (prio := Task.Priority.default) (sync := false) :
+    (x : EAsync ε α) (f : Option α → EAsync ε β) :
     EAsync ε (α × β) :=
-  .mk <| BaseAsync.bind x (prio := prio) (sync := sync) fun
+  .mk <| BaseAsync.bind x fun
     | .ok a => do
       match ← (f (some a)) with
       | .ok b => BaseAsync.pure (.ok (a, b))
@@ -685,8 +684,8 @@ protected def tryFinally'
 Creates an `EAsync` computation that awaits the completion of the given `ETask ε α`.
 -/
 @[inline]
-def await (x : ETask ε α) : EAsync ε α :=
-  .mk (BaseAsync.ofTask x)
+def await (x : ETask ε α) (prio := Task.Priority.default) (sync := false) : EAsync ε α :=
+  .mk (BaseAsync.await x prio sync)
 
 /--
 Returns the `EAsync` computation inside an `ETask ε α`, so it can be awaited.
@@ -723,16 +722,16 @@ instance [Inhabited ε] : Inhabited (EAsync ε α) where
   default := .mk <| BaseAsync.pure default
 
 instance : MonadAwait (ETask ε) (EAsync ε) where
-  await t := .mk <| BaseAsync.ofTask t
+  await t prio sync := EAsync.await t prio sync
 
 instance : MonadAwait Task (EAsync ε) where
-  await t := .mk <| BaseAsync.ofTask (t.map (.ok))
+  await t prio sync := EAsync.await (t.map (.ok)) prio sync
 
 instance : MonadAwait AsyncTask (EAsync IO.Error) where
-  await t := .mk <| BaseAsync.ofTask t
+  await t prio sync := EAsync.await t prio sync
 
 instance : MonadAwait IO.Promise (EAsync ε) where
-  await t := .mk <| BaseAsync.ofTask (t.result!.map (.ok))
+  await t prio sync := EAsync.await (t.result!.map (.ok)) prio sync
 
 instance : MonadAsync (ETask ε) (EAsync ε) where
   async t prio := EAsync.lift <| t.asTask (prio := prio)
@@ -753,7 +752,7 @@ instance : MonadLift BaseAsync (EAsync ε) where
 protected partial def forIn
     {β : Type} (init : β)
     (f : Unit → β → EAsync ε (ForInStep β))
-    (prio := Task.Priority.default) :
+    (prio := Task.Priority.default) (sync := false) :
     EAsync ε β := do
 
   have : Nonempty β := ⟨init⟩
@@ -766,13 +765,13 @@ protected partial def forIn
       | .error e => promise.resolve (.error e)
       | .ok (.done b) => promise.resolve (.ok b)
       | .ok (.yield b) => loop b
-    | MaybeTask.ofTask task => BaseIO.chainTask (prio := prio) task fun
+    | MaybeTask.ofTask task prio sync => BaseIO.chainTask (prio := prio) (sync := sync) task fun
       | .error e => promise.resolve (.error e)
       | .ok (.done b) => promise.resolve (.ok b)
       | .ok (.yield b) => loop b
 
   loop init
-  .mk <| EAsync.ofETask promise.result!
+  EAsync.await promise.result! prio sync
 
 instance : ForIn (EAsync ε) Lean.Loop Unit where
   forIn _ := EAsync.forIn
@@ -791,8 +790,8 @@ Runs two computations concurrently and returns both results as a pair.
 def concurrently (x : EAsync ε α) (y : EAsync ε β) (prio := Task.Priority.default) : EAsync ε (α × β) := do
   let taskX : ETask ε _ ← MonadAsync.async x (prio := prio)
   let taskY : ETask ε _ ← MonadAsync.async y (prio := prio)
-  let resultX ← MonadAwait.await taskX
-  let resultY ← MonadAwait.await taskY
+  let resultX ← MonadAwait.await (sync := true) taskX
+  let resultY ← MonadAwait.await (sync := true) taskY
   return (resultX, resultY)
 
 /--
@@ -809,10 +808,10 @@ def race [Inhabited α] (x : EAsync ε α) (y : EAsync ε α)
   let task₁ : ETask ε _ ← MonadAsync.async (prio := prio) x
   let task₂ : ETask ε _ ← MonadAsync.async (prio := prio) y
 
-  BaseIO.chainTask task₁ (liftM ∘ promise.resolve)
-  BaseIO.chainTask task₂ (liftM ∘ promise.resolve)
+  BaseIO.chainTask (sync := true) task₁ promise.resolve
+  BaseIO.chainTask (sync := true) task₂ promise.resolve
 
-  let result ← MonadAwait.await promise.result!
+  let result ← MonadAwait.await (sync := true) promise.result!
   EAsync.ofExcept result
 
 /--
@@ -821,7 +820,7 @@ Runs all computations in an `Array` concurrently and returns all results as an a
 @[inline, specialize]
 def concurrentlyAll (xs : Array (EAsync ε α)) (prio := Task.Priority.default) : EAsync ε (Array α) := do
   let tasks : Array (ETask ε α) ← xs.mapM (MonadAsync.async (prio := prio))
-  tasks.mapM MonadAwait.await
+  tasks.mapM <| MonadAwait.await (sync := true)
 
 /--
 Runs all computations concurrently and returns the result of the first one to finish.
@@ -834,9 +833,9 @@ def raceAll [Inhabited α] [ForM (EAsync ε) c (EAsync ε α)] (xs : c) (prio :=
 
   ForM.forM xs fun x => do
     let task₁ ← MonadAsync.async (t := ETask ε) (prio := prio) x
-    BaseIO.chainTask task₁ (liftM ∘ promise.resolve)
+    BaseIO.chainTask (sync := true) task₁ promise.resolve
 
-  let result ← MonadAwait.await promise.result!
+  let result ← MonadAwait.await (sync := true) promise.result!
   EAsync.ofExcept result
 
 end EAsync
@@ -927,8 +926,8 @@ Runs two computations concurrently and returns both results as a pair.
 def concurrently (x : Async α) (y : Async β) (prio := Task.Priority.default) : Async (α × β) := do
   let taskX ← MonadAsync.async x (prio := prio)
   let taskY ← MonadAsync.async y (prio := prio)
-  let resultX ← MonadAwait.await taskX
-  let resultY ← MonadAwait.await taskY
+  let resultX ← MonadAwait.await (sync := true) taskX
+  let resultY ← MonadAwait.await (sync := true) taskY
   return (resultX, resultY)
 
 /--
@@ -945,10 +944,10 @@ def race [Inhabited α] (x : Async α) (y : Async α)
   let task₁ ← MonadAsync.async (t := AsyncTask) (prio := prio) x
   let task₂ ← MonadAsync.async (t := AsyncTask) (prio := prio) y
 
-  BaseIO.chainTask task₁ (liftM ∘ promise.resolve)
-  BaseIO.chainTask task₂ (liftM ∘ promise.resolve)
+  BaseIO.chainTask (sync := true) task₁ promise.resolve
+  BaseIO.chainTask (sync := true) task₂ promise.resolve
 
-  let result ← MonadAwait.await promise.result!
+  let result ← MonadAwait.await (sync := true) promise.result!
   Async.ofExcept result
 
 /--
@@ -957,7 +956,7 @@ Runs all computations in an `Array` concurrently and returns all results as an a
 @[inline, specialize]
 def concurrentlyAll (xs : Array (Async α)) (prio := Task.Priority.default) : Async (Array α) := do
   let tasks : Array (AsyncTask α) ← xs.mapM (MonadAsync.async (prio := prio))
-  tasks.mapM MonadAwait.await
+  tasks.mapM <| MonadAwait.await (sync := true)
 
 /--
 Runs all computations concurrently and returns the result of the first one to finish.
@@ -970,9 +969,9 @@ def raceAll [ForM Async c (Async α)] (xs : c) (prio := Task.Priority.default) :
 
   ForM.forM xs fun x => do
     let task₁ ← MonadAsync.async (t := AsyncTask) (prio := prio) x
-    BaseIO.chainTask task₁ (liftM ∘ promise.resolve)
+    BaseIO.chainTask (sync := true) task₁ promise.resolve
 
-  let result ← MonadAwait.await promise.result!
+  let result ← MonadAwait.await (sync := true) promise.result!
   Async.ofExcept result
 
 end Async
