@@ -1,1 +1,3 @@
-def bar := "depB"
+module
+
+public def bar := "depB"

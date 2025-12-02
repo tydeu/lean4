@@ -10,6 +10,7 @@ public import Lean.Compiler.IR.Format
 public import Lean.Compiler.ExportAttr
 public import Lean.Compiler.LCNF.PhaseExt
 import Lean.Compiler.InitAttr
+import Lean.Compiler.ModPkgExt
 
 public section
 
@@ -122,8 +123,13 @@ private def exportIREntries (env : Environment) : Array (Name × Array EnvExtens
   -- safety: cast to erased type
   let initDecls : Array EnvExtensionEntry := unsafe unsafeCast initDecls
 
+  let modPkgEntries : Array (Option PkgId) := #[modPkgExt.getState env]
+  -- safety: cast to erased type
+  let modPkgEntries : Array EnvExtensionEntry := unsafe unsafeCast modPkgEntries
+
   #[(declMapExt.name, irEntries),
-    (Lean.regularInitAttr.ext.name, initDecls)]
+    (Lean.regularInitAttr.ext.name, initDecls),
+    (modPkgExt.name, modPkgEntries)]
 
 def findEnvDecl (env : Environment) (declName : Name) (includeServer := false): Option Decl :=
   match env.getModuleIdxFor? declName with

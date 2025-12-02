@@ -1,1 +1,3 @@
-def foo := "depA"
+module
+
+public def foo := "depA"

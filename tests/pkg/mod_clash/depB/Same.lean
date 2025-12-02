@@ -1,1 +1,3 @@
-def same := 0
+module
+
+public def same := 0
