@@ -84,7 +84,7 @@ C_REV=`git rev-parse HEAD`
 popd
 
 pushd DiamondExample-D
-sed_i '/multiVersion/ s/true/false/' lakefile.toml
+sed_i '/experimentalMultiVersion/ s/true/false/' lakefile.toml
 sed_i s/v2/v1/ lakefile.toml
 lake update
 init_git
@@ -111,7 +111,7 @@ capture_fail lake build
 check_out_contains 'Unknown identifier `poorly_named_lemma`'
 
 # Test v2 build succeeds w/ multi-version workspaces
-sed_i '/multiVersion/ s/false/true/' lakefile.toml
+sed_i '/experimentalMultiVersion/ s/false/true/' lakefile.toml
 run lake update
 run lake build
 
