@@ -506,12 +506,13 @@ def Workspace.writeManifest
   let manifestEntries := ws.packages.foldl (init := #[]) fun arr pkg =>
     match entries.find? pkg.baseName with
     | some entry => arr.push <|
-      entry.setManifestFile pkg.relManifestFile |>.setConfigFile pkg.relConfigFile
+      entry.finalize pkg.version pkg.relConfigFile pkg.relManifestFile
     | none => arr -- should only be the case for the root
   let manifest : Manifest := {
     name := ws.root.baseName
     fixedToolchain := ws.root.fixedToolchain
     lakeDir := ws.relLakeDir
+    multiVersion := ws.isMultiVersion
     packagesDir? := ws.relPkgsDir
     packages := manifestEntries
   }
