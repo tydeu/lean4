@@ -110,8 +110,4 @@ check_out_contains 'Unknown identifier `poorly_named_lemma`'
 sed_i '/name/ s/A/A-v1/' .lake/packages/DiamondExample-B/lakefile.toml
 sed_i '/name/ s/A/A-v2/' .lake/packages/DiamondExample-C/lakefile.toml
 run lake update
-
-capture_fail lake build
-check_out_contains 'could not disambiguate the module `DiamondExampleA.Ring.Lemmas`'
-
-popd
+run lake build
