@@ -249,7 +249,7 @@ set(PART2 "")
 # bootstrap: too slow
 # toolchain: requires elan to download toolchain
 # online: downloads remote repositories
-option(LAKE_CI "Enable full Lake test suite (use `lake-ci` label on PRs)" OFF)
+option(LAKE_CI "Enable full Lake test suite (use `lake-ci` label on PRs)" ON)
 if(LAKE_CI)
   file(
     GLOB_RECURSE LEANLAKETESTS
