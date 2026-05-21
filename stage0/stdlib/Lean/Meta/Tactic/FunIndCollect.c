@@ -458,7 +458,7 @@ lean_dec(v_i_98_);
 v_stop_boxed_102_ = lean_unbox_usize(v_stop_99_);
 lean_dec(v_stop_99_);
 v_b_boxed_103_ = lean_unbox_uint64(v_b_100_);
-lean_dec_ref(v_b_100_);
+lean_dec(v_b_100_);
 v_res_104_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_DHashMap_Internal_Raw_u2080_contains___at___00Lean_Meta_FunInd_SeenCalls_push_spec__1_spec__2(v_as_97_, v_i_boxed_101_, v_stop_boxed_102_, v_b_boxed_103_);
 lean_dec_ref(v_as_97_);
 v_r_105_ = lean_box_uint64(v_res_104_);

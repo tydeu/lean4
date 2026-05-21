@@ -5057,7 +5057,7 @@ lean_inc(v_val_900_);
 lean_dec_ref_known(v___x_899_, 1);
 v___x_901_ = lean_apply_1(v_op_895_, v_val_900_);
 v___x_902_ = lean_unbox_uint64(v___x_901_);
-lean_dec_ref(v___x_901_);
+lean_dec(v___x_901_);
 v___x_903_ = lean_uint64_to_nat(v___x_902_);
 v_r_904_ = l_Lean_mkRawNatLit(v___x_903_);
 v___x_905_ = lean_obj_once(&l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryUInt8___redArg___closed__3, &l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryUInt8___redArg___closed__3_once, _init_l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryUInt8___redArg___closed__3);
@@ -5195,7 +5195,7 @@ lean_inc(v_val_952_);
 lean_dec_ref_known(v___x_951_, 1);
 v___x_953_ = lean_apply_1(v_op_939_, v_val_952_);
 v___x_954_ = lean_unbox_uint64(v___x_953_);
-lean_dec_ref(v___x_953_);
+lean_dec(v___x_953_);
 v___x_955_ = lean_uint64_to_nat(v___x_954_);
 v_r_956_ = l_Lean_mkRawNatLit(v___x_955_);
 v___x_957_ = lean_obj_once(&l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryUInt8___redArg___closed__3, &l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryUInt8___redArg___closed__3_once, _init_l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryUInt8___redArg___closed__3);
@@ -6510,7 +6510,7 @@ v___x_1481_ = lean_obj_once(&l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_M
 v___x_1482_ = lean_obj_once(&l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__4, &l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__4_once, _init_l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__4);
 v___x_1483_ = lean_obj_once(&l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__6, &l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__6_once, _init_l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__6);
 v___x_1484_ = lean_unbox_uint64(v___x_1477_);
-lean_dec_ref(v___x_1477_);
+lean_dec(v___x_1477_);
 v___x_1485_ = lean_int64_to_int_sint(v___x_1484_);
 v___x_1486_ = lean_int_neg(v___x_1485_);
 lean_dec(v___x_1485_);
@@ -6525,7 +6525,7 @@ else
 {
 uint64_t v___x_1490_; lean_object* v___x_1491_; lean_object* v___x_1492_; lean_object* v___x_1493_; 
 v___x_1490_ = lean_unbox_uint64(v___x_1477_);
-lean_dec_ref(v___x_1477_);
+lean_dec(v___x_1477_);
 v___x_1491_ = lean_int64_to_int_sint(v___x_1490_);
 v___x_1492_ = l_Int_toNat(v___x_1491_);
 lean_dec(v___x_1491_);
@@ -6676,7 +6676,7 @@ v___x_1544_ = lean_obj_once(&l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_M
 v___x_1545_ = lean_obj_once(&l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__4, &l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__4_once, _init_l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__4);
 v___x_1546_ = lean_obj_once(&l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__6, &l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__6_once, _init_l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__6);
 v___x_1547_ = lean_unbox_uint64(v___x_1540_);
-lean_dec_ref(v___x_1540_);
+lean_dec(v___x_1540_);
 v___x_1548_ = lean_int64_to_int_sint(v___x_1547_);
 v___x_1549_ = lean_int_neg(v___x_1548_);
 lean_dec(v___x_1548_);
@@ -6691,7 +6691,7 @@ else
 {
 uint64_t v___x_1553_; lean_object* v___x_1554_; lean_object* v___x_1555_; lean_object* v___x_1556_; 
 v___x_1553_ = lean_unbox_uint64(v___x_1540_);
-lean_dec_ref(v___x_1540_);
+lean_dec(v___x_1540_);
 v___x_1554_ = lean_int64_to_int_sint(v___x_1553_);
 v___x_1555_ = l_Int_toNat(v___x_1554_);
 lean_dec(v___x_1554_);
@@ -10321,7 +10321,7 @@ lean_inc(v_val_2745_);
 lean_dec_ref_known(v___x_2744_, 1);
 v___x_2746_ = lean_apply_2(v_op_2734_, v_val_2740_, v_val_2745_);
 v___x_2747_ = lean_unbox_uint64(v___x_2746_);
-lean_dec_ref(v___x_2746_);
+lean_dec(v___x_2746_);
 v___x_2748_ = lean_uint64_to_nat(v___x_2747_);
 v_r_2749_ = l_Lean_mkRawNatLit(v___x_2748_);
 v___x_2750_ = lean_obj_once(&l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryUInt8___redArg___closed__3, &l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryUInt8___redArg___closed__3_once, _init_l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryUInt8___redArg___closed__3);
@@ -10513,7 +10513,7 @@ lean_inc(v_val_2809_);
 lean_dec_ref_known(v___x_2808_, 1);
 v___x_2810_ = lean_apply_2(v_op_2790_, v_val_2804_, v_val_2809_);
 v___x_2811_ = lean_unbox_uint64(v___x_2810_);
-lean_dec_ref(v___x_2810_);
+lean_dec(v___x_2810_);
 v___x_2812_ = lean_uint64_to_nat(v___x_2811_);
 v_r_2813_ = l_Lean_mkRawNatLit(v___x_2812_);
 v___x_2814_ = lean_obj_once(&l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryUInt8___redArg___closed__3, &l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryUInt8___redArg___closed__3_once, _init_l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryUInt8___redArg___closed__3);
@@ -12050,7 +12050,7 @@ v___x_3353_ = lean_obj_once(&l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_M
 v___x_3354_ = lean_obj_once(&l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__4, &l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__4_once, _init_l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__4);
 v___x_3355_ = lean_obj_once(&l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__6, &l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__6_once, _init_l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__6);
 v___x_3356_ = lean_unbox_uint64(v___x_3349_);
-lean_dec_ref(v___x_3349_);
+lean_dec(v___x_3349_);
 v___x_3357_ = lean_int64_to_int_sint(v___x_3356_);
 v___x_3358_ = lean_int_neg(v___x_3357_);
 lean_dec(v___x_3357_);
@@ -12065,7 +12065,7 @@ else
 {
 uint64_t v___x_3362_; lean_object* v___x_3363_; lean_object* v___x_3364_; lean_object* v___x_3365_; 
 v___x_3362_ = lean_unbox_uint64(v___x_3349_);
-lean_dec_ref(v___x_3349_);
+lean_dec(v___x_3349_);
 v___x_3363_ = lean_int64_to_int_sint(v___x_3362_);
 v___x_3364_ = l_Int_toNat(v___x_3363_);
 lean_dec(v___x_3363_);
@@ -12270,7 +12270,7 @@ v___x_3428_ = lean_obj_once(&l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_M
 v___x_3429_ = lean_obj_once(&l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__4, &l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__4_once, _init_l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__4);
 v___x_3430_ = lean_obj_once(&l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__6, &l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__6_once, _init_l___private_Lean_Meta_Sym_Simp_EvalGround_0__Lean_Meta_Sym_Simp_evalUnaryInt64___redArg___closed__6);
 v___x_3431_ = lean_unbox_uint64(v___x_3424_);
-lean_dec_ref(v___x_3424_);
+lean_dec(v___x_3424_);
 v___x_3432_ = lean_int64_to_int_sint(v___x_3431_);
 v___x_3433_ = lean_int_neg(v___x_3432_);
 lean_dec(v___x_3432_);
@@ -12285,7 +12285,7 @@ else
 {
 uint64_t v___x_3437_; lean_object* v___x_3438_; lean_object* v___x_3439_; lean_object* v___x_3440_; 
 v___x_3437_ = lean_unbox_uint64(v___x_3424_);
-lean_dec_ref(v___x_3424_);
+lean_dec(v___x_3424_);
 v___x_3438_ = lean_int64_to_int_sint(v___x_3437_);
 v___x_3439_ = l_Int_toNat(v___x_3438_);
 lean_dec(v___x_3438_);

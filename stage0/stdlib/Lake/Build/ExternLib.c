@@ -784,7 +784,7 @@ lean_dec(v_i_223_);
 v_stop_boxed_227_ = lean_unbox_usize(v_stop_224_);
 lean_dec(v_stop_224_);
 v_b_boxed_228_ = lean_unbox_uint64(v_b_225_);
-lean_dec_ref(v_b_225_);
+lean_dec(v_b_225_);
 v_res_229_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lake_buildLeanSharedLibOfStatic_spec__1(v_as_222_, v_i_boxed_226_, v_stop_boxed_227_, v_b_boxed_228_);
 lean_dec_ref(v_as_222_);
 v_r_230_ = lean_box_uint64(v_res_229_);

@@ -3046,7 +3046,7 @@ _start:
 {
 uint64_t v_a_boxed_518_; lean_object* v_res_519_; 
 v_a_boxed_518_ = lean_unbox_uint64(v_a_516_);
-lean_dec_ref(v_a_516_);
+lean_dec(v_a_516_);
 v_res_519_ = l_Std_DHashMap_Internal_AssocList_get_x3f___at___00Std_DHashMap_Internal_Raw_u2080_Const_get_x3f___at___00__private_Lean_Meta_Tactic_Grind_Arith_Cutsat_Proof_0__Lean_Meta_Grind_Arith_Cutsat_caching_spec__0_spec__0___redArg(v_a_boxed_518_, v_x_517_);
 lean_dec(v_x_517_);
 return v_res_519_;
@@ -3079,7 +3079,7 @@ _start:
 {
 uint64_t v_a_boxed_539_; lean_object* v_res_540_; 
 v_a_boxed_539_ = lean_unbox_uint64(v_a_538_);
-lean_dec_ref(v_a_538_);
+lean_dec(v_a_538_);
 v_res_540_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get_x3f___at___00__private_Lean_Meta_Tactic_Grind_Arith_Cutsat_Proof_0__Lean_Meta_Grind_Arith_Cutsat_caching_spec__0___redArg(v_m_537_, v_a_boxed_539_);
 lean_dec_ref(v_m_537_);
 return v_res_540_;
@@ -3238,7 +3238,7 @@ _start:
 {
 uint64_t v_a_boxed_600_; uint8_t v_res_601_; lean_object* v_r_602_; 
 v_a_boxed_600_ = lean_unbox_uint64(v_a_598_);
-lean_dec_ref(v_a_598_);
+lean_dec(v_a_598_);
 v_res_601_ = l_Std_DHashMap_Internal_AssocList_contains___at___00Std_DHashMap_Internal_Raw_u2080_insert___at___00__private_Lean_Meta_Tactic_Grind_Arith_Cutsat_Proof_0__Lean_Meta_Grind_Arith_Cutsat_caching_spec__1_spec__2___redArg(v_a_boxed_600_, v_x_599_);
 lean_dec(v_x_599_);
 v_r_602_ = lean_box(v_res_601_);
@@ -3343,7 +3343,7 @@ _start:
 {
 uint64_t v_a_boxed_626_; lean_object* v_res_627_; 
 v_a_boxed_626_ = lean_unbox_uint64(v_a_623_);
-lean_dec_ref(v_a_623_);
+lean_dec(v_a_623_);
 v_res_627_ = l_Std_DHashMap_Internal_AssocList_replace___at___00Std_DHashMap_Internal_Raw_u2080_insert___at___00__private_Lean_Meta_Tactic_Grind_Arith_Cutsat_Proof_0__Lean_Meta_Grind_Arith_Cutsat_caching_spec__1_spec__4___redArg(v_a_boxed_626_, v_b_624_, v_x_625_);
 return v_res_627_;
 }
@@ -3494,7 +3494,7 @@ _start:
 {
 uint64_t v_a_boxed_679_; lean_object* v_res_680_; 
 v_a_boxed_679_ = lean_unbox_uint64(v_a_677_);
-lean_dec_ref(v_a_677_);
+lean_dec(v_a_677_);
 v_res_680_ = l_Std_DHashMap_Internal_Raw_u2080_insert___at___00__private_Lean_Meta_Tactic_Grind_Arith_Cutsat_Proof_0__Lean_Meta_Grind_Arith_Cutsat_caching_spec__1___redArg(v_m_676_, v_a_boxed_679_, v_b_678_);
 return v_res_680_;
 }
@@ -3747,7 +3747,7 @@ _start:
 {
 uint64_t v_a_boxed_793_; lean_object* v_res_794_; 
 v_a_boxed_793_ = lean_unbox_uint64(v_a_792_);
-lean_dec_ref(v_a_792_);
+lean_dec(v_a_792_);
 v_res_794_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get_x3f___at___00__private_Lean_Meta_Tactic_Grind_Arith_Cutsat_Proof_0__Lean_Meta_Grind_Arith_Cutsat_caching_spec__0(v_00_u03b2_790_, v_m_791_, v_a_boxed_793_);
 lean_dec_ref(v_m_791_);
 return v_res_794_;
@@ -3766,7 +3766,7 @@ _start:
 {
 uint64_t v_a_boxed_804_; lean_object* v_res_805_; 
 v_a_boxed_804_ = lean_unbox_uint64(v_a_802_);
-lean_dec_ref(v_a_802_);
+lean_dec(v_a_802_);
 v_res_805_ = l_Std_DHashMap_Internal_Raw_u2080_insert___at___00__private_Lean_Meta_Tactic_Grind_Arith_Cutsat_Proof_0__Lean_Meta_Grind_Arith_Cutsat_caching_spec__1(v_00_u03b2_800_, v_m_801_, v_a_boxed_804_, v_b_803_);
 return v_res_805_;
 }
@@ -3784,7 +3784,7 @@ _start:
 {
 uint64_t v_a_boxed_813_; lean_object* v_res_814_; 
 v_a_boxed_813_ = lean_unbox_uint64(v_a_811_);
-lean_dec_ref(v_a_811_);
+lean_dec(v_a_811_);
 v_res_814_ = l_Std_DHashMap_Internal_AssocList_get_x3f___at___00Std_DHashMap_Internal_Raw_u2080_Const_get_x3f___at___00__private_Lean_Meta_Tactic_Grind_Arith_Cutsat_Proof_0__Lean_Meta_Grind_Arith_Cutsat_caching_spec__0_spec__0(v_00_u03b2_810_, v_a_boxed_813_, v_x_812_);
 lean_dec(v_x_812_);
 return v_res_814_;
@@ -3803,7 +3803,7 @@ _start:
 {
 uint64_t v_a_boxed_822_; uint8_t v_res_823_; lean_object* v_r_824_; 
 v_a_boxed_822_ = lean_unbox_uint64(v_a_820_);
-lean_dec_ref(v_a_820_);
+lean_dec(v_a_820_);
 v_res_823_ = l_Std_DHashMap_Internal_AssocList_contains___at___00Std_DHashMap_Internal_Raw_u2080_insert___at___00__private_Lean_Meta_Tactic_Grind_Arith_Cutsat_Proof_0__Lean_Meta_Grind_Arith_Cutsat_caching_spec__1_spec__2(v_00_u03b2_819_, v_a_boxed_822_, v_x_821_);
 lean_dec(v_x_821_);
 v_r_824_ = lean_box(v_res_823_);
@@ -3831,7 +3831,7 @@ _start:
 {
 uint64_t v_a_boxed_837_; lean_object* v_res_838_; 
 v_a_boxed_837_ = lean_unbox_uint64(v_a_834_);
-lean_dec_ref(v_a_834_);
+lean_dec(v_a_834_);
 v_res_838_ = l_Std_DHashMap_Internal_AssocList_replace___at___00Std_DHashMap_Internal_Raw_u2080_insert___at___00__private_Lean_Meta_Tactic_Grind_Arith_Cutsat_Proof_0__Lean_Meta_Grind_Arith_Cutsat_caching_spec__1_spec__4(v_00_u03b2_833_, v_a_boxed_837_, v_b_835_, v_x_836_);
 return v_res_838_;
 }

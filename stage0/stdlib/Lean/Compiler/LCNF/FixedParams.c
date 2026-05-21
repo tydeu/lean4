@@ -1909,7 +1909,7 @@ lean_dec(v_i_557_);
 v_stop_boxed_561_ = lean_unbox_usize(v_stop_558_);
 lean_dec(v_stop_558_);
 v_b_boxed_562_ = lean_unbox_uint64(v_b_559_);
-lean_dec_ref(v_b_559_);
+lean_dec(v_b_559_);
 v_res_563_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_DHashMap_Internal_Raw_u2080_contains___at___00Lean_Compiler_LCNF_FixedParams_evalApp_spec__1_spec__2(v_as_556_, v_i_boxed_560_, v_stop_boxed_561_, v_b_boxed_562_);
 lean_dec_ref(v_as_556_);
 v_r_564_ = lean_box_uint64(v_res_563_);

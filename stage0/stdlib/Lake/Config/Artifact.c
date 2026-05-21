@@ -191,7 +191,7 @@ _start:
 {
 uint64_t v_contentHash_boxed_14_; lean_object* v_res_15_; 
 v_contentHash_boxed_14_ = lean_unbox_uint64(v_contentHash_12_);
-lean_dec_ref(v_contentHash_12_);
+lean_dec(v_contentHash_12_);
 v_res_15_ = l_Lake_artifactPath(v_contentHash_boxed_14_, v_ext_13_);
 lean_dec_ref(v_ext_13_);
 return v_res_15_;
@@ -369,7 +369,7 @@ _start:
 {
 uint64_t v_contentHash_boxed_100_; lean_object* v_res_101_; 
 v_contentHash_boxed_100_ = lean_unbox_uint64(v_contentHash_98_);
-lean_dec_ref(v_contentHash_98_);
+lean_dec(v_contentHash_98_);
 v_res_101_ = l_Lake_artifactWithExt(v_contentHash_boxed_100_, v_ext_99_);
 return v_res_101_;
 }

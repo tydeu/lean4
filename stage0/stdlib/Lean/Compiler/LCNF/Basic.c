@@ -5644,7 +5644,7 @@ _start:
 {
 uint64_t v_x_1297__boxed_1682_; uint64_t v_res_1683_; lean_object* v_r_1684_; 
 v_x_1297__boxed_1682_ = lean_unbox_uint64(v_x_1680_);
-lean_dec_ref(v_x_1680_);
+lean_dec(v_x_1680_);
 v_res_1683_ = l_List_foldl___at___00Lean_Compiler_LCNF_instHashableLetValue_hash_spec__0(v_x_1297__boxed_1682_, v_x_1681_);
 lean_dec(v_x_1681_);
 v_r_1684_ = lean_box_uint64(v_res_1683_);
@@ -5683,7 +5683,7 @@ lean_dec(v_i_1697_);
 v_stop_boxed_1701_ = lean_unbox_usize(v_stop_1698_);
 lean_dec(v_stop_1698_);
 v_b_boxed_1702_ = lean_unbox_uint64(v_b_1699_);
-lean_dec_ref(v_b_1699_);
+lean_dec(v_b_1699_);
 v_res_1703_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Compiler_LCNF_instHashableLetValue_hash_spec__1___redArg(v_as_1696_, v_i_boxed_1700_, v_stop_boxed_1701_, v_b_boxed_1702_);
 lean_dec_ref(v_as_1696_);
 v_r_1704_ = lean_box_uint64(v_res_1703_);
@@ -6301,7 +6301,7 @@ lean_dec(v_i_1950_);
 v_stop_boxed_1955_ = lean_unbox_usize(v_stop_1951_);
 lean_dec(v_stop_1951_);
 v_b_boxed_1956_ = lean_unbox_uint64(v_b_1952_);
-lean_dec_ref(v_b_1952_);
+lean_dec(v_b_1952_);
 v_res_1957_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Compiler_LCNF_instHashableLetValue_hash_spec__1(v_pu_1797__boxed_1953_, v_as_1949_, v_i_boxed_1954_, v_stop_boxed_1955_, v_b_boxed_1956_);
 lean_dec_ref(v_as_1949_);
 v_r_1958_ = lean_box_uint64(v_res_1957_);

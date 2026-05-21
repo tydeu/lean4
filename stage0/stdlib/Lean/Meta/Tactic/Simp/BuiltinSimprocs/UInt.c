@@ -29571,7 +29571,7 @@ v_resetjp_10767_:
 lean_object* v___x_10770_; uint64_t v___x_10771_; lean_object* v___x_10772_; lean_object* v_r_10773_; lean_object* v___x_10774_; lean_object* v___x_10775_; lean_object* v___x_10776_; lean_object* v___x_10777_; lean_object* v___x_10778_; lean_object* v___x_10780_; 
 v___x_10770_ = lean_apply_2(v_op_10742_, v_val_10759_, v_val_10766_);
 v___x_10771_ = lean_unbox_uint64(v___x_10770_);
-lean_dec_ref(v___x_10770_);
+lean_dec(v___x_10770_);
 v___x_10772_ = lean_uint64_to_nat(v___x_10771_);
 v_r_10773_ = l_Lean_mkRawNatLit(v___x_10772_);
 v___x_10774_ = lean_obj_once(&l_UInt8_reduceBin___redArg___closed__3_00___x40_Lean_Meta_Tactic_Simp_BuiltinSimprocs_UInt_781669616____hygCtx___hyg_3_, &l_UInt8_reduceBin___redArg___closed__3_00___x40_Lean_Meta_Tactic_Simp_BuiltinSimprocs_UInt_781669616____hygCtx___hyg_3__once, _init_l_UInt8_reduceBin___redArg___closed__3_00___x40_Lean_Meta_Tactic_Simp_BuiltinSimprocs_UInt_781669616____hygCtx___hyg_3_);
@@ -29873,7 +29873,7 @@ v_resetjp_10852_:
 lean_object* v___x_10855_; uint64_t v___x_10856_; lean_object* v___x_10857_; lean_object* v_r_10858_; lean_object* v___x_10859_; lean_object* v___x_10860_; lean_object* v___x_10861_; lean_object* v___x_10862_; lean_object* v___x_10863_; lean_object* v___x_10865_; 
 v___x_10855_ = lean_apply_2(v_op_10824_, v_val_10844_, v_val_10851_);
 v___x_10856_ = lean_unbox_uint64(v___x_10855_);
-lean_dec_ref(v___x_10855_);
+lean_dec(v___x_10855_);
 v___x_10857_ = lean_uint64_to_nat(v___x_10856_);
 v_r_10858_ = l_Lean_mkRawNatLit(v___x_10857_);
 v___x_10859_ = lean_obj_once(&l_UInt8_reduceBin___redArg___closed__3_00___x40_Lean_Meta_Tactic_Simp_BuiltinSimprocs_UInt_781669616____hygCtx___hyg_3_, &l_UInt8_reduceBin___redArg___closed__3_00___x40_Lean_Meta_Tactic_Simp_BuiltinSimprocs_UInt_781669616____hygCtx___hyg_3__once, _init_l_UInt8_reduceBin___redArg___closed__3_00___x40_Lean_Meta_Tactic_Simp_BuiltinSimprocs_UInt_781669616____hygCtx___hyg_3_);

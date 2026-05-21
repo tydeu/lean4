@@ -15585,7 +15585,7 @@ _start:
 {
 uint64_t v_k_boxed_4110_; lean_object* v_res_4111_; 
 v_k_boxed_4110_ = lean_unbox_uint64(v_k_4109_);
-lean_dec_ref(v_k_4109_);
+lean_dec(v_k_4109_);
 v_res_4111_ = l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_Server_FileWorker_handleRpcRelease_spec__0___redArg(v_t_4108_, v_k_boxed_4110_);
 lean_dec(v_t_4108_);
 return v_res_4111_;
@@ -15706,7 +15706,7 @@ _start:
 {
 uint64_t v_k_boxed_4154_; lean_object* v_res_4155_; 
 v_k_boxed_4154_ = lean_unbox_uint64(v_k_4153_);
-lean_dec_ref(v_k_4153_);
+lean_dec(v_k_4153_);
 v_res_4155_ = l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_Server_FileWorker_handleRpcRelease_spec__0(v_00_u03b4_4151_, v_t_4152_, v_k_boxed_4154_);
 lean_dec(v_t_4152_);
 return v_res_4155_;
@@ -17190,7 +17190,7 @@ _start:
 {
 uint64_t v_k_boxed_4514_; lean_object* v_res_4515_; 
 v_k_boxed_4514_ = lean_unbox_uint64(v_k_4511_);
-lean_dec_ref(v_k_4511_);
+lean_dec(v_k_4511_);
 v_res_4515_ = l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_Server_FileWorker_handleRpcConnect_spec__0___redArg(v_k_boxed_4514_, v_v_4512_, v_t_4513_);
 return v_res_4515_;
 }
@@ -17390,7 +17390,7 @@ _start:
 {
 uint64_t v_k_boxed_4583_; lean_object* v_res_4584_; 
 v_k_boxed_4583_ = lean_unbox_uint64(v_k_4579_);
-lean_dec_ref(v_k_4579_);
+lean_dec(v_k_4579_);
 v_res_4584_ = l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_Server_FileWorker_handleRpcConnect_spec__0(v_00_u03b2_4578_, v_k_boxed_4583_, v_v_4580_, v_t_4581_, v_hl_4582_);
 return v_res_4584_;
 }
@@ -27901,7 +27901,7 @@ _start:
 {
 uint64_t v_k_boxed_7501_; lean_object* v_res_7502_; 
 v_k_boxed_7501_ = lean_unbox_uint64(v_k_7499_);
-lean_dec_ref(v_k_7499_);
+lean_dec(v_k_7499_);
 v_res_7502_ = l_Std_DTreeMap_Internal_Impl_erase___at___00Lean_Server_FileWorker_mainLoop_spec__0___redArg(v_k_boxed_7501_, v_t_7500_);
 return v_res_7502_;
 }
@@ -28700,7 +28700,7 @@ _start:
 {
 uint64_t v_k_boxed_7705_; lean_object* v_res_7706_; 
 v_k_boxed_7705_ = lean_unbox_uint64(v_k_7702_);
-lean_dec_ref(v_k_7702_);
+lean_dec(v_k_7702_);
 v_res_7706_ = l_Std_DTreeMap_Internal_Impl_erase___at___00Lean_Server_FileWorker_mainLoop_spec__0(v_00_u03b2_7701_, v_k_boxed_7705_, v_t_7703_, v_h_7704_);
 return v_res_7706_;
 }

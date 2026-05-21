@@ -2733,7 +2733,7 @@ _start:
 {
 uint64_t v_n_boxed_890_; lean_object* v_res_891_; 
 v_n_boxed_890_ = lean_unbox_uint64(v_n_888_);
-lean_dec_ref(v_n_888_);
+lean_dec(v_n_888_);
 v_res_891_ = l_instReprUInt64___lam__0(v_n_boxed_890_, v_x_889_);
 lean_dec(v_x_889_);
 return v_res_891_;

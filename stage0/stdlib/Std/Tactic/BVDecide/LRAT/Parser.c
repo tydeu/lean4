@@ -6235,9 +6235,9 @@ _start:
 {
 uint64_t v_uidx_boxed_1499_; uint64_t v_shift_boxed_1500_; lean_object* v_res_1501_; 
 v_uidx_boxed_1499_ = lean_unbox_uint64(v_uidx_1496_);
-lean_dec_ref(v_uidx_1496_);
+lean_dec(v_uidx_1496_);
 v_shift_boxed_1500_ = lean_unbox_uint64(v_shift_1497_);
-lean_dec_ref(v_shift_1497_);
+lean_dec(v_shift_1497_);
 v_res_1501_ = l___private_Std_Tactic_BVDecide_LRAT_Parser_0__Std_Tactic_BVDecide_LRAT_Parser_Binary_parseLit_go(v_uidx_boxed_1499_, v_shift_boxed_1500_, v_a_1498_);
 return v_res_1501_;
 }
@@ -9522,7 +9522,7 @@ _start:
 {
 uint64_t v_lit_boxed_2382_; lean_object* v_res_2383_; 
 v_lit_boxed_2382_ = lean_unbox_uint64(v_lit_2381_);
-lean_dec_ref(v_lit_2381_);
+lean_dec(v_lit_2381_);
 v_res_2383_ = l___private_Std_Tactic_BVDecide_LRAT_Parser_0__Std_Tactic_BVDecide_LRAT_lratProofToBinary_variableLengthEncode(v_acc_2380_, v_lit_boxed_2382_);
 return v_res_2383_;
 }

@@ -564,7 +564,7 @@ _start:
 {
 uint64_t v_x_109__boxed_54_; uint64_t v_res_55_; lean_object* v_r_56_; 
 v_x_109__boxed_54_ = lean_unbox_uint64(v_x_52_);
-lean_dec_ref(v_x_52_);
+lean_dec(v_x_52_);
 v_res_55_ = l_List_foldl___at___00__private_Lean_Meta_FunInfo_0__Lean_Meta_instHashableFunInfoEnvCacheKey_hash_spec__0(v_x_109__boxed_54_, v_x_53_);
 lean_dec(v_x_53_);
 v_r_56_ = lean_box_uint64(v_res_55_);

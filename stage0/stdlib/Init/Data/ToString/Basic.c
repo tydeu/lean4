@@ -524,7 +524,7 @@ _start:
 {
 uint64_t v_n_boxed_117_; lean_object* v_res_118_; 
 v_n_boxed_117_ = lean_unbox_uint64(v_n_116_);
-lean_dec_ref(v_n_116_);
+lean_dec(v_n_116_);
 v_res_118_ = l_instToStringUInt64___lam__0(v_n_boxed_117_);
 return v_res_118_;
 }

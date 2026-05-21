@@ -3415,7 +3415,7 @@ _start:
 {
 uint64_t v_a_boxed_945_; uint8_t v_res_946_; lean_object* v_r_947_; 
 v_a_boxed_945_ = lean_unbox_uint64(v_a_943_);
-lean_dec_ref(v_a_943_);
+lean_dec(v_a_943_);
 v_res_946_ = l_Std_DHashMap_Internal_AssocList_contains___at___00Std_DHashMap_Internal_Raw_u2080_contains___at___00__private_Lean_Meta_Tactic_Grind_Anchor_0__Lean_Meta_Grind_getNumDigitsForAnchors_go___at___00Lean_Meta_Grind_getNumDigitsForAnchors___at___00Lean_Meta_Grind_getNumDigitsForLocalTheoremAnchors_spec__0_spec__0_spec__1_spec__2___redArg(v_a_boxed_945_, v_x_944_);
 lean_dec(v_x_944_);
 v_r_947_ = lean_box(v_res_946_);
@@ -3550,7 +3550,7 @@ _start:
 {
 uint64_t v_a_boxed_994_; lean_object* v_res_995_; 
 v_a_boxed_994_ = lean_unbox_uint64(v_a_992_);
-lean_dec_ref(v_a_992_);
+lean_dec(v_a_992_);
 v_res_995_ = l_Std_DHashMap_Internal_Raw_u2080_insertIfNew___at___00__private_Lean_Meta_Tactic_Grind_Anchor_0__Lean_Meta_Grind_getNumDigitsForAnchors_go___at___00Lean_Meta_Grind_getNumDigitsForAnchors___at___00Lean_Meta_Grind_getNumDigitsForLocalTheoremAnchors_spec__0_spec__0_spec__2___redArg(v_m_991_, v_a_boxed_994_, v_b_993_);
 return v_res_995_;
 }
@@ -3582,7 +3582,7 @@ _start:
 {
 uint64_t v_a_boxed_1015_; uint8_t v_res_1016_; lean_object* v_r_1017_; 
 v_a_boxed_1015_ = lean_unbox_uint64(v_a_1014_);
-lean_dec_ref(v_a_1014_);
+lean_dec(v_a_1014_);
 v_res_1016_ = l_Std_DHashMap_Internal_Raw_u2080_contains___at___00__private_Lean_Meta_Tactic_Grind_Anchor_0__Lean_Meta_Grind_getNumDigitsForAnchors_go___at___00Lean_Meta_Grind_getNumDigitsForAnchors___at___00Lean_Meta_Grind_getNumDigitsForLocalTheoremAnchors_spec__0_spec__0_spec__1___redArg(v_m_1013_, v_a_boxed_1015_);
 lean_dec_ref(v_m_1013_);
 v_r_1017_ = lean_box(v_res_1016_);
@@ -3937,7 +3937,7 @@ _start:
 {
 uint64_t v_a_boxed_1141_; uint8_t v_res_1142_; lean_object* v_r_1143_; 
 v_a_boxed_1141_ = lean_unbox_uint64(v_a_1140_);
-lean_dec_ref(v_a_1140_);
+lean_dec(v_a_1140_);
 v_res_1142_ = l_Std_DHashMap_Internal_Raw_u2080_contains___at___00__private_Lean_Meta_Tactic_Grind_Anchor_0__Lean_Meta_Grind_getNumDigitsForAnchors_go___at___00Lean_Meta_Grind_getNumDigitsForAnchors___at___00Lean_Meta_Grind_getNumDigitsForLocalTheoremAnchors_spec__0_spec__0_spec__1(v_00_u03b2_1138_, v_m_1139_, v_a_boxed_1141_);
 lean_dec_ref(v_m_1139_);
 v_r_1143_ = lean_box(v_res_1142_);
@@ -3957,7 +3957,7 @@ _start:
 {
 uint64_t v_a_boxed_1153_; lean_object* v_res_1154_; 
 v_a_boxed_1153_ = lean_unbox_uint64(v_a_1151_);
-lean_dec_ref(v_a_1151_);
+lean_dec(v_a_1151_);
 v_res_1154_ = l_Std_DHashMap_Internal_Raw_u2080_insertIfNew___at___00__private_Lean_Meta_Tactic_Grind_Anchor_0__Lean_Meta_Grind_getNumDigitsForAnchors_go___at___00Lean_Meta_Grind_getNumDigitsForAnchors___at___00Lean_Meta_Grind_getNumDigitsForLocalTheoremAnchors_spec__0_spec__0_spec__2(v_00_u03b2_1149_, v_m_1150_, v_a_boxed_1153_, v_b_1152_);
 return v_res_1154_;
 }
@@ -3975,7 +3975,7 @@ _start:
 {
 uint64_t v_a_boxed_1162_; uint8_t v_res_1163_; lean_object* v_r_1164_; 
 v_a_boxed_1162_ = lean_unbox_uint64(v_a_1160_);
-lean_dec_ref(v_a_1160_);
+lean_dec(v_a_1160_);
 v_res_1163_ = l_Std_DHashMap_Internal_AssocList_contains___at___00Std_DHashMap_Internal_Raw_u2080_contains___at___00__private_Lean_Meta_Tactic_Grind_Anchor_0__Lean_Meta_Grind_getNumDigitsForAnchors_go___at___00Lean_Meta_Grind_getNumDigitsForAnchors___at___00Lean_Meta_Grind_getNumDigitsForLocalTheoremAnchors_spec__0_spec__0_spec__1_spec__2(v_00_u03b2_1159_, v_a_boxed_1162_, v_x_1161_);
 lean_dec(v_x_1161_);
 v_r_1164_ = lean_box(v_res_1163_);

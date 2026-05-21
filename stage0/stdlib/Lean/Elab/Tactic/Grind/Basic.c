@@ -1398,7 +1398,7 @@ lean_dec(v_i_132_);
 v_stop_boxed_136_ = lean_unbox_usize(v_stop_133_);
 lean_dec(v_stop_133_);
 v_b_boxed_137_ = lean_unbox_uint64(v_b_134_);
-lean_dec_ref(v_b_134_);
+lean_dec(v_b_134_);
 v_res_138_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Elab_Tactic_Grind_instHashableSimpCacheKey_hash_spec__0(v_as_131_, v_i_boxed_135_, v_stop_boxed_136_, v_b_boxed_137_);
 lean_dec_ref(v_as_131_);
 v_r_139_ = lean_box_uint64(v_res_138_);

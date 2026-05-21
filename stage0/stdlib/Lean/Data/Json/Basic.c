@@ -2970,7 +2970,7 @@ _start:
 {
 uint64_t v_init_boxed_852_; uint64_t v_res_853_; lean_object* v_r_854_; 
 v_init_boxed_852_ = lean_unbox_uint64(v_init_850_);
-lean_dec_ref(v_init_850_);
+lean_dec(v_init_850_);
 v_res_853_ = l_Std_DTreeMap_Internal_Impl_foldlM___at___00Std_DTreeMap_Internal_Impl_foldl___at___00__private_Lean_Data_Json_Basic_0__Lean_Json_hash_x27_spec__1_spec__1(v_init_boxed_852_, v_x_851_);
 lean_dec(v_x_851_);
 v_r_854_ = lean_box_uint64(v_res_853_);
@@ -2986,7 +2986,7 @@ lean_dec(v_i_856_);
 v_stop_boxed_860_ = lean_unbox_usize(v_stop_857_);
 lean_dec(v_stop_857_);
 v_b_boxed_861_ = lean_unbox_uint64(v_b_858_);
-lean_dec_ref(v_b_858_);
+lean_dec(v_b_858_);
 v_res_862_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00__private_Lean_Data_Json_Basic_0__Lean_Json_hash_x27_spec__0(v_as_855_, v_i_boxed_859_, v_stop_boxed_860_, v_b_boxed_861_);
 lean_dec_ref(v_as_855_);
 v_r_863_ = lean_box_uint64(v_res_862_);
@@ -3016,7 +3016,7 @@ _start:
 {
 uint64_t v_init_boxed_872_; uint64_t v_res_873_; lean_object* v_r_874_; 
 v_init_boxed_872_ = lean_unbox_uint64(v_init_870_);
-lean_dec_ref(v_init_870_);
+lean_dec(v_init_870_);
 v_res_873_ = l_Std_DTreeMap_Internal_Impl_foldl___at___00__private_Lean_Data_Json_Basic_0__Lean_Json_hash_x27_spec__1(v_init_boxed_872_, v_t_871_);
 lean_dec(v_t_871_);
 v_r_874_ = lean_box_uint64(v_res_873_);

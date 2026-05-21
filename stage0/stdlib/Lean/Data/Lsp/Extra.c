@@ -10021,7 +10021,7 @@ _start:
 {
 uint64_t v_x_30__boxed_2660_; lean_object* v_res_2661_; 
 v_x_30__boxed_2660_ = lean_unbox_uint64(v_x_2659_);
-lean_dec_ref(v_x_2659_);
+lean_dec(v_x_2659_);
 v_res_2661_ = l_Lean_Lsp_instToJsonRpcConnected_toJson(v_x_30__boxed_2660_);
 return v_res_2661_;
 }

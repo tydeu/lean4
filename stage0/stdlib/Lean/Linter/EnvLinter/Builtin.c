@@ -1695,7 +1695,7 @@ lean_dec(v_i_546_);
 v_stop_boxed_550_ = lean_unbox_usize(v_stop_547_);
 lean_dec(v_stop_547_);
 v_b_boxed_551_ = lean_unbox_uint64(v_b_548_);
-lean_dec_ref(v_b_548_);
+lean_dec(v_b_548_);
 v_res_552_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_DHashMap_Internal_Raw_u2080_insertIfNew___at___00__private_Lean_Linter_EnvLinter_Builtin_0__Lean_Linter_EnvLinter_univParamsGrouped_spec__0_spec__2(v_as_545_, v_i_boxed_549_, v_stop_boxed_550_, v_b_boxed_551_);
 lean_dec_ref(v_as_545_);
 v_r_553_ = lean_box_uint64(v_res_552_);

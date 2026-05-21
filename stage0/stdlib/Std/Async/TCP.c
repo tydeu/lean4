@@ -3001,7 +3001,7 @@ _start:
 {
 uint64_t v_size_boxed_786_; lean_object* v_res_787_; 
 v_size_boxed_786_ = lean_unbox_uint64(v_size_784_);
-lean_dec_ref(v_size_784_);
+lean_dec(v_size_784_);
 v_res_787_ = l_Std_Async_TCP_Socket_Client_recv_x3f(v_s_783_, v_size_boxed_786_);
 lean_dec(v_s_783_);
 return v_res_787_;
@@ -3269,7 +3269,7 @@ _start:
 {
 uint64_t v_size_boxed_858_; lean_object* v_res_859_; 
 v_size_boxed_858_ = lean_unbox_uint64(v_size_856_);
-lean_dec_ref(v_size_856_);
+lean_dec(v_size_856_);
 v_res_859_ = l_Std_Async_Waiter_race___at___00Std_Async_TCP_Socket_Client_recvSelector_spec__0___lam__1(v___x_854_, v_s_855_, v_size_boxed_858_);
 lean_dec(v_s_855_);
 return v_res_859_;
@@ -3414,7 +3414,7 @@ _start:
 {
 uint64_t v_size_boxed_909_; lean_object* v_res_910_; 
 v_size_boxed_909_ = lean_unbox_uint64(v_size_905_);
-lean_dec_ref(v_size_905_);
+lean_dec(v_size_905_);
 v_res_910_ = l_Std_Async_Waiter_race___at___00Std_Async_TCP_Socket_Client_recvSelector_spec__0(v_val_903_, v_s_904_, v_size_boxed_909_, v_w_906_, v_lose_907_);
 lean_dec_ref(v_w_906_);
 return v_res_910_;
@@ -3783,7 +3783,7 @@ _start:
 {
 uint64_t v_size_boxed_1005_; lean_object* v_res_1006_; 
 v_size_boxed_1005_ = lean_unbox_uint64(v_size_1001_);
-lean_dec_ref(v_size_1001_);
+lean_dec(v_size_1001_);
 v_res_1006_ = l_Std_Async_TCP_Socket_Client_recvSelector___lam__4(v_s_1000_, v_size_boxed_1005_, v_waiter_1002_, v_a_1003_);
 lean_dec_ref(v_waiter_1002_);
 return v_res_1006_;
@@ -3979,7 +3979,7 @@ _start:
 {
 uint64_t v_size_boxed_1067_; lean_object* v_res_1068_; 
 v_size_boxed_1067_ = lean_unbox_uint64(v_size_1064_);
-lean_dec_ref(v_size_1064_);
+lean_dec(v_size_1064_);
 v_res_1068_ = l_Std_Async_TCP_Socket_Client_recvSelector___lam__5(v_s_1063_, v_size_boxed_1067_, v_waiter_1065_);
 return v_res_1068_;
 }
@@ -4161,7 +4161,7 @@ _start:
 {
 uint64_t v_size_boxed_1123_; lean_object* v_res_1124_; 
 v_size_boxed_1123_ = lean_unbox_uint64(v_size_1118_);
-lean_dec_ref(v_size_1118_);
+lean_dec(v_size_1118_);
 v_res_1124_ = l_Std_Async_TCP_Socket_Client_recvSelector___lam__9(v___f_1116_, v_s_1117_, v_size_boxed_1123_, v___f_1119_, v___f_1120_, v_x_1121_);
 return v_res_1124_;
 }
@@ -4425,7 +4425,7 @@ _start:
 {
 uint64_t v_size_boxed_1202_; lean_object* v_res_1203_; 
 v_size_boxed_1202_ = lean_unbox_uint64(v_size_1201_);
-lean_dec_ref(v_size_1201_);
+lean_dec(v_size_1201_);
 v_res_1203_ = l_Std_Async_TCP_Socket_Client_recvSelector(v_s_1200_, v_size_boxed_1202_);
 return v_res_1203_;
 }

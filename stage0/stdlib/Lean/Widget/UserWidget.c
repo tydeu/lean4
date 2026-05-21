@@ -2230,7 +2230,7 @@ _start:
 {
 uint64_t v_k_boxed_353_; lean_object* v_res_354_; 
 v_k_boxed_353_ = lean_unbox_uint64(v_k_350_);
-lean_dec_ref(v_k_350_);
+lean_dec(v_k_350_);
 v_res_354_ = l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_Widget_addBuiltinModule_spec__0___redArg(v_k_boxed_353_, v_v_351_, v_t_352_);
 return v_res_354_;
 }
@@ -2273,7 +2273,7 @@ _start:
 {
 uint64_t v_k_boxed_380_; lean_object* v_res_381_; 
 v_k_boxed_380_ = lean_unbox_uint64(v_k_376_);
-lean_dec_ref(v_k_376_);
+lean_dec(v_k_376_);
 v_res_381_ = l_Std_DTreeMap_Internal_Impl_insert___at___00Lean_Widget_addBuiltinModule_spec__0(v_00_u03b2_375_, v_k_boxed_380_, v_v_377_, v_t_378_, v_hl_379_);
 return v_res_381_;
 }
@@ -3820,7 +3820,7 @@ _start:
 {
 uint64_t v_k_boxed_994_; lean_object* v_res_995_; 
 v_k_boxed_994_ = lean_unbox_uint64(v_k_993_);
-lean_dec_ref(v_k_993_);
+lean_dec(v_k_993_);
 v_res_995_ = l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00__private_Lean_Widget_UserWidget_0__Lean_Widget_initFn_00___x40_Lean_Widget_UserWidget_3570059497____hygCtx___hyg_2__spec__2___redArg(v_t_992_, v_k_boxed_994_);
 lean_dec(v_t_992_);
 return v_res_995_;
@@ -5145,7 +5145,7 @@ _start:
 {
 uint64_t v_k_boxed_1458_; lean_object* v_res_1459_; 
 v_k_boxed_1458_ = lean_unbox_uint64(v_k_1457_);
-lean_dec_ref(v_k_1457_);
+lean_dec(v_k_1457_);
 v_res_1459_ = l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00__private_Lean_Widget_UserWidget_0__Lean_Widget_initFn_00___x40_Lean_Widget_UserWidget_3570059497____hygCtx___hyg_2__spec__2(v_00_u03b4_1455_, v_t_1456_, v_k_boxed_1458_);
 lean_dec(v_t_1456_);
 return v_res_1459_;
@@ -5958,7 +5958,7 @@ _start:
 {
 uint64_t v_k_boxed_1762_; uint8_t v_res_1763_; lean_object* v_r_1764_; 
 v_k_boxed_1762_ = lean_unbox_uint64(v_k_1760_);
-lean_dec_ref(v_k_1760_);
+lean_dec(v_k_1760_);
 v_res_1763_ = l_Std_DTreeMap_Internal_Impl_contains___at___00Lean_Widget_getWidgetSource_spec__1___redArg(v_k_boxed_1762_, v_t_1761_);
 lean_dec(v_t_1761_);
 v_r_1764_ = lean_box(v_res_1763_);
@@ -5997,7 +5997,7 @@ _start:
 {
 uint64_t v_hash_boxed_1781_; uint8_t v_res_1782_; lean_object* v_r_1783_; 
 v_hash_boxed_1781_ = lean_unbox_uint64(v_hash_1779_);
-lean_dec_ref(v_hash_1779_);
+lean_dec(v_hash_1779_);
 v_res_1782_ = l_Lean_Widget_getWidgetSource___lam__0(v___x_1778_, v_hash_boxed_1781_, v_s_1780_);
 lean_dec_ref(v_s_1780_);
 lean_dec(v___x_1778_);
@@ -6177,7 +6177,7 @@ _start:
 {
 uint64_t v_hash_boxed_1853_; lean_object* v_res_1854_; 
 v_hash_boxed_1853_ = lean_unbox_uint64(v_hash_1848_);
-lean_dec_ref(v_hash_1848_);
+lean_dec(v_hash_1848_);
 v_res_1854_ = l_Lean_Widget_getWidgetSource___lam__3(v_hash_boxed_1853_, v___x_1849_, v_snap_1850_, v___y_1851_);
 lean_dec_ref(v___y_1851_);
 return v_res_1854_;
@@ -6309,7 +6309,7 @@ _start:
 {
 uint64_t v_k_boxed_1908_; uint8_t v_res_1909_; lean_object* v_r_1910_; 
 v_k_boxed_1908_ = lean_unbox_uint64(v_k_1906_);
-lean_dec_ref(v_k_1906_);
+lean_dec(v_k_1906_);
 v_res_1909_ = l_Std_DTreeMap_Internal_Impl_contains___at___00Lean_Widget_getWidgetSource_spec__1(v_00_u03b2_1905_, v_k_boxed_1908_, v_t_1907_);
 lean_dec(v_t_1907_);
 v_r_1910_ = lean_box(v_res_1909_);
@@ -7359,7 +7359,7 @@ _start:
 {
 uint64_t v_seshId_boxed_2239_; lean_object* v_res_2240_; 
 v_seshId_boxed_2239_ = lean_unbox_uint64(v_seshId_2235_);
-lean_dec_ref(v_seshId_2235_);
+lean_dec(v_seshId_2235_);
 v_res_2240_ = l_Lean_Server_wrapRpcProcedure___at___00Lean_Server_registerBuiltinRpcProcedure___at___00__private_Lean_Widget_UserWidget_0__Lean_Widget_initFn_00___x40_Lean_Widget_UserWidget_2369312278____hygCtx___hyg_2__spec__0_spec__1___lam__3(v_method_2232_, v_handler_2233_, v___f_2234_, v_seshId_boxed_2239_, v_j_2236_, v___y_2237_);
 lean_dec_ref(v___y_2237_);
 return v_res_2240_;
@@ -7880,7 +7880,7 @@ _start:
 {
 uint64_t v_k_boxed_2462_; lean_object* v_res_2463_; 
 v_k_boxed_2462_ = lean_unbox_uint64(v_k_2460_);
-lean_dec_ref(v_k_2460_);
+lean_dec(v_k_2460_);
 v_res_2463_ = l_Std_DTreeMap_Internal_Impl_Const_getD___at___00__private_Lean_Widget_UserWidget_0__Lean_Widget_initFn_00___x40_Lean_Widget_UserWidget_1015473889____hygCtx___hyg_2__spec__0___redArg(v_t_2459_, v_k_boxed_2462_, v_fallback_2461_);
 lean_dec(v_fallback_2461_);
 lean_dec(v_t_2459_);
@@ -8014,7 +8014,7 @@ _start:
 {
 uint64_t v_k_boxed_2518_; lean_object* v_res_2519_; 
 v_k_boxed_2518_ = lean_unbox_uint64(v_k_2516_);
-lean_dec_ref(v_k_2516_);
+lean_dec(v_k_2516_);
 v_res_2519_ = l_Std_DTreeMap_Internal_Impl_Const_getD___at___00__private_Lean_Widget_UserWidget_0__Lean_Widget_initFn_00___x40_Lean_Widget_UserWidget_1015473889____hygCtx___hyg_2__spec__0(v_00_u03b4_2514_, v_t_2515_, v_k_boxed_2518_, v_fallback_2517_);
 lean_dec(v_fallback_2517_);
 lean_dec(v_t_2515_);
@@ -8384,7 +8384,7 @@ _start:
 {
 uint64_t v_h_boxed_2666_; lean_object* v_res_2667_; 
 v_h_boxed_2666_ = lean_unbox_uint64(v_h_2664_);
-lean_dec_ref(v_h_2664_);
+lean_dec(v_h_2664_);
 v_res_2667_ = l_Lean_Widget_addPanelWidgetGlobal___redArg(v_inst_2661_, v_inst_2662_, v_inst_2663_, v_h_boxed_2666_, v_n_2665_);
 return v_res_2667_;
 }
@@ -8402,7 +8402,7 @@ _start:
 {
 uint64_t v_h_boxed_2681_; lean_object* v_res_2682_; 
 v_h_boxed_2681_ = lean_unbox_uint64(v_h_2679_);
-lean_dec_ref(v_h_2679_);
+lean_dec(v_h_2679_);
 v_res_2682_ = l_Lean_Widget_addPanelWidgetGlobal(v_m_2675_, v_inst_2676_, v_inst_2677_, v_inst_2678_, v_h_boxed_2681_, v_n_2680_);
 return v_res_2682_;
 }
@@ -8426,7 +8426,7 @@ _start:
 {
 uint64_t v_h_boxed_2698_; lean_object* v_res_2699_; 
 v_h_boxed_2698_ = lean_unbox_uint64(v_h_2696_);
-lean_dec_ref(v_h_2696_);
+lean_dec(v_h_2696_);
 v_res_2699_ = l_Lean_Widget_addPanelWidgetScoped___redArg(v_inst_2693_, v_inst_2694_, v_inst_2695_, v_h_boxed_2698_, v_n_2697_);
 return v_res_2699_;
 }
@@ -8444,7 +8444,7 @@ _start:
 {
 uint64_t v_h_boxed_2713_; lean_object* v_res_2714_; 
 v_h_boxed_2713_ = lean_unbox_uint64(v_h_2711_);
-lean_dec_ref(v_h_2711_);
+lean_dec(v_h_2711_);
 v_res_2714_ = l_Lean_Widget_addPanelWidgetScoped(v_m_2707_, v_inst_2708_, v_inst_2709_, v_inst_2710_, v_h_boxed_2713_, v_n_2712_);
 return v_res_2714_;
 }
@@ -8484,9 +8484,9 @@ _start:
 {
 uint64_t v_x_boxed_2724_; uint64_t v_y_boxed_2725_; uint8_t v_res_2726_; lean_object* v_r_2727_; 
 v_x_boxed_2724_ = lean_unbox_uint64(v_x_2722_);
-lean_dec_ref(v_x_2722_);
+lean_dec(v_x_2722_);
 v_y_boxed_2725_ = lean_unbox_uint64(v_y_2723_);
-lean_dec_ref(v_y_2723_);
+lean_dec(v_y_2723_);
 v_res_2726_ = l_Lean_Widget_addPanelWidgetLocal___redArg___lam__0(v_x_boxed_2724_, v_y_boxed_2725_);
 v_r_2727_ = lean_box(v_res_2726_);
 return v_r_2727_;
@@ -8569,7 +8569,7 @@ _start:
 {
 uint64_t v_h_boxed_2769_; lean_object* v_res_2770_; 
 v_h_boxed_2769_ = lean_unbox_uint64(v_h_2767_);
-lean_dec_ref(v_h_2767_);
+lean_dec(v_h_2767_);
 v_res_2770_ = l_Lean_Widget_erasePanelWidget___redArg___lam__1(v___f_2766_, v_h_boxed_2769_, v_st_2768_);
 return v_res_2770_;
 }
@@ -8597,7 +8597,7 @@ _start:
 {
 uint64_t v_h_boxed_2781_; lean_object* v_res_2782_; 
 v_h_boxed_2781_ = lean_unbox_uint64(v_h_2780_);
-lean_dec_ref(v_h_2780_);
+lean_dec(v_h_2780_);
 v_res_2782_ = l_Lean_Widget_erasePanelWidget___redArg(v_inst_2779_, v_h_boxed_2781_);
 return v_res_2782_;
 }
@@ -8615,7 +8615,7 @@ _start:
 {
 uint64_t v_h_boxed_2792_; lean_object* v_res_2793_; 
 v_h_boxed_2792_ = lean_unbox_uint64(v_h_2791_);
-lean_dec_ref(v_h_2791_);
+lean_dec(v_h_2791_);
 v_res_2793_ = l_Lean_Widget_erasePanelWidget(v_m_2788_, v_inst_2789_, v_inst_2790_, v_h_boxed_2792_);
 lean_dec_ref(v_inst_2789_);
 return v_res_2793_;
@@ -8705,7 +8705,7 @@ _start:
 {
 uint64_t v_hash_boxed_2833_; lean_object* v_res_2834_; 
 v_hash_boxed_2833_ = lean_unbox_uint64(v_hash_2828_);
-lean_dec_ref(v_hash_2828_);
+lean_dec(v_hash_2828_);
 v_res_2834_ = l_Lean_Widget_WidgetInstance_ofHash(v_hash_boxed_2833_, v_props_2829_, v_a_2830_, v_a_2831_);
 lean_dec(v_a_2831_);
 lean_dec_ref(v_a_2830_);
@@ -8999,7 +8999,7 @@ _start:
 {
 uint64_t v_hash_boxed_2930_; lean_object* v_res_2931_; 
 v_hash_boxed_2930_ = lean_unbox_uint64(v_hash_2924_);
-lean_dec_ref(v_hash_2924_);
+lean_dec(v_hash_2924_);
 v_res_2931_ = l_Lean_Widget_savePanelWidgetInfo(v_hash_boxed_2930_, v_props_2925_, v_stx_2926_, v_a_2927_, v_a_2928_);
 lean_dec(v_a_2928_);
 lean_dec_ref(v_a_2927_);
@@ -12418,7 +12418,7 @@ _start:
 {
 uint64_t v_seshId_boxed_4024_; lean_object* v_res_4025_; 
 v_seshId_boxed_4024_ = lean_unbox_uint64(v_seshId_4020_);
-lean_dec_ref(v_seshId_4020_);
+lean_dec(v_seshId_4020_);
 v_res_4025_ = l_Lean_Server_wrapRpcProcedure___at___00Lean_Server_registerBuiltinRpcProcedure___at___00__private_Lean_Widget_UserWidget_0__Lean_Widget_initFn_00___x40_Lean_Widget_UserWidget_915949662____hygCtx___hyg_2__spec__0_spec__0___lam__0(v_method_4017_, v_handler_4018_, v___f_4019_, v_seshId_boxed_4024_, v_j_4021_, v___y_4022_);
 lean_dec_ref(v___y_4022_);
 return v_res_4025_;

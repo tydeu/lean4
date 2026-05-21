@@ -1491,7 +1491,7 @@ _start:
 {
 uint64_t v_a_boxed_338_; lean_object* v_res_339_; 
 v_a_boxed_338_ = lean_unbox_uint64(v_a_337_);
-lean_dec_ref(v_a_337_);
+lean_dec(v_a_337_);
 v_res_339_ = l_Lean_instToExprUInt64___lam__0(v_a_boxed_338_);
 return v_res_339_;
 }
@@ -2040,7 +2040,7 @@ _start:
 {
 uint64_t v_i_boxed_571_; lean_object* v_res_572_; 
 v_i_boxed_571_ = lean_unbox_uint64(v_i_570_);
-lean_dec_ref(v_i_570_);
+lean_dec(v_i_570_);
 v_res_572_ = l_Lean_instToExprInt64___lam__0(v_i_boxed_571_);
 return v_res_572_;
 }

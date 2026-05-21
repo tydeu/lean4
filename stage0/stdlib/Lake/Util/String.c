@@ -457,7 +457,7 @@ _start:
 {
 uint64_t v_n_boxed_214_; lean_object* v_res_215_; 
 v_n_boxed_214_ = lean_unbox_uint64(v_n_213_);
-lean_dec_ref(v_n_213_);
+lean_dec(v_n_213_);
 v_res_215_ = l_Lake_lowerHexUInt64(v_n_boxed_214_);
 return v_res_215_;
 }

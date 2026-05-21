@@ -6710,7 +6710,7 @@ _start:
 {
 uint64_t v_x_980__boxed_2436_; uint64_t v_res_2437_; lean_object* v_r_2438_; 
 v_x_980__boxed_2436_ = lean_unbox_uint64(v_x_2434_);
-lean_dec_ref(v_x_2434_);
+lean_dec(v_x_2434_);
 v_res_2437_ = l_List_foldl___at___00Std_DHashMap_Internal_Raw_u2080_insert___at___00Lean_Elab_Tactic_Omega_Problem_insertConstraint_spec__0_spec__0(v_x_980__boxed_2436_, v_x_2435_);
 lean_dec(v_x_2435_);
 v_r_2438_ = lean_box_uint64(v_res_2437_);

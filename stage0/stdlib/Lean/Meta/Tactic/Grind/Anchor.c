@@ -361,9 +361,9 @@ _start:
 {
 uint64_t v_a_boxed_30_; uint64_t v_b_boxed_31_; uint64_t v_res_32_; lean_object* v_r_33_; 
 v_a_boxed_30_ = lean_unbox_uint64(v_a_28_);
-lean_dec_ref(v_a_28_);
+lean_dec(v_a_28_);
 v_b_boxed_31_ = lean_unbox_uint64(v_b_29_);
-lean_dec_ref(v_b_29_);
+lean_dec(v_b_29_);
 v_res_32_ = l___private_Lean_Meta_Tactic_Grind_Anchor_0__Lean_Meta_Grind_mix(v_a_boxed_30_, v_b_boxed_31_);
 v_r_33_ = lean_box_uint64(v_res_32_);
 return v_r_33_;
@@ -1893,7 +1893,7 @@ _start:
 {
 uint64_t v_b_boxed_541_; lean_object* v_res_542_; 
 v_b_boxed_541_ = lean_unbox_uint64(v_b_530_);
-lean_dec_ref(v_b_530_);
+lean_dec(v_b_530_);
 v_res_542_ = l_WellFounded_opaqueFix_u2083___at___00Lean_Meta_Grind_getAnchor_spec__0___redArg(v_upperBound_526_, v_args_527_, v_pinfos_528_, v_a_529_, v_b_boxed_541_, v___y_531_, v___y_532_, v___y_533_, v___y_534_, v___y_535_, v___y_536_, v___y_537_, v___y_538_, v___y_539_);
 lean_dec(v___y_539_);
 lean_dec_ref(v___y_538_);
@@ -1975,7 +1975,7 @@ _start:
 {
 uint64_t v_b_boxed_606_; lean_object* v_res_607_; 
 v_b_boxed_606_ = lean_unbox_uint64(v_b_594_);
-lean_dec_ref(v_b_594_);
+lean_dec(v_b_594_);
 v_res_607_ = l_WellFounded_opaqueFix_u2083___at___00Lean_Meta_Grind_getAnchor_spec__0(v_upperBound_588_, v_args_589_, v_pinfos_590_, v_inst_591_, v_R_592_, v_a_593_, v_b_boxed_606_, v_c_595_, v___y_596_, v___y_597_, v___y_598_, v___y_599_, v___y_600_, v___y_601_, v___y_602_, v___y_603_, v___y_604_);
 lean_dec(v___y_604_);
 lean_dec_ref(v___y_603_);
@@ -2134,7 +2134,7 @@ _start:
 {
 uint64_t v_anchor_boxed_703_; uint8_t v_res_704_; lean_object* v_r_705_; 
 v_anchor_boxed_703_ = lean_unbox_uint64(v_anchor_702_);
-lean_dec_ref(v_anchor_702_);
+lean_dec(v_anchor_702_);
 v_res_704_ = l_Lean_Meta_Grind_AnchorRef_matches(v_anchorRef_701_, v_anchor_boxed_703_);
 lean_dec_ref(v_anchorRef_701_);
 v_r_705_ = lean_box(v_res_704_);
@@ -2282,7 +2282,7 @@ lean_inc_ref(v_inst_767_);
 v___x_781_ = lean_apply_1(v_inst_767_, v_a_774_);
 v___x_782_ = lean_uint64_of_nat(v_shift_768_);
 v___x_783_ = lean_unbox_uint64(v___x_781_);
-lean_dec_ref(v___x_781_);
+lean_dec(v___x_781_);
 v___x_784_ = lean_uint64_shift_right(v___x_783_, v___x_782_);
 v___x_785_ = lean_box_uint64(v___x_784_);
 lean_inc_ref(v___f_770_);
@@ -2481,7 +2481,7 @@ _start:
 {
 uint64_t v_anchorPrefix_boxed_877_; lean_object* v_res_878_; 
 v_anchorPrefix_boxed_877_ = lean_unbox_uint64(v_anchorPrefix_874_);
-lean_dec_ref(v_anchorPrefix_874_);
+lean_dec(v_anchorPrefix_874_);
 v_res_878_ = l_Lean_Meta_Grind_mkAnchorSyntaxFromPrefix___redArg(v_numDigits_873_, v_anchorPrefix_boxed_877_, v_a_875_);
 lean_dec_ref(v_a_875_);
 lean_dec(v_numDigits_873_);
@@ -2501,7 +2501,7 @@ _start:
 {
 uint64_t v_anchorPrefix_boxed_890_; lean_object* v_res_891_; 
 v_anchorPrefix_boxed_890_ = lean_unbox_uint64(v_anchorPrefix_886_);
-lean_dec_ref(v_anchorPrefix_886_);
+lean_dec(v_anchorPrefix_886_);
 v_res_891_ = l_Lean_Meta_Grind_mkAnchorSyntaxFromPrefix(v_numDigits_885_, v_anchorPrefix_boxed_890_, v_a_887_, v_a_888_);
 lean_dec(v_a_888_);
 lean_dec_ref(v_a_887_);
@@ -2528,7 +2528,7 @@ _start:
 {
 uint64_t v_anchor_boxed_907_; lean_object* v_res_908_; 
 v_anchor_boxed_907_ = lean_unbox_uint64(v_anchor_904_);
-lean_dec_ref(v_anchor_904_);
+lean_dec(v_anchor_904_);
 v_res_908_ = l_Lean_Meta_Grind_mkAnchorSyntax___redArg(v_numDigits_903_, v_anchor_boxed_907_, v_a_905_);
 lean_dec_ref(v_a_905_);
 lean_dec(v_numDigits_903_);
@@ -2548,7 +2548,7 @@ _start:
 {
 uint64_t v_anchor_boxed_920_; lean_object* v_res_921_; 
 v_anchor_boxed_920_ = lean_unbox_uint64(v_anchor_916_);
-lean_dec_ref(v_anchor_916_);
+lean_dec(v_anchor_916_);
 v_res_921_ = l_Lean_Meta_Grind_mkAnchorSyntax(v_numDigits_915_, v_anchor_boxed_920_, v_a_917_, v_a_918_);
 lean_dec(v_a_918_);
 lean_dec_ref(v_a_917_);

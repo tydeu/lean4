@@ -712,7 +712,7 @@ _start:
 {
 uint64_t v_x_57__boxed_162_; uint64_t v_res_163_; lean_object* v_r_164_; 
 v_x_57__boxed_162_ = lean_unbox_uint64(v_x_160_);
-lean_dec_ref(v_x_160_);
+lean_dec(v_x_160_);
 v_res_163_ = l_List_foldl___at___00Lean_instHashableExternAttrData_hash_spec__0(v_x_57__boxed_162_, v_x_161_);
 lean_dec(v_x_161_);
 v_r_164_ = lean_box_uint64(v_res_163_);

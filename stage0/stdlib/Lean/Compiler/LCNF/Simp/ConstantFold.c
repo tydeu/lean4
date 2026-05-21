@@ -4127,7 +4127,7 @@ _start:
 {
 uint64_t v_val_boxed_705_; lean_object* v_res_706_; 
 v_val_boxed_705_ = lean_unbox_uint64(v_val_704_);
-lean_dec_ref(v_val_704_);
+lean_dec(v_val_704_);
 v_res_706_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_instLiteralUInt64___lam__1(v_val_boxed_705_);
 return v_res_706_;
 }
@@ -13606,7 +13606,7 @@ v_reusejp_3569_:
 {
 uint64_t v___x_3571_; lean_object* v___x_3573_; 
 v___x_3571_ = lean_unbox_uint64(v___x_3568_);
-lean_dec_ref(v___x_3568_);
+lean_dec(v___x_3568_);
 lean_ctor_set_uint64(v___x_3570_, 0, v___x_3571_);
 if (v_isShared_3561_ == 0)
 {
@@ -15447,7 +15447,7 @@ _start:
 {
 uint64_t v_neutral_boxed_4073_; lean_object* v_res_4074_; 
 v_neutral_boxed_4073_ = lean_unbox_uint64(v_neutral_4069_);
-lean_dec_ref(v_neutral_4069_);
+lean_dec(v_neutral_4069_);
 v_res_4074_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_Folder_rightNeutral___at___00Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders_spec__16___redArg(v_neutral_boxed_4073_, v_args_4070_, v_a_4071_);
 lean_dec(v_a_4071_);
 lean_dec_ref(v_args_4070_);
@@ -15467,7 +15467,7 @@ _start:
 {
 uint64_t v_neutral_boxed_4096_; lean_object* v_res_4097_; 
 v_neutral_boxed_4096_ = lean_unbox_uint64(v_neutral_4086_);
-lean_dec_ref(v_neutral_4086_);
+lean_dec(v_neutral_4086_);
 v_res_4097_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_Folder_rightNeutral___at___00Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders_spec__16(v_neutral_boxed_4096_, v_op_4087_, v___h_4088_, v_args_4089_, v_a_4090_, v_a_4091_, v_a_4092_, v_a_4093_, v_a_4094_);
 lean_dec(v_a_4094_);
 lean_dec_ref(v_a_4093_);
@@ -20065,9 +20065,9 @@ _start:
 {
 uint64_t v_annihilator_boxed_5813_; uint64_t v_zero_boxed_5814_; lean_object* v_res_5815_; 
 v_annihilator_boxed_5813_ = lean_unbox_uint64(v_annihilator_5808_);
-lean_dec_ref(v_annihilator_5808_);
+lean_dec(v_annihilator_5808_);
 v_zero_boxed_5814_ = lean_unbox_uint64(v_zero_5809_);
-lean_dec_ref(v_zero_5809_);
+lean_dec(v_zero_5809_);
 v_res_5815_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_Folder_leftAnnihilator___at___00Lean_Compiler_LCNF_Simp_ConstantFold_Folder_leftRightAnnihilator___at___00Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders_spec__24_spec__42___redArg(v_annihilator_boxed_5813_, v_zero_boxed_5814_, v_args_5810_, v_a_5811_);
 lean_dec(v_a_5811_);
 lean_dec_ref(v_args_5810_);
@@ -20087,9 +20087,9 @@ _start:
 {
 uint64_t v_annihilator_boxed_5835_; uint64_t v_zero_boxed_5836_; lean_object* v_res_5837_; 
 v_annihilator_boxed_5835_ = lean_unbox_uint64(v_annihilator_5826_);
-lean_dec_ref(v_annihilator_5826_);
+lean_dec(v_annihilator_5826_);
 v_zero_boxed_5836_ = lean_unbox_uint64(v_zero_5827_);
-lean_dec_ref(v_zero_5827_);
+lean_dec(v_zero_5827_);
 v_res_5837_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_Folder_leftRightAnnihilator___at___00Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders_spec__24___redArg___lam__0(v_annihilator_boxed_5835_, v_zero_boxed_5836_, v___y_5828_, v___y_5829_, v___y_5830_, v___y_5831_, v___y_5832_, v___y_5833_);
 lean_dec(v___y_5833_);
 lean_dec_ref(v___y_5832_);
@@ -20410,9 +20410,9 @@ _start:
 {
 uint64_t v_annihilator_boxed_5905_; uint64_t v_zero_boxed_5906_; lean_object* v_res_5907_; 
 v_annihilator_boxed_5905_ = lean_unbox_uint64(v_annihilator_5900_);
-lean_dec_ref(v_annihilator_5900_);
+lean_dec(v_annihilator_5900_);
 v_zero_boxed_5906_ = lean_unbox_uint64(v_zero_5901_);
-lean_dec_ref(v_zero_5901_);
+lean_dec(v_zero_5901_);
 v_res_5907_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_Folder_rightAnnihilator___at___00Lean_Compiler_LCNF_Simp_ConstantFold_Folder_leftRightAnnihilator___at___00Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders_spec__24_spec__43___redArg(v_annihilator_boxed_5905_, v_zero_boxed_5906_, v_args_5902_, v_a_5903_);
 lean_dec(v_a_5903_);
 lean_dec_ref(v_args_5902_);
@@ -20432,9 +20432,9 @@ _start:
 {
 uint64_t v_annihilator_boxed_5927_; uint64_t v_zero_boxed_5928_; lean_object* v_res_5929_; 
 v_annihilator_boxed_5927_ = lean_unbox_uint64(v_annihilator_5918_);
-lean_dec_ref(v_annihilator_5918_);
+lean_dec(v_annihilator_5918_);
 v_zero_boxed_5928_ = lean_unbox_uint64(v_zero_5919_);
-lean_dec_ref(v_zero_5919_);
+lean_dec(v_zero_5919_);
 v_res_5929_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_Folder_leftRightAnnihilator___at___00Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders_spec__24___redArg___lam__1(v_annihilator_boxed_5927_, v_zero_boxed_5928_, v___y_5920_, v___y_5921_, v___y_5922_, v___y_5923_, v___y_5924_, v___y_5925_);
 lean_dec(v___y_5925_);
 lean_dec_ref(v___y_5924_);
@@ -20473,9 +20473,9 @@ _start:
 {
 uint64_t v_annihilator_boxed_5961_; uint64_t v_zero_boxed_5962_; lean_object* v_res_5963_; 
 v_annihilator_boxed_5961_ = lean_unbox_uint64(v_annihilator_5951_);
-lean_dec_ref(v_annihilator_5951_);
+lean_dec(v_annihilator_5951_);
 v_zero_boxed_5962_ = lean_unbox_uint64(v_zero_5952_);
-lean_dec_ref(v_zero_5952_);
+lean_dec(v_zero_5952_);
 v_res_5963_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_Folder_leftRightAnnihilator___at___00Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders_spec__24___redArg(v_annihilator_boxed_5961_, v_zero_boxed_5962_, v_op_5953_, v_a_5954_, v_a_5955_, v_a_5956_, v_a_5957_, v_a_5958_, v_a_5959_);
 lean_dec(v_a_5959_);
 lean_dec_ref(v_a_5958_);
@@ -20499,7 +20499,7 @@ _start:
 {
 uint64_t v___x_16450__boxed_5983_; lean_object* v_res_5984_; 
 v___x_16450__boxed_5983_ = lean_unbox_uint64(v___x_5974_);
-lean_dec_ref(v___x_5974_);
+lean_dec(v___x_5974_);
 v_res_5984_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders___lam__20(v___x_16450__boxed_5983_, v___f_5975_, v___y_5976_, v___y_5977_, v___y_5978_, v___y_5979_, v___y_5980_, v___y_5981_);
 lean_dec(v___y_5981_);
 lean_dec_ref(v___y_5980_);
@@ -20523,7 +20523,7 @@ _start:
 {
 uint64_t v___x_16479__boxed_6002_; lean_object* v_res_6003_; 
 v___x_16479__boxed_6002_ = lean_unbox_uint64(v___x_5994_);
-lean_dec_ref(v___x_5994_);
+lean_dec(v___x_5994_);
 v_res_6003_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders___lam__21(v___x_16479__boxed_6002_, v___y_5995_, v___y_5996_, v___y_5997_, v___y_5998_, v___y_5999_, v___y_6000_);
 lean_dec(v___y_6000_);
 lean_dec_ref(v___y_5999_);
@@ -20779,7 +20779,7 @@ _start:
 {
 uint64_t v_neutral_boxed_6060_; lean_object* v_res_6061_; 
 v_neutral_boxed_6060_ = lean_unbox_uint64(v_neutral_6056_);
-lean_dec_ref(v_neutral_6056_);
+lean_dec(v_neutral_6056_);
 v_res_6061_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_Folder_leftNeutral___at___00Lean_Compiler_LCNF_Simp_ConstantFold_Folder_leftRightNeutral___at___00Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders_spec__10_spec__14___redArg(v_neutral_boxed_6060_, v_args_6057_, v_a_6058_);
 lean_dec(v_a_6058_);
 lean_dec_ref(v_args_6057_);
@@ -20799,7 +20799,7 @@ _start:
 {
 uint64_t v_neutral_boxed_6079_; lean_object* v_res_6080_; 
 v_neutral_boxed_6079_ = lean_unbox_uint64(v_neutral_6071_);
-lean_dec_ref(v_neutral_6071_);
+lean_dec(v_neutral_6071_);
 v_res_6080_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_Folder_leftRightNeutral___at___00Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders_spec__10___redArg___lam__0(v_neutral_boxed_6079_, v___y_6072_, v___y_6073_, v___y_6074_, v___y_6075_, v___y_6076_, v___y_6077_);
 lean_dec(v___y_6077_);
 lean_dec_ref(v___y_6076_);
@@ -20823,7 +20823,7 @@ _start:
 {
 uint64_t v_neutral_boxed_6098_; lean_object* v_res_6099_; 
 v_neutral_boxed_6098_ = lean_unbox_uint64(v_neutral_6090_);
-lean_dec_ref(v_neutral_6090_);
+lean_dec(v_neutral_6090_);
 v_res_6099_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_Folder_leftRightNeutral___at___00Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders_spec__10___redArg___lam__1(v_neutral_boxed_6098_, v___y_6091_, v___y_6092_, v___y_6093_, v___y_6094_, v___y_6095_, v___y_6096_);
 lean_dec(v___y_6096_);
 lean_dec_ref(v___y_6095_);
@@ -20858,7 +20858,7 @@ _start:
 {
 uint64_t v_neutral_boxed_6127_; lean_object* v_res_6128_; 
 v_neutral_boxed_6127_ = lean_unbox_uint64(v_neutral_6118_);
-lean_dec_ref(v_neutral_6118_);
+lean_dec(v_neutral_6118_);
 v_res_6128_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_Folder_leftRightNeutral___at___00Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders_spec__10___redArg(v_neutral_boxed_6127_, v_op_6119_, v_a_6120_, v_a_6121_, v_a_6122_, v_a_6123_, v_a_6124_, v_a_6125_);
 lean_dec(v_a_6125_);
 lean_dec_ref(v_a_6124_);
@@ -20882,7 +20882,7 @@ _start:
 {
 uint64_t v___x_16677__boxed_6148_; lean_object* v_res_6149_; 
 v___x_16677__boxed_6148_ = lean_unbox_uint64(v___x_6139_);
-lean_dec_ref(v___x_6139_);
+lean_dec(v___x_6139_);
 v_res_6149_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders___lam__22(v___x_16677__boxed_6148_, v___f_6140_, v___y_6141_, v___y_6142_, v___y_6143_, v___y_6144_, v___y_6145_, v___y_6146_);
 lean_dec(v___y_6146_);
 lean_dec_ref(v___y_6145_);
@@ -24550,9 +24550,9 @@ _start:
 {
 uint64_t v___x_18329__boxed_7265_; uint64_t v_x_18330__boxed_7266_; uint64_t v_res_7267_; lean_object* v_r_7268_; 
 v___x_18329__boxed_7265_ = lean_unbox_uint64(v___x_7263_);
-lean_dec_ref(v___x_7263_);
+lean_dec(v___x_7263_);
 v_x_18330__boxed_7266_ = lean_unbox_uint64(v_x_7264_);
-lean_dec_ref(v_x_7264_);
+lean_dec(v_x_7264_);
 v_res_7267_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders___lam__31(v___x_18329__boxed_7265_, v_x_18330__boxed_7266_);
 v_r_7268_ = lean_box_uint64(v_res_7267_);
 return v_r_7268_;
@@ -24575,7 +24575,7 @@ _start:
 {
 uint64_t v_x_boxed_7288_; lean_object* v_res_7289_; 
 v_x_boxed_7288_ = lean_unbox_uint64(v_x_7280_);
-lean_dec_ref(v_x_7280_);
+lean_dec(v_x_7280_);
 v_res_7289_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_mkAuxLit___at___00Lean_Compiler_LCNF_Simp_ConstantFold_Folder_divShift___at___00Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders_spec__30_spec__55(v_x_boxed_7288_, v_prefixName_7281_, v_a_7282_, v_a_7283_, v_a_7284_, v_a_7285_, v_a_7286_);
 lean_dec(v_a_7286_);
 lean_dec_ref(v_a_7285_);
@@ -24722,15 +24722,15 @@ v_val_7336_ = lean_ctor_get_uint64(v_value_7335_, 0);
 lean_dec_ref_known(v_value_7335_, 0);
 v___x_7337_ = lean_box_uint64(v_val_7336_);
 v___x_7338_ = lean_apply_1(v_log2_7292_, v___x_7337_);
-lean_inc_ref(v___x_7338_);
+lean_inc(v___x_7338_);
 v___x_7339_ = lean_apply_1(v_pow2_7291_, v___x_7338_);
 v___x_7340_ = lean_unbox_uint64(v___x_7339_);
-lean_dec_ref(v___x_7339_);
+lean_dec(v___x_7339_);
 v___x_7341_ = lean_uint64_dec_eq(v___x_7340_, v_val_7336_);
 if (v___x_7341_ == 0)
 {
 lean_object* v___x_7342_; lean_object* v___x_7344_; 
-lean_dec_ref(v___x_7338_);
+lean_dec(v___x_7338_);
 lean_del_object(v___x_7333_);
 lean_del_object(v___x_7318_);
 lean_dec(v_shiftLeft_7290_);
@@ -24760,7 +24760,7 @@ lean_object* v___x_7346_; uint64_t v___x_7347_; lean_object* v___x_7348_;
 lean_del_object(v___x_7309_);
 v___x_7346_ = ((lean_object*)(l_Lean_Compiler_LCNF_Simp_ConstantFold_mkNatWrapperInstance___redArg___lam__1___closed__1));
 v___x_7347_ = lean_unbox_uint64(v___x_7338_);
-lean_dec_ref(v___x_7338_);
+lean_dec(v___x_7338_);
 v___x_7348_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_mkAuxLit___at___00Lean_Compiler_LCNF_Simp_ConstantFold_Folder_divShift___at___00Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders_spec__30_spec__55(v___x_7347_, v___x_7346_, v_a_7294_, v_a_7295_, v_a_7296_, v_a_7297_, v_a_7298_);
 if (lean_obj_tag(v___x_7348_) == 0)
 {
@@ -25280,15 +25280,15 @@ v_val_7481_ = lean_ctor_get_uint64(v_value_7480_, 0);
 lean_dec_ref_known(v_value_7480_, 0);
 v___x_7482_ = lean_box_uint64(v_val_7481_);
 v___x_7483_ = lean_apply_1(v_log2_7437_, v___x_7482_);
-lean_inc_ref(v___x_7483_);
+lean_inc(v___x_7483_);
 v___x_7484_ = lean_apply_1(v_pow2_7436_, v___x_7483_);
 v___x_7485_ = lean_unbox_uint64(v___x_7484_);
-lean_dec_ref(v___x_7484_);
+lean_dec(v___x_7484_);
 v___x_7486_ = lean_uint64_dec_eq(v___x_7485_, v_val_7481_);
 if (v___x_7486_ == 0)
 {
 lean_object* v___x_7487_; lean_object* v___x_7489_; 
-lean_dec_ref(v___x_7483_);
+lean_dec(v___x_7483_);
 lean_del_object(v___x_7478_);
 lean_del_object(v___x_7463_);
 lean_dec(v_shiftLeft_7435_);
@@ -25318,7 +25318,7 @@ lean_object* v___x_7491_; uint64_t v___x_7492_; lean_object* v___x_7493_;
 lean_del_object(v___x_7454_);
 v___x_7491_ = ((lean_object*)(l_Lean_Compiler_LCNF_Simp_ConstantFold_mkNatWrapperInstance___redArg___lam__1___closed__1));
 v___x_7492_ = lean_unbox_uint64(v___x_7483_);
-lean_dec_ref(v___x_7483_);
+lean_dec(v___x_7483_);
 v___x_7493_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_mkAuxLit___at___00Lean_Compiler_LCNF_Simp_ConstantFold_Folder_divShift___at___00Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders_spec__30_spec__55(v___x_7492_, v___x_7491_, v_a_7439_, v_a_7440_, v_a_7441_, v_a_7442_, v_a_7443_);
 if (lean_obj_tag(v___x_7493_) == 0)
 {
@@ -28112,15 +28112,15 @@ v_val_8257_ = lean_ctor_get_uint64(v_value_8256_, 0);
 lean_dec_ref_known(v_value_8256_, 0);
 v___x_8258_ = lean_box_uint64(v_val_8257_);
 v___x_8259_ = lean_apply_1(v_log2_8213_, v___x_8258_);
-lean_inc_ref(v___x_8259_);
+lean_inc(v___x_8259_);
 v___x_8260_ = lean_apply_1(v_pow2_8212_, v___x_8259_);
 v___x_8261_ = lean_unbox_uint64(v___x_8260_);
-lean_dec_ref(v___x_8260_);
+lean_dec(v___x_8260_);
 v___x_8262_ = lean_uint64_dec_eq(v___x_8261_, v_val_8257_);
 if (v___x_8262_ == 0)
 {
 lean_object* v___x_8263_; lean_object* v___x_8265_; 
-lean_dec_ref(v___x_8259_);
+lean_dec(v___x_8259_);
 lean_del_object(v___x_8254_);
 lean_del_object(v___x_8239_);
 lean_dec(v_shiftRight_8211_);
@@ -28150,7 +28150,7 @@ lean_object* v___x_8267_; uint64_t v___x_8268_; lean_object* v___x_8269_;
 lean_del_object(v___x_8230_);
 v___x_8267_ = ((lean_object*)(l_Lean_Compiler_LCNF_Simp_ConstantFold_mkNatWrapperInstance___redArg___lam__1___closed__1));
 v___x_8268_ = lean_unbox_uint64(v___x_8259_);
-lean_dec_ref(v___x_8259_);
+lean_dec(v___x_8259_);
 v___x_8269_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_mkAuxLit___at___00Lean_Compiler_LCNF_Simp_ConstantFold_Folder_divShift___at___00Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders_spec__30_spec__55(v___x_8268_, v___x_8267_, v_a_8215_, v_a_8216_, v_a_8217_, v_a_8218_, v_a_8219_);
 if (lean_obj_tag(v___x_8269_) == 0)
 {
@@ -29263,7 +29263,7 @@ _start:
 {
 uint64_t v_neutral_boxed_9229_; lean_object* v_res_9230_; 
 v_neutral_boxed_9229_ = lean_unbox_uint64(v_neutral_9219_);
-lean_dec_ref(v_neutral_9219_);
+lean_dec(v_neutral_9219_);
 v_res_9230_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_Folder_leftNeutral___at___00Lean_Compiler_LCNF_Simp_ConstantFold_Folder_leftRightNeutral___at___00Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders_spec__10_spec__14(v_neutral_boxed_9229_, v_op_9220_, v___h_9221_, v_args_9222_, v_a_9223_, v_a_9224_, v_a_9225_, v_a_9226_, v_a_9227_);
 lean_dec(v_a_9227_);
 lean_dec_ref(v_a_9226_);
@@ -29288,7 +29288,7 @@ _start:
 {
 uint64_t v_neutral_boxed_9254_; lean_object* v_res_9255_; 
 v_neutral_boxed_9254_ = lean_unbox_uint64(v_neutral_9243_);
-lean_dec_ref(v_neutral_9243_);
+lean_dec(v_neutral_9243_);
 v_res_9255_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_Folder_leftRightNeutral___at___00Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders_spec__10(v_neutral_boxed_9254_, v_op_9244_, v___h1_9245_, v___h2_9246_, v_a_9247_, v_a_9248_, v_a_9249_, v_a_9250_, v_a_9251_, v_a_9252_);
 lean_dec(v_a_9252_);
 lean_dec_ref(v_a_9251_);
@@ -29586,9 +29586,9 @@ _start:
 {
 uint64_t v_annihilator_boxed_9569_; uint64_t v_zero_boxed_9570_; lean_object* v_res_9571_; 
 v_annihilator_boxed_9569_ = lean_unbox_uint64(v_annihilator_9558_);
-lean_dec_ref(v_annihilator_9558_);
+lean_dec(v_annihilator_9558_);
 v_zero_boxed_9570_ = lean_unbox_uint64(v_zero_9559_);
-lean_dec_ref(v_zero_9559_);
+lean_dec(v_zero_9559_);
 v_res_9571_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_Folder_leftAnnihilator___at___00Lean_Compiler_LCNF_Simp_ConstantFold_Folder_leftRightAnnihilator___at___00Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders_spec__24_spec__42(v_annihilator_boxed_9569_, v_zero_boxed_9570_, v_op_9560_, v___h_9561_, v_args_9562_, v_a_9563_, v_a_9564_, v_a_9565_, v_a_9566_, v_a_9567_);
 lean_dec(v_a_9567_);
 lean_dec_ref(v_a_9566_);
@@ -29613,9 +29613,9 @@ _start:
 {
 uint64_t v_annihilator_boxed_9595_; uint64_t v_zero_boxed_9596_; lean_object* v_res_9597_; 
 v_annihilator_boxed_9595_ = lean_unbox_uint64(v_annihilator_9584_);
-lean_dec_ref(v_annihilator_9584_);
+lean_dec(v_annihilator_9584_);
 v_zero_boxed_9596_ = lean_unbox_uint64(v_zero_9585_);
-lean_dec_ref(v_zero_9585_);
+lean_dec(v_zero_9585_);
 v_res_9597_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_Folder_rightAnnihilator___at___00Lean_Compiler_LCNF_Simp_ConstantFold_Folder_leftRightAnnihilator___at___00Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders_spec__24_spec__43(v_annihilator_boxed_9595_, v_zero_boxed_9596_, v_op_9586_, v___h_9587_, v_args_9588_, v_a_9589_, v_a_9590_, v_a_9591_, v_a_9592_, v_a_9593_);
 lean_dec(v_a_9593_);
 lean_dec_ref(v_a_9592_);
@@ -29640,9 +29640,9 @@ _start:
 {
 uint64_t v_annihilator_boxed_9623_; uint64_t v_zero_boxed_9624_; lean_object* v_res_9625_; 
 v_annihilator_boxed_9623_ = lean_unbox_uint64(v_annihilator_9611_);
-lean_dec_ref(v_annihilator_9611_);
+lean_dec(v_annihilator_9611_);
 v_zero_boxed_9624_ = lean_unbox_uint64(v_zero_9612_);
-lean_dec_ref(v_zero_9612_);
+lean_dec(v_zero_9612_);
 v_res_9625_ = l_Lean_Compiler_LCNF_Simp_ConstantFold_Folder_leftRightAnnihilator___at___00Lean_Compiler_LCNF_Simp_ConstantFold_arithmeticFolders_spec__24(v_annihilator_boxed_9623_, v_zero_boxed_9624_, v_op_9613_, v___h1_9614_, v___h2_9615_, v_a_9616_, v_a_9617_, v_a_9618_, v_a_9619_, v_a_9620_, v_a_9621_);
 lean_dec(v_a_9621_);
 lean_dec_ref(v_a_9620_);
@@ -40100,8 +40100,8 @@ goto v___jp_12832_;
 }
 else
 {
-lean_dec_ref_known(v_declName_12841_, 2);
 lean_dec(v_pre_12842_);
+lean_dec_ref_known(v_declName_12841_, 2);
 lean_dec_ref_known(v_val_12837_, 3);
 lean_del_object(v___x_12839_);
 lean_del_object(v___x_12824_);

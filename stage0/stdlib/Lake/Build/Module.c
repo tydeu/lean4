@@ -12730,7 +12730,7 @@ _start:
 uint8_t v___y_32936__boxed_3766_; uint64_t v___x_32937__boxed_3767_; size_t v_i_boxed_3768_; size_t v_stop_boxed_3769_; uint8_t v_res_3770_; lean_object* v_r_3771_; 
 v___y_32936__boxed_3766_ = lean_unbox(v___y_3760_);
 v___x_32937__boxed_3767_ = lean_unbox_uint64(v___x_3762_);
-lean_dec_ref(v___x_3762_);
+lean_dec(v___x_3762_);
 v_i_boxed_3768_ = lean_unbox_usize(v_i_3764_);
 lean_dec(v_i_3764_);
 v_stop_boxed_3769_ = lean_unbox_usize(v_stop_3765_);
@@ -30774,7 +30774,7 @@ _start:
 {
 uint64_t v_inputHash_boxed_9608_; lean_object* v_res_9609_; 
 v_inputHash_boxed_9608_ = lean_unbox_uint64(v_inputHash_9599_);
-lean_dec_ref(v_inputHash_9599_);
+lean_dec(v_inputHash_9599_);
 v_res_9609_ = l_Lake_getArtifactsUsingTrace_x3f___at___00__private_Lake_Build_Module_0__Lake_Module_recBuildLean_fetchFromCache_x3f_spec__0(v_a_9598_, v_inputHash_boxed_9608_, v_savedTrace_9600_, v_pkg_9601_, v_a_9602_, v_a_9603_, v_a_9604_, v_a_9605_, v_a_9606_);
 lean_dec_ref(v_a_9605_);
 lean_dec(v_a_9604_);
@@ -31207,7 +31207,7 @@ _start:
 {
 uint64_t v_inputHash_boxed_9753_; lean_object* v_res_9754_; 
 v_inputHash_boxed_9753_ = lean_unbox_uint64(v_inputHash_9744_);
-lean_dec_ref(v_inputHash_9744_);
+lean_dec(v_inputHash_9744_);
 v_res_9754_ = l_Lake_getArtifactsUsingTrace_x3f___at___00__private_Lake_Build_Module_0__Lake_Module_recBuildLean_fetchFromCache_x3f_spec__2(v_a_9743_, v_inputHash_boxed_9753_, v_savedTrace_9745_, v_pkg_9746_, v_a_9747_, v_a_9748_, v_a_9749_, v_a_9750_, v_a_9751_);
 lean_dec_ref(v_a_9750_);
 lean_dec(v_a_9749_);
@@ -31656,7 +31656,7 @@ _start:
 {
 uint64_t v_inputHash_boxed_9895_; lean_object* v_res_9896_; 
 v_inputHash_boxed_9895_ = lean_unbox_uint64(v_inputHash_9887_);
-lean_dec_ref(v_inputHash_9887_);
+lean_dec(v_inputHash_9887_);
 v_res_9896_ = l___private_Lake_Build_Common_0__Lake_getArtifactsUsingCache_x3f___at___00__private_Lake_Build_Module_0__Lake_Module_recBuildLean_fetchFromCache_x3f_spec__1(v_a_9886_, v_inputHash_boxed_9895_, v_pkg_9888_, v_a_9889_, v_a_9890_, v_a_9891_, v_a_9892_, v_a_9893_);
 lean_dec_ref(v_a_9892_);
 lean_dec(v_a_9891_);
@@ -36079,7 +36079,7 @@ lean_dec(v_i_11140_);
 v_stop_boxed_11144_ = lean_unbox_usize(v_stop_11141_);
 lean_dec(v_stop_11141_);
 v_b_boxed_11145_ = lean_unbox_uint64(v_b_11142_);
-lean_dec_ref(v_b_11142_);
+lean_dec(v_b_11142_);
 v_res_11146_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00__private_Lake_Build_Module_0__Lake_Module_recBuildLean_spec__1(v_as_11139_, v_i_boxed_11143_, v_stop_boxed_11144_, v_b_boxed_11145_);
 lean_dec_ref(v_as_11139_);
 v_r_11147_ = lean_box_uint64(v_res_11146_);

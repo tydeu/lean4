@@ -1087,7 +1087,7 @@ _start:
 {
 uint64_t v_size_boxed_280_; lean_object* v_res_281_; 
 v_size_boxed_280_ = lean_unbox_uint64(v_size_278_);
-lean_dec_ref(v_size_278_);
+lean_dec(v_size_278_);
 v_res_281_ = l_Std_Async_UDP_Socket_recv(v_s_277_, v_size_boxed_280_);
 lean_dec(v_s_277_);
 return v_res_281_;
@@ -1471,7 +1471,7 @@ _start:
 {
 uint64_t v_size_boxed_383_; lean_object* v_res_384_; 
 v_size_boxed_383_ = lean_unbox_uint64(v_size_381_);
-lean_dec_ref(v_size_381_);
+lean_dec(v_size_381_);
 v_res_384_ = l_Std_Async_Waiter_race___at___00Std_Async_UDP_Socket_recvSelector_spec__1___lam__1(v___x_379_, v_s_380_, v_size_boxed_383_);
 lean_dec(v_s_380_);
 return v_res_384_;
@@ -1594,7 +1594,7 @@ _start:
 {
 uint64_t v_size_boxed_429_; lean_object* v_res_430_; 
 v_size_boxed_429_ = lean_unbox_uint64(v_size_424_);
-lean_dec_ref(v_size_424_);
+lean_dec(v_size_424_);
 v_res_430_ = l_Std_Async_Waiter_race___at___00Std_Async_UDP_Socket_recvSelector_spec__1(v_s_423_, v_size_boxed_429_, v_val_425_, v_w_426_, v_lose_427_);
 lean_dec_ref(v_w_426_);
 return v_res_430_;
@@ -1980,7 +1980,7 @@ _start:
 {
 uint64_t v_size_boxed_533_; lean_object* v_res_534_; 
 v_size_boxed_533_ = lean_unbox_uint64(v_size_529_);
-lean_dec_ref(v_size_529_);
+lean_dec(v_size_529_);
 v_res_534_ = l_Std_Async_UDP_Socket_recvSelector___lam__4(v_s_528_, v_size_boxed_533_, v_waiter_530_, v_a_531_);
 lean_dec_ref(v_waiter_530_);
 return v_res_534_;
@@ -2176,7 +2176,7 @@ _start:
 {
 uint64_t v_size_boxed_595_; lean_object* v_res_596_; 
 v_size_boxed_595_ = lean_unbox_uint64(v_size_592_);
-lean_dec_ref(v_size_592_);
+lean_dec(v_size_592_);
 v_res_596_ = l_Std_Async_UDP_Socket_recvSelector___lam__6(v_s_591_, v_size_boxed_595_, v_waiter_593_);
 return v_res_596_;
 }
@@ -2358,7 +2358,7 @@ _start:
 {
 uint64_t v_size_boxed_651_; lean_object* v_res_652_; 
 v_size_boxed_651_ = lean_unbox_uint64(v_size_646_);
-lean_dec_ref(v_size_646_);
+lean_dec(v_size_646_);
 v_res_652_ = l_Std_Async_UDP_Socket_recvSelector___lam__10(v___f_644_, v_s_645_, v_size_boxed_651_, v___f_647_, v___f_648_, v_x_649_);
 return v_res_652_;
 }
@@ -2622,7 +2622,7 @@ _start:
 {
 uint64_t v_size_boxed_730_; lean_object* v_res_731_; 
 v_size_boxed_730_ = lean_unbox_uint64(v_size_729_);
-lean_dec_ref(v_size_729_);
+lean_dec(v_size_729_);
 v_res_731_ = l_Std_Async_UDP_Socket_recvSelector(v_s_728_, v_size_boxed_730_);
 return v_res_731_;
 }

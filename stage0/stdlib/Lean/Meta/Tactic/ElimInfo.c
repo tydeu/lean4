@@ -7196,7 +7196,7 @@ lean_dec(v_i_2352_);
 v_stop_boxed_2356_ = lean_unbox_usize(v_stop_2353_);
 lean_dec(v_stop_2353_);
 v_b_boxed_2357_ = lean_unbox_uint64(v_b_2354_);
-lean_dec_ref(v_b_2354_);
+lean_dec(v_b_2354_);
 v_res_2358_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_PersistentHashMap_insert___at___00Lean_SMap_insert___at___00Lean_Meta_addCustomEliminatorEntry_spec__0_spec__0_spec__2(v_as_2351_, v_i_boxed_2355_, v_stop_boxed_2356_, v_b_boxed_2357_);
 lean_dec_ref(v_as_2351_);
 v_r_2359_ = lean_box_uint64(v_res_2358_);

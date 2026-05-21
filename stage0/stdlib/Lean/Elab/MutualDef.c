@@ -67996,7 +67996,7 @@ lean_dec(v_i_23995_);
 v_stop_boxed_23999_ = lean_unbox_usize(v_stop_23996_);
 lean_dec(v_stop_23996_);
 v_b_boxed_24000_ = lean_unbox_uint64(v_b_23997_);
-lean_dec_ref(v_b_23997_);
+lean_dec(v_b_23997_);
 v_res_24001_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Elab_Command_elabMutualDef_spec__2(v_as_23994_, v_i_boxed_23998_, v_stop_boxed_23999_, v_b_boxed_24000_);
 lean_dec_ref(v_as_23994_);
 v_r_24002_ = lean_box_uint64(v_res_24001_);

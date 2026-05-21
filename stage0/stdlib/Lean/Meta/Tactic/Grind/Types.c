@@ -12437,7 +12437,7 @@ _start:
 {
 uint64_t v_r_boxed_4156_; uint64_t v_res_4157_; lean_object* v_r_4158_; 
 v_r_boxed_4156_ = lean_unbox_uint64(v_r_4155_);
-lean_dec_ref(v_r_4155_);
+lean_dec(v_r_4155_);
 v_res_4157_ = l___private_Lean_Meta_Tactic_Grind_Types_0__Lean_Meta_Grind_congrHash_go(v_enodes_4153_, v_e_4154_, v_r_boxed_4156_);
 lean_dec_ref(v_e_4154_);
 lean_dec_ref(v_enodes_4153_);
@@ -13377,7 +13377,7 @@ _start:
 {
 uint64_t v___y_198__boxed_4397_; lean_object* v_res_4398_; 
 v___y_198__boxed_4397_ = lean_unbox_uint64(v___y_4396_);
-lean_dec_ref(v___y_4396_);
+lean_dec(v___y_4396_);
 v_res_4398_ = l_Lean_Meta_Grind_instHashablePreInstance___lam__0(v_a_4394_, v_x_4395_, v___y_198__boxed_4397_);
 lean_dec_ref(v_a_4394_);
 return v_res_4398_;
@@ -18121,7 +18121,7 @@ lean_dec(v_sz_6243_);
 v_i_boxed_6247_ = lean_unbox_usize(v_i_6244_);
 lean_dec(v_i_6244_);
 v_b_boxed_6248_ = lean_unbox_uint64(v_b_6245_);
-lean_dec_ref(v_b_6245_);
+lean_dec(v_b_6245_);
 v_res_6249_ = l___private_Init_Data_Array_Basic_0__Array_forIn_x27Unsafe_loop___at___00Lean_PersistentHashMap_contains___at___00Lean_Meta_Grind_markTheoremInstance_spec__0_spec__0(v_as_6242_, v_sz_boxed_6246_, v_i_boxed_6247_, v_b_boxed_6248_);
 lean_dec_ref(v_as_6242_);
 v_r_6250_ = lean_box_uint64(v_res_6249_);
@@ -51505,7 +51505,7 @@ _start:
 {
 uint64_t v_anchorPrefix_boxed_19136_; lean_object* v_res_19137_; 
 v_anchorPrefix_boxed_19136_ = lean_unbox_uint64(v_anchorPrefix_19135_);
-lean_dec_ref(v_anchorPrefix_19135_);
+lean_dec(v_anchorPrefix_19135_);
 v_res_19137_ = l_Lean_Meta_Grind_anchorPrefixToString(v_numDigits_19134_, v_anchorPrefix_boxed_19136_);
 lean_dec(v_numDigits_19134_);
 return v_res_19137_;
@@ -51530,7 +51530,7 @@ _start:
 {
 uint64_t v_anchor_boxed_19149_; lean_object* v_res_19150_; 
 v_anchor_boxed_19149_ = lean_unbox_uint64(v_anchor_19148_);
-lean_dec_ref(v_anchor_19148_);
+lean_dec(v_anchor_19148_);
 v_res_19150_ = l_Lean_Meta_Grind_anchorToString(v_numDigits_19147_, v_anchor_boxed_19149_);
 lean_dec(v_numDigits_19147_);
 return v_res_19150_;

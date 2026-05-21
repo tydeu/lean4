@@ -3113,7 +3113,7 @@ uint8_t v___x_26663__boxed_851_; uint8_t v___x_26664__boxed_852_; uint64_t v___x
 v___x_26663__boxed_851_ = lean_unbox(v___x_839_);
 v___x_26664__boxed_852_ = lean_unbox(v___x_840_);
 v___x_26665__boxed_853_ = lean_unbox_uint64(v___x_841_);
-lean_dec_ref(v___x_841_);
+lean_dec(v___x_841_);
 v_res_854_ = l_reduceCtorEq___lam__2(v___x_26663__boxed_851_, v___x_26664__boxed_852_, v___x_26665__boxed_853_, v_h_842_, v___y_843_, v___y_844_, v___y_845_, v___y_846_, v___y_847_, v___y_848_, v___y_849_);
 lean_dec(v___y_849_);
 lean_dec_ref(v___y_848_);

@@ -5660,7 +5660,7 @@ _start:
 {
 uint64_t v_a_boxed_2315_; uint8_t v_res_2316_; lean_object* v_r_2317_; 
 v_a_boxed_2315_ = lean_unbox_uint64(v_a_2313_);
-lean_dec_ref(v_a_2313_);
+lean_dec(v_a_2313_);
 v_res_2316_ = l_Std_DHashMap_Internal_AssocList_contains___at___00Std_DHashMap_Internal_Raw_u2080_contains___at___00__private_Lean_Meta_Tactic_Grind_Anchor_0__Lean_Meta_Grind_getNumDigitsForAnchors_go___at___00Lean_Meta_Grind_getNumDigitsForAnchors___at___00__private_Lean_Elab_Tactic_Grind_ShowState_0__Lean_Elab_Tactic_Grind_evalShowLocalThms_spec__0_spec__0_spec__1_spec__3___redArg(v_a_boxed_2315_, v_x_2314_);
 lean_dec(v_x_2314_);
 v_r_2317_ = lean_box(v_res_2316_);
@@ -5694,7 +5694,7 @@ _start:
 {
 uint64_t v_a_boxed_2337_; uint8_t v_res_2338_; lean_object* v_r_2339_; 
 v_a_boxed_2337_ = lean_unbox_uint64(v_a_2336_);
-lean_dec_ref(v_a_2336_);
+lean_dec(v_a_2336_);
 v_res_2338_ = l_Std_DHashMap_Internal_Raw_u2080_contains___at___00__private_Lean_Meta_Tactic_Grind_Anchor_0__Lean_Meta_Grind_getNumDigitsForAnchors_go___at___00Lean_Meta_Grind_getNumDigitsForAnchors___at___00__private_Lean_Elab_Tactic_Grind_ShowState_0__Lean_Elab_Tactic_Grind_evalShowLocalThms_spec__0_spec__0_spec__1___redArg(v_m_2335_, v_a_boxed_2337_);
 lean_dec_ref(v_m_2335_);
 v_r_2339_ = lean_box(v_res_2338_);
@@ -5949,7 +5949,7 @@ _start:
 {
 uint64_t v_a_boxed_2435_; lean_object* v_res_2436_; 
 v_a_boxed_2435_ = lean_unbox_uint64(v_a_2433_);
-lean_dec_ref(v_a_2433_);
+lean_dec(v_a_2433_);
 v_res_2436_ = l_Std_DHashMap_Internal_Raw_u2080_insertIfNew___at___00__private_Lean_Meta_Tactic_Grind_Anchor_0__Lean_Meta_Grind_getNumDigitsForAnchors_go___at___00Lean_Meta_Grind_getNumDigitsForAnchors___at___00__private_Lean_Elab_Tactic_Grind_ShowState_0__Lean_Elab_Tactic_Grind_evalShowLocalThms_spec__0_spec__0_spec__2___redArg(v_m_2432_, v_a_boxed_2435_, v_b_2434_);
 return v_res_2436_;
 }
@@ -6475,7 +6475,7 @@ _start:
 {
 uint64_t v_a_boxed_2664_; uint8_t v_res_2665_; lean_object* v_r_2666_; 
 v_a_boxed_2664_ = lean_unbox_uint64(v_a_2663_);
-lean_dec_ref(v_a_2663_);
+lean_dec(v_a_2663_);
 v_res_2665_ = l_Std_DHashMap_Internal_Raw_u2080_contains___at___00__private_Lean_Meta_Tactic_Grind_Anchor_0__Lean_Meta_Grind_getNumDigitsForAnchors_go___at___00Lean_Meta_Grind_getNumDigitsForAnchors___at___00__private_Lean_Elab_Tactic_Grind_ShowState_0__Lean_Elab_Tactic_Grind_evalShowLocalThms_spec__0_spec__0_spec__1(v_00_u03b2_2661_, v_m_2662_, v_a_boxed_2664_);
 lean_dec_ref(v_m_2662_);
 v_r_2666_ = lean_box(v_res_2665_);
@@ -6495,7 +6495,7 @@ _start:
 {
 uint64_t v_a_boxed_2676_; lean_object* v_res_2677_; 
 v_a_boxed_2676_ = lean_unbox_uint64(v_a_2674_);
-lean_dec_ref(v_a_2674_);
+lean_dec(v_a_2674_);
 v_res_2677_ = l_Std_DHashMap_Internal_Raw_u2080_insertIfNew___at___00__private_Lean_Meta_Tactic_Grind_Anchor_0__Lean_Meta_Grind_getNumDigitsForAnchors_go___at___00Lean_Meta_Grind_getNumDigitsForAnchors___at___00__private_Lean_Elab_Tactic_Grind_ShowState_0__Lean_Elab_Tactic_Grind_evalShowLocalThms_spec__0_spec__0_spec__2(v_00_u03b2_2672_, v_m_2673_, v_a_boxed_2676_, v_b_2675_);
 return v_res_2677_;
 }
@@ -6513,7 +6513,7 @@ _start:
 {
 uint64_t v_a_boxed_2685_; uint8_t v_res_2686_; lean_object* v_r_2687_; 
 v_a_boxed_2685_ = lean_unbox_uint64(v_a_2683_);
-lean_dec_ref(v_a_2683_);
+lean_dec(v_a_2683_);
 v_res_2686_ = l_Std_DHashMap_Internal_AssocList_contains___at___00Std_DHashMap_Internal_Raw_u2080_contains___at___00__private_Lean_Meta_Tactic_Grind_Anchor_0__Lean_Meta_Grind_getNumDigitsForAnchors_go___at___00Lean_Meta_Grind_getNumDigitsForAnchors___at___00__private_Lean_Elab_Tactic_Grind_ShowState_0__Lean_Elab_Tactic_Grind_evalShowLocalThms_spec__0_spec__0_spec__1_spec__3(v_00_u03b2_2682_, v_a_boxed_2685_, v_x_2684_);
 lean_dec(v_x_2684_);
 v_r_2687_ = lean_box(v_res_2686_);

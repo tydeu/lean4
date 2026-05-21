@@ -9430,7 +9430,7 @@ _start:
 {
 uint64_t v_a_boxed_3716_; lean_object* v_res_3717_; 
 v_a_boxed_3716_ = lean_unbox_uint64(v_a_3713_);
-lean_dec_ref(v_a_3713_);
+lean_dec(v_a_3713_);
 v_res_3717_ = l_Std_DHashMap_Internal_AssocList_replace___at___00Std_DHashMap_Internal_Raw_u2080_insert___at___00Lean_Meta_Grind_AC_EqCnstr_toExprProof_spec__0_spec__2___redArg(v_a_boxed_3716_, v_b_3714_, v_x_3715_);
 return v_res_3717_;
 }
@@ -9468,7 +9468,7 @@ _start:
 {
 uint64_t v_a_boxed_3728_; uint8_t v_res_3729_; lean_object* v_r_3730_; 
 v_a_boxed_3728_ = lean_unbox_uint64(v_a_3726_);
-lean_dec_ref(v_a_3726_);
+lean_dec(v_a_3726_);
 v_res_3729_ = l_Std_DHashMap_Internal_AssocList_contains___at___00Std_DHashMap_Internal_Raw_u2080_insert___at___00Lean_Meta_Grind_AC_EqCnstr_toExprProof_spec__0_spec__0___redArg(v_a_boxed_3728_, v_x_3727_);
 lean_dec(v_x_3727_);
 v_r_3730_ = lean_box(v_res_3729_);
@@ -9741,7 +9741,7 @@ _start:
 {
 uint64_t v_a_boxed_3831_; lean_object* v_res_3832_; 
 v_a_boxed_3831_ = lean_unbox_uint64(v_a_3829_);
-lean_dec_ref(v_a_3829_);
+lean_dec(v_a_3829_);
 v_res_3832_ = l_Std_DHashMap_Internal_Raw_u2080_insert___at___00Lean_Meta_Grind_AC_EqCnstr_toExprProof_spec__0___redArg(v_m_3828_, v_a_boxed_3831_, v_b_3830_);
 return v_res_3832_;
 }
@@ -9784,7 +9784,7 @@ _start:
 {
 uint64_t v_a_boxed_3845_; lean_object* v_res_3846_; 
 v_a_boxed_3845_ = lean_unbox_uint64(v_a_3843_);
-lean_dec_ref(v_a_3843_);
+lean_dec(v_a_3843_);
 v_res_3846_ = l_Std_DHashMap_Internal_AssocList_get_x3f___at___00Std_DHashMap_Internal_Raw_u2080_Const_get_x3f___at___00Lean_Meta_Grind_AC_EqCnstr_toExprProof_spec__1_spec__4___redArg(v_a_boxed_3845_, v_x_3844_);
 lean_dec(v_x_3844_);
 return v_res_3846_;
@@ -9817,7 +9817,7 @@ _start:
 {
 uint64_t v_a_boxed_3866_; lean_object* v_res_3867_; 
 v_a_boxed_3866_ = lean_unbox_uint64(v_a_3865_);
-lean_dec_ref(v_a_3865_);
+lean_dec(v_a_3865_);
 v_res_3867_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get_x3f___at___00Lean_Meta_Grind_AC_EqCnstr_toExprProof_spec__1___redArg(v_m_3864_, v_a_boxed_3866_);
 lean_dec_ref(v_m_3864_);
 return v_res_3867_;
@@ -12983,7 +12983,7 @@ _start:
 {
 uint64_t v_a_boxed_4555_; lean_object* v_res_4556_; 
 v_a_boxed_4555_ = lean_unbox_uint64(v_a_4553_);
-lean_dec_ref(v_a_4553_);
+lean_dec(v_a_4553_);
 v_res_4556_ = l_Std_DHashMap_Internal_Raw_u2080_insert___at___00Lean_Meta_Grind_AC_EqCnstr_toExprProof_spec__0(v_00_u03b2_4551_, v_m_4552_, v_a_boxed_4555_, v_b_4554_);
 return v_res_4556_;
 }
@@ -13001,7 +13001,7 @@ _start:
 {
 uint64_t v_a_boxed_4564_; lean_object* v_res_4565_; 
 v_a_boxed_4564_ = lean_unbox_uint64(v_a_4563_);
-lean_dec_ref(v_a_4563_);
+lean_dec(v_a_4563_);
 v_res_4565_ = l_Std_DHashMap_Internal_Raw_u2080_Const_get_x3f___at___00Lean_Meta_Grind_AC_EqCnstr_toExprProof_spec__1(v_00_u03b2_4561_, v_m_4562_, v_a_boxed_4564_);
 lean_dec_ref(v_m_4562_);
 return v_res_4565_;
@@ -13020,7 +13020,7 @@ _start:
 {
 uint64_t v_a_boxed_4573_; uint8_t v_res_4574_; lean_object* v_r_4575_; 
 v_a_boxed_4573_ = lean_unbox_uint64(v_a_4571_);
-lean_dec_ref(v_a_4571_);
+lean_dec(v_a_4571_);
 v_res_4574_ = l_Std_DHashMap_Internal_AssocList_contains___at___00Std_DHashMap_Internal_Raw_u2080_insert___at___00Lean_Meta_Grind_AC_EqCnstr_toExprProof_spec__0_spec__0(v_00_u03b2_4570_, v_a_boxed_4573_, v_x_4572_);
 lean_dec(v_x_4572_);
 v_r_4575_ = lean_box(v_res_4574_);
@@ -13048,7 +13048,7 @@ _start:
 {
 uint64_t v_a_boxed_4588_; lean_object* v_res_4589_; 
 v_a_boxed_4588_ = lean_unbox_uint64(v_a_4585_);
-lean_dec_ref(v_a_4585_);
+lean_dec(v_a_4585_);
 v_res_4589_ = l_Std_DHashMap_Internal_AssocList_replace___at___00Std_DHashMap_Internal_Raw_u2080_insert___at___00Lean_Meta_Grind_AC_EqCnstr_toExprProof_spec__0_spec__2(v_00_u03b2_4584_, v_a_boxed_4588_, v_b_4586_, v_x_4587_);
 return v_res_4589_;
 }
@@ -13066,7 +13066,7 @@ _start:
 {
 uint64_t v_a_boxed_4597_; lean_object* v_res_4598_; 
 v_a_boxed_4597_ = lean_unbox_uint64(v_a_4595_);
-lean_dec_ref(v_a_4595_);
+lean_dec(v_a_4595_);
 v_res_4598_ = l_Std_DHashMap_Internal_AssocList_get_x3f___at___00Std_DHashMap_Internal_Raw_u2080_Const_get_x3f___at___00Lean_Meta_Grind_AC_EqCnstr_toExprProof_spec__1_spec__4(v_00_u03b2_4594_, v_a_boxed_4597_, v_x_4596_);
 lean_dec(v_x_4596_);
 return v_res_4598_;

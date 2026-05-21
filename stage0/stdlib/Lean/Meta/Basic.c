@@ -4417,7 +4417,7 @@ lean_dec(v_i_770_);
 v_stop_boxed_774_ = lean_unbox_usize(v_stop_771_);
 lean_dec(v_stop_771_);
 v_b_boxed_775_ = lean_unbox_uint64(v_b_772_);
-lean_dec_ref(v_b_772_);
+lean_dec(v_b_772_);
 v_res_776_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Meta_instHashableSynthInstanceCacheKey_hash_spec__0(v_as_769_, v_i_boxed_773_, v_stop_boxed_774_, v_b_boxed_775_);
 lean_dec_ref(v_as_769_);
 v_r_777_ = lean_box_uint64(v_res_776_);

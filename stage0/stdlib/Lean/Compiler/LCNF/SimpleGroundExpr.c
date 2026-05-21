@@ -2513,7 +2513,7 @@ _start:
 {
 uint64_t v_n_boxed_764_; lean_object* v_res_765_; 
 v_n_boxed_764_ = lean_unbox_uint64(v_n_763_);
-lean_dec_ref(v_n_763_);
+lean_dec(v_n_763_);
 v_res_765_ = l_Lean_Compiler_LCNF_uint64ToByteArrayLE(v_n_boxed_764_);
 return v_res_765_;
 }

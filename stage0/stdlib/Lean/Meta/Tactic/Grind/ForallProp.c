@@ -3143,7 +3143,7 @@ _start:
 {
 uint64_t v_a_4179__boxed_825_; size_t v_i_boxed_826_; size_t v_stop_boxed_827_; uint8_t v_res_828_; lean_object* v_r_829_; 
 v_a_4179__boxed_825_ = lean_unbox_uint64(v_a_821_);
-lean_dec_ref(v_a_821_);
+lean_dec(v_a_821_);
 v_i_boxed_826_ = lean_unbox_usize(v_i_823_);
 lean_dec(v_i_823_);
 v_stop_boxed_827_ = lean_unbox_usize(v_stop_824_);

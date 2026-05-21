@@ -525,7 +525,7 @@ _start:
 {
 uint64_t v_x_55__boxed_11_; lean_object* v_res_12_; 
 v_x_55__boxed_11_ = lean_unbox_uint64(v_x_7_);
-lean_dec_ref(v_x_7_);
+lean_dec(v_x_7_);
 v_res_12_ = l_Lean_Server_instInhabitedRpcProcedure_default___lam__0(v_x_55__boxed_11_, v___y_8_, v___y_9_);
 lean_dec_ref(v___y_9_);
 lean_dec(v___y_8_);
@@ -1196,7 +1196,7 @@ _start:
 {
 uint64_t v_sessionId_boxed_273_; lean_object* v_res_274_; 
 v_sessionId_boxed_273_ = lean_unbox_uint64(v_sessionId_269_);
-lean_dec_ref(v_sessionId_269_);
+lean_dec(v_sessionId_269_);
 v_res_274_ = l_Lean_Server_handleRpcCall___lam__0(v_val_268_, v_sessionId_boxed_273_, v_params_270_, v___y_271_);
 lean_dec_ref(v___y_271_);
 return v_res_274_;
@@ -1380,7 +1380,7 @@ _start:
 uint8_t v___x_2331__boxed_356_; uint64_t v_sessionId_boxed_357_; lean_object* v_res_358_; 
 v___x_2331__boxed_356_ = lean_unbox(v___x_349_);
 v_sessionId_boxed_357_ = lean_unbox_uint64(v_sessionId_350_);
-lean_dec_ref(v_sessionId_350_);
+lean_dec(v_sessionId_350_);
 v_res_358_ = l_Lean_Server_handleRpcCall___lam__3(v___x_346_, v_method_347_, v___x_348_, v___x_2331__boxed_356_, v_sessionId_boxed_357_, v_params_351_, v___x_352_, v_snap_353_, v___y_354_);
 lean_dec_ref(v___y_354_);
 lean_dec_ref(v_snap_353_);
@@ -3317,9 +3317,9 @@ _start:
 {
 uint64_t v_x_boxed_1009_; uint64_t v_y_boxed_1010_; uint8_t v_res_1011_; lean_object* v_r_1012_; 
 v_x_boxed_1009_ = lean_unbox_uint64(v_x_1007_);
-lean_dec_ref(v_x_1007_);
+lean_dec(v_x_1007_);
 v_y_boxed_1010_ = lean_unbox_uint64(v_y_1008_);
-lean_dec_ref(v_y_1008_);
+lean_dec(v_y_1008_);
 v_res_1011_ = l_Lean_Server_wrapRpcProcedure___redArg___lam__0(v_x_boxed_1009_, v_y_boxed_1010_);
 v_r_1012_ = lean_box(v_res_1011_);
 return v_r_1012_;
@@ -3631,7 +3631,7 @@ _start:
 {
 uint64_t v_seshId_boxed_1124_; lean_object* v_res_1125_; 
 v_seshId_boxed_1124_ = lean_unbox_uint64(v_seshId_1120_);
-lean_dec_ref(v_seshId_1120_);
+lean_dec(v_seshId_1120_);
 v_res_1125_ = l_Lean_Server_wrapRpcProcedure___redArg___lam__3(v___f_1115_, v_inst_1116_, v_method_1117_, v_handler_1118_, v_inst_1119_, v_seshId_boxed_1124_, v_j_1121_, v___y_1122_);
 lean_dec_ref(v___y_1122_);
 return v_res_1125_;

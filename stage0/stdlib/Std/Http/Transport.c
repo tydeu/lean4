@@ -467,7 +467,7 @@ _start:
 {
 uint64_t v_expect_boxed_77_; lean_object* v_res_78_; 
 v_expect_boxed_77_ = lean_unbox_uint64(v_expect_75_);
-lean_dec_ref(v_expect_75_);
+lean_dec(v_expect_75_);
 v_res_78_ = l_Std_Http_instTransportClient___lam__2(v_client_74_, v_expect_boxed_77_);
 lean_dec(v_client_74_);
 return v_res_78_;
@@ -2528,7 +2528,7 @@ _start:
 {
 uint64_t v___expect_boxed_712_; lean_object* v_res_713_; 
 v___expect_boxed_712_ = lean_unbox_uint64(v___expect_710_);
-lean_dec_ref(v___expect_710_);
+lean_dec(v___expect_710_);
 v_res_713_ = l_Std_Http_Internal_Mock_Client_tryRecv_x3f(v_client_709_, v___expect_boxed_712_);
 return v_res_713_;
 }
@@ -2943,7 +2943,7 @@ _start:
 {
 uint64_t v___expect_boxed_827_; lean_object* v_res_828_; 
 v___expect_boxed_827_ = lean_unbox_uint64(v___expect_825_);
-lean_dec_ref(v___expect_825_);
+lean_dec(v___expect_825_);
 v_res_828_ = l_Std_Http_Internal_Mock_Server_tryRecv_x3f(v_server_824_, v___expect_boxed_827_);
 return v_res_828_;
 }
@@ -3208,7 +3208,7 @@ _start:
 {
 uint64_t v_expect_boxed_889_; lean_object* v_res_890_; 
 v_expect_boxed_889_ = lean_unbox_uint64(v_expect_887_);
-lean_dec_ref(v_expect_887_);
+lean_dec(v_expect_887_);
 v_res_890_ = l_Std_Http_Internal_instTransportClient___lam__0(v_client_886_, v_expect_boxed_889_);
 return v_res_890_;
 }
@@ -3248,7 +3248,7 @@ _start:
 {
 uint64_t v_x_43__boxed_906_; lean_object* v_res_907_; 
 v_x_43__boxed_906_ = lean_unbox_uint64(v_x_905_);
-lean_dec_ref(v_x_905_);
+lean_dec(v_x_905_);
 v_res_907_ = l_Std_Http_Internal_instTransportClient___lam__2(v_client_904_, v_x_43__boxed_906_);
 return v_res_907_;
 }
@@ -3272,7 +3272,7 @@ _start:
 {
 uint64_t v_expect_boxed_928_; lean_object* v_res_929_; 
 v_expect_boxed_928_ = lean_unbox_uint64(v_expect_926_);
-lean_dec_ref(v_expect_926_);
+lean_dec(v_expect_926_);
 v_res_929_ = l_Std_Http_Internal_instTransportServer___lam__0(v_server_925_, v_expect_boxed_928_);
 return v_res_929_;
 }
@@ -3312,7 +3312,7 @@ _start:
 {
 uint64_t v_x_43__boxed_945_; lean_object* v_res_946_; 
 v_x_43__boxed_945_ = lean_unbox_uint64(v_x_944_);
-lean_dec_ref(v_x_944_);
+lean_dec(v_x_944_);
 v_res_946_ = l_Std_Http_Internal_instTransportServer___lam__2(v_server_943_, v_x_43__boxed_945_);
 return v_res_946_;
 }

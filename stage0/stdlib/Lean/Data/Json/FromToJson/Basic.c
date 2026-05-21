@@ -2304,7 +2304,7 @@ _start:
 {
 uint64_t v_v_boxed_642_; lean_object* v_res_643_; 
 v_v_boxed_642_ = lean_unbox_uint64(v_v_641_);
-lean_dec_ref(v_v_641_);
+lean_dec(v_v_641_);
 v_res_643_ = l_Lean_instToJsonUInt64___lam__0(v_v_boxed_642_);
 return v_res_643_;
 }

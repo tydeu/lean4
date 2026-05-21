@@ -1665,7 +1665,7 @@ _start:
 {
 uint64_t v_k_boxed_219_; lean_object* v_res_220_; 
 v_k_boxed_219_ = lean_unbox_uint64(v_k_218_);
-lean_dec_ref(v_k_218_);
+lean_dec(v_k_218_);
 v_res_220_ = l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_Server_wrapRpcProcedure___at___00Lean_Server_registerBuiltinRpcProcedure___at___00__private_Lean_Server_FileWorker_WidgetRequests_0__Lean_Widget_initFn_00___x40_Lean_Server_FileWorker_WidgetRequests_1264552272____hygCtx___hyg_2__spec__0_spec__1_spec__3___redArg(v_t_217_, v_k_boxed_219_);
 lean_dec(v_t_217_);
 return v_res_220_;
@@ -2487,7 +2487,7 @@ _start:
 {
 uint64_t v_seshId_boxed_480_; lean_object* v_res_481_; 
 v_seshId_boxed_480_ = lean_unbox_uint64(v_seshId_476_);
-lean_dec_ref(v_seshId_476_);
+lean_dec(v_seshId_476_);
 v_res_481_ = l_Lean_Server_wrapRpcProcedure___at___00Lean_Server_registerBuiltinRpcProcedure___at___00__private_Lean_Server_FileWorker_WidgetRequests_0__Lean_Widget_initFn_00___x40_Lean_Server_FileWorker_WidgetRequests_1264552272____hygCtx___hyg_2__spec__0_spec__1___lam__3(v_method_473_, v_handler_474_, v___f_475_, v_seshId_boxed_480_, v_j_477_, v___y_478_);
 lean_dec_ref(v___y_478_);
 return v_res_481_;
@@ -3480,7 +3480,7 @@ _start:
 {
 uint64_t v_k_boxed_810_; lean_object* v_res_811_; 
 v_k_boxed_810_ = lean_unbox_uint64(v_k_809_);
-lean_dec_ref(v_k_809_);
+lean_dec(v_k_809_);
 v_res_811_ = l_Std_DTreeMap_Internal_Impl_Const_get_x3f___at___00Lean_Server_wrapRpcProcedure___at___00Lean_Server_registerBuiltinRpcProcedure___at___00__private_Lean_Server_FileWorker_WidgetRequests_0__Lean_Widget_initFn_00___x40_Lean_Server_FileWorker_WidgetRequests_1264552272____hygCtx___hyg_2__spec__0_spec__1_spec__3(v_00_u03b4_807_, v_t_808_, v_k_boxed_810_);
 lean_dec(v_t_808_);
 return v_res_811_;
@@ -6747,7 +6747,7 @@ _start:
 {
 uint64_t v_seshId_boxed_1807_; lean_object* v_res_1808_; 
 v_seshId_boxed_1807_ = lean_unbox_uint64(v_seshId_1803_);
-lean_dec_ref(v_seshId_1803_);
+lean_dec(v_seshId_1803_);
 v_res_1808_ = l_Lean_Server_wrapRpcProcedure___at___00Lean_Server_registerBuiltinRpcProcedure___at___00__private_Lean_Server_FileWorker_WidgetRequests_0__Lean_Widget_initFn_00___x40_Lean_Server_FileWorker_WidgetRequests_1454953308____hygCtx___hyg_2__spec__0_spec__0___lam__0(v___x_1799_, v_method_1800_, v_handler_1801_, v___f_1802_, v_seshId_boxed_1807_, v_j_1804_, v___y_1805_);
 lean_dec_ref(v___y_1805_);
 return v_res_1808_;
@@ -7353,7 +7353,7 @@ _start:
 {
 uint64_t v_seshId_boxed_1990_; lean_object* v_res_1991_; 
 v_seshId_boxed_1990_ = lean_unbox_uint64(v_seshId_1986_);
-lean_dec_ref(v_seshId_1986_);
+lean_dec(v_seshId_1986_);
 v_res_1991_ = l_Lean_Server_wrapRpcProcedure___at___00Lean_Server_registerBuiltinRpcProcedure___at___00__private_Lean_Server_FileWorker_WidgetRequests_0__Lean_Widget_initFn_00___x40_Lean_Server_FileWorker_WidgetRequests_616148837____hygCtx___hyg_2__spec__0_spec__0___lam__0(v_method_1983_, v_handler_1984_, v___f_1985_, v_seshId_boxed_1990_, v_j_1987_, v___y_1988_);
 lean_dec_ref(v___y_1988_);
 return v_res_1991_;
@@ -7957,7 +7957,7 @@ _start:
 {
 uint64_t v_seshId_boxed_2171_; lean_object* v_res_2172_; 
 v_seshId_boxed_2171_ = lean_unbox_uint64(v_seshId_2167_);
-lean_dec_ref(v_seshId_2167_);
+lean_dec(v_seshId_2167_);
 v_res_2172_ = l_Lean_Server_wrapRpcProcedure___at___00Lean_Server_registerBuiltinRpcProcedure___at___00__private_Lean_Server_FileWorker_WidgetRequests_0__Lean_Widget_initFn_00___x40_Lean_Server_FileWorker_WidgetRequests_3220324137____hygCtx___hyg_2__spec__0_spec__0___lam__0(v_method_2164_, v_handler_2165_, v___f_2166_, v_seshId_boxed_2171_, v_j_2168_, v___y_2169_);
 lean_dec_ref(v___y_2169_);
 return v_res_2172_;
@@ -9877,7 +9877,7 @@ _start:
 {
 uint64_t v_seshId_boxed_2761_; lean_object* v_res_2762_; 
 v_seshId_boxed_2761_ = lean_unbox_uint64(v_seshId_2757_);
-lean_dec_ref(v_seshId_2757_);
+lean_dec(v_seshId_2757_);
 v_res_2762_ = l_Lean_Server_wrapRpcProcedure___at___00Lean_Server_registerBuiltinRpcProcedure___at___00__private_Lean_Server_FileWorker_WidgetRequests_0__Lean_Widget_initFn_00___x40_Lean_Server_FileWorker_WidgetRequests_4152489880____hygCtx___hyg_2__spec__1_spec__1___lam__0(v_method_2754_, v_handler_2755_, v___f_2756_, v_seshId_boxed_2761_, v_j_2758_, v___y_2759_);
 lean_dec_ref(v___y_2759_);
 return v_res_2762_;
@@ -10642,7 +10642,7 @@ _start:
 {
 uint64_t v_seshId_boxed_3032_; lean_object* v_res_3033_; 
 v_seshId_boxed_3032_ = lean_unbox_uint64(v_seshId_3028_);
-lean_dec_ref(v_seshId_3028_);
+lean_dec(v_seshId_3028_);
 v_res_3033_ = l_Lean_Server_wrapRpcProcedure___at___00Lean_Server_registerBuiltinRpcProcedure___at___00__private_Lean_Server_FileWorker_WidgetRequests_0__Lean_Widget_initFn_00___x40_Lean_Server_FileWorker_WidgetRequests_2425369468____hygCtx___hyg_2__spec__0_spec__0___lam__0(v___x_3024_, v_method_3025_, v_handler_3026_, v___f_3027_, v_seshId_boxed_3032_, v_j_3029_, v___y_3030_);
 lean_dec_ref(v___y_3030_);
 return v_res_3033_;
@@ -20739,7 +20739,7 @@ _start:
 {
 uint64_t v_seshId_boxed_6212_; lean_object* v_res_6213_; 
 v_seshId_boxed_6212_ = lean_unbox_uint64(v_seshId_6208_);
-lean_dec_ref(v_seshId_6208_);
+lean_dec(v_seshId_6208_);
 v_res_6213_ = l_Lean_Server_wrapRpcProcedure___at___00Lean_Server_registerBuiltinRpcProcedure___at___00__private_Lean_Server_FileWorker_WidgetRequests_0__Lean_Widget_initFn_00___x40_Lean_Server_FileWorker_WidgetRequests_2782638367____hygCtx___hyg_2__spec__0_spec__0___lam__0(v_method_6205_, v_handler_6206_, v___f_6207_, v_seshId_boxed_6212_, v_j_6209_, v___y_6210_);
 lean_dec_ref(v___y_6210_);
 return v_res_6213_;

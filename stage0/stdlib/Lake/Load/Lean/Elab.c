@@ -802,7 +802,7 @@ lean_dec(v_i_80_);
 v_stop_boxed_84_ = lean_unbox_usize(v_stop_81_);
 lean_dec(v_stop_81_);
 v_b_boxed_85_ = lean_unbox_uint64(v_b_82_);
-lean_dec_ref(v_b_82_);
+lean_dec(v_b_82_);
 v_res_86_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Std_DHashMap_Internal_Raw_u2080_Const_get_x3f___at___00Lake_importModulesUsingCache_spec__0_spec__1(v_as_79_, v_i_boxed_83_, v_stop_boxed_84_, v_b_boxed_85_);
 lean_dec_ref(v_as_79_);
 v_r_87_ = lean_box_uint64(v_res_86_);

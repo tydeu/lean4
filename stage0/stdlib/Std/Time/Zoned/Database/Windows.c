@@ -69,7 +69,7 @@ _start:
 {
 uint64_t v_a_00___x40___internal___hyg_2__boxed_9_; uint8_t v_a_00___x40___internal___hyg_3__boxed_10_; lean_object* v_res_11_; 
 v_a_00___x40___internal___hyg_2__boxed_9_ = lean_unbox_uint64(v_a_00___x40___internal___hyg_6_);
-lean_dec_ref(v_a_00___x40___internal___hyg_6_);
+lean_dec(v_a_00___x40___internal___hyg_6_);
 v_a_00___x40___internal___hyg_3__boxed_10_ = lean_unbox(v_a_00___x40___internal___hyg_7_);
 v_res_11_ = lean_windows_get_next_transition(v_a_00___x40___internal___hyg_5_, v_a_00___x40___internal___hyg_2__boxed_9_, v_a_00___x40___internal___hyg_3__boxed_10_);
 lean_dec_ref(v_a_00___x40___internal___hyg_5_);
@@ -81,7 +81,7 @@ _start:
 {
 uint64_t v_a_00___x40___internal___hyg_1__boxed_16_; lean_object* v_res_17_; 
 v_a_00___x40___internal___hyg_1__boxed_16_ = lean_unbox_uint64(v_a_00___x40___internal___hyg_14_);
-lean_dec_ref(v_a_00___x40___internal___hyg_14_);
+lean_dec(v_a_00___x40___internal___hyg_14_);
 v_res_17_ = lean_get_windows_local_timezone_id_at(v_a_00___x40___internal___hyg_1__boxed_16_);
 return v_res_17_;
 }

@@ -950,7 +950,7 @@ lean_dec(v_i_232_);
 v_stop_boxed_236_ = lean_unbox_usize(v_stop_233_);
 lean_dec(v_stop_233_);
 v_b_boxed_237_ = lean_unbox_uint64(v_b_234_);
-lean_dec_ref(v_b_234_);
+lean_dec(v_b_234_);
 v_res_238_ = l___private_Init_Data_Array_Basic_0__Array_foldlMUnsafe_fold___at___00Lean_Meta_Ext_instHashableExtTheorem_hash_spec__0(v_as_231_, v_i_boxed_235_, v_stop_boxed_236_, v_b_boxed_237_);
 lean_dec_ref(v_as_231_);
 v_r_239_ = lean_box_uint64(v_res_238_);

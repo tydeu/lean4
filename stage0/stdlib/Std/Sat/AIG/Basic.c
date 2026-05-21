@@ -974,7 +974,7 @@ lean_dec_ref_known(v_x_170_, 1);
 v___x_173_ = 1ULL;
 v___x_174_ = lean_apply_1(v_inst_169_, v_idx_172_);
 v___x_175_ = lean_unbox_uint64(v___x_174_);
-lean_dec_ref(v___x_174_);
+lean_dec(v___x_174_);
 v___x_176_ = lean_uint64_mix_hash(v___x_173_, v___x_175_);
 return v___x_176_;
 }
