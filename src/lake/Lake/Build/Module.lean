@@ -412,16 +412,13 @@ def fetchImportInfo
     if h : n = 0 then
       if h : multiVersion then
         let pkg := pkg?.get h.2.2
-        let mods := ws.findModules imp.module
-        if n = 0 then
-          return s -- delegate resolution to Lean
-        else
-          let pkgs := mods.map (s!"\n  {·.pkg.discriminant}")
-          logError s!"{fileName}: import `{imp.module}` found in inaccessible packages:{pkgs}\n\
-            multi-version workspace are enabled and these package are not a direct dependencies \
-            of `{pkg.prettyName}`, so this module cannot import them"
-          return .error
-      return s -- delegate resolution to Lean
+        let pkgs := mods.map (s!"\n  {·.pkg.discriminant}")
+        logError s!"{fileName}: import `{imp.module}` found in inaccessible packages:{pkgs}\n\
+          multi-version workspace are enabled and these package are not a direct dependencies \
+          of `{pkg.prettyName}`, so this module cannot import them"
+        return .error
+      else
+        return s -- delegate resolution to Lean
     else if n = 1 then -- common fast path
       let mod := mods[0]
       -- Remark: We've decided to disable this check for now
