@@ -409,6 +409,10 @@ def relationFolders : List (Name × Folder) := [
   (``UInt64.decEq, Folder.mkBinaryDecisionProcedure UInt64.decEq),
   (``UInt64.decLt, Folder.mkBinaryDecisionProcedure UInt64.decLt),
   (``UInt64.decLe, Folder.mkBinaryDecisionProcedure UInt64.decLe),
+  -- Equality is perserved across bit widths,
+  -- so it is safe to interpret `USize` literals as `UInt64` values
+  have : Literal UInt64 := mkUIntInstance (fun | .usize x => some x | _ => none) .usize
+  (``USize.decEq, Folder.mkBinaryDecisionProcedure UInt64.decEq),
   (``Bool.decEq, Folder.mkBinaryDecisionProcedure Bool.decEq),
   (``String.decEq, Folder.mkBinaryDecisionProcedure String.decEq)
 ]

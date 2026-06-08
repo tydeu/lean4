@@ -21,3 +21,13 @@ def mwe : Bool :=
     let y64 := 2
     x8 + y8 < 4 && x16 + y16 < 4 && x32 + y32 < 4 && x64 + y64 < 4
 
+/--
+trace: [Compiler.IR] [result]
+    def usizeDecEq : u8 :=
+      let x_1 : u8 := 1;
+      ret x_1
+-/
+#guard_msgs in
+set_option trace.compiler.ir.result true in
+def usizeDecEq : Bool :=
+    (0 : USize) = (0 : USize)
