@@ -530,7 +530,7 @@ Recursively build a module's dependencies, including:
 * Shared libraries (e.g., `extern_lib` targets or precompiled modules)
 * `extraDepTargets` of its library
 -/
-def Module.recFetchSetup (mod : Module) : FetchM (Job ModuleSetup) := ensureJob do
+def Module.recFetchPreSetup (mod : Module) : FetchM (Job ModulePreSetup) := ensureJob do
   /-
   Remark: Await extra target dependencies (e.g., cloud releases, `needs`) before any
   other module processing. This both enables the dependencies to effect these elements
@@ -544,7 +544,7 @@ def Module.recFetchSetup (mod : Module) : FetchM (Job ModuleSetup) := ensureJob 
   let extraDepJob ← mod.lib.extraDep.fetch
   discard extraDepJob.await
 
-  let headerJob ← mod.header.fetch
+  let inputJob ← mod.input.fetch
   /-
   Remark: We must build direct imports before we fetch the transitive
   precompiled imports so that errors in the import block of transitive imports
@@ -567,7 +567,7 @@ def Module.recFetchSetup (mod : Module) : FetchM (Job ModuleSetup) := ensureJob 
   let dynlibsJob ← mod.dynlibs.fetchIn mod.pkg "module dynlibs"
   let pluginsJob ← mod.plugins.fetchIn mod.pkg "module plugins"
 
-  headerJob.bindM (sync := true) fun header => do
+  inputJob.bindM (sync := true) fun input => do
   impInfoJob.bindM (sync := true) fun info => do
   newTrace
   impLibsJob.bindM (sync := true) fun impLibs => do
@@ -577,32 +577,71 @@ def Module.recFetchSetup (mod : Module) : FetchM (Job ModuleSetup) := ensureJob 
     let libTrace ← takeTrace
     let trace := BuildTrace.nil "deps"
     let depTrace := trace.mix extraDepJob.getTrace |>.mix info.trace
-    setTraceCaption s!"{mod.name.toString}:deps"
+    setTraceCaption s!"{mod.name.toString}"
     let libTrace := libTrace.withCaption "libs"
     match mod.platformIndependent with
     | none => addTrace depTrace; addTrace libTrace
     | some false => addTrace depTrace; addTrace libTrace; addPlatformTrace
-    | some true => addTrace depTrace
+    | some true => addTrace depTrace; addTrace (.nil "libs")
     let {dynlibs, plugins} ← computeModuleDeps impLibs externLibs dynlibs plugins
     let extra := (← getLeanOptOverrides).find? mod.pkg.baseName |>.getD {}
+    let leanOptions := mod.leanOptions ++ extra
+    addTrace input.trace
+    addTrace <| traceOptions leanOptions "options"
+    addPureTrace input.header.isModule "isModule"
+    addPureTrace mod.name "Module.name"
+    addPureTrace mod.pkg.id? "Package.id?"
+    addPureTrace mod.leanArgs "Module.leanArgs"
     return {
-      name := mod.name
-      isModule := header.isModule
-      package? := mod.pkg.id?
-      imports? := none
-      importArts := info.directArts
-      dynlibs := dynlibs.map (·.path)
-      plugins := plugins.map (·.path)
-      options := mod.leanOptions ++ extra
+      trace := ← getTrace
+      srcFile := input.path
+      srcMTime := input.trace.mtime
+      isModule := input.header.isModule
+      directImports := input.imports
+      directImportArts := info.directArts
+      dynlibs, plugins, leanOptions
     }
+where
+  traceOptions (opts : LeanOptions) (caption := "opts") : BuildTrace :=
+    opts.values.foldl (init := .nil caption) fun t n v =>
+      let opt := s!"-D{n}={v.asCliFlagValue}"
+      t.mix <| .ofHash (pureHash opt) opt
+
+/-- The `ModuleFacetConfig` for the builtin `presetupFacet`. -/
+public def Module.presetupFacetConfig : ModuleFacetConfig presetupFacet :=
+  mkFacetJobConfig recFetchPreSetup
+
+/-- The `ModuleFacetConfig` for the builtin `depsFacet`. -/
+public def Module.depTraceFacetConfig : ModuleFacetConfig depTraceFacet :=
+  mkFacetJobConfig fun mod => return (← mod.presetup.fetch).map (·.trace)
+
+/-- The `ModuleFacetConfig` for the builtin `depsFacet`. -/
+public def Module.depsFacetConfig : ModuleFacetConfig depsFacet :=
+  mkFacetJobConfig fun mod => (·.toOpaque) <$> mod.presetup.fetch
+
+def mkModuleSetup (mod : Module) (presetup : ModulePreSetup) : FetchM ModuleSetup := do
+  let importArts ← fetchTransImportArts
+      presetup.directImports presetup.directImportArts !presetup.isModule
+  return {
+    name := mod.name
+    isModule := presetup.isModule
+    package? := mod.pkg.id?
+    imports? := none
+    importArts
+    dynlibs := presetup.dynlibs.map (·.path)
+    plugins := presetup.plugins.map (·.path)
+    options := presetup.leanOptions
+  }
+
+/-- Recursively compute the contents of a `setup.json` for the module. -/
+def Module.recFetchSetup (mod : Module) : FetchM (Job ModuleSetup) := ensureJob do
+  withRegisterJob s!"{mod.name}:setup" do
+  (← mod.presetup.fetch).mapM fun presetup => do
+    mkModuleSetup mod presetup
 
 /-- The `ModuleFacetConfig` for the builtin `setupFacet`. -/
 public def Module.setupFacetConfig : ModuleFacetConfig setupFacet :=
   mkFacetJobConfig recFetchSetup
-
-/-- The `ModuleFacetConfig` for the builtin `depsFacet`. -/
-public def Module.depsFacetConfig : ModuleFacetConfig depsFacet :=
-  mkFacetJobConfig fun mod => (·.toOpaque) <$> mod.setup.fetch
 
 /-- Remove all existing artifacts produced by the Lean build of the module. -/
 public def Module.clearOutputArtifacts (mod : Module) : IO PUnit := do
@@ -874,43 +913,50 @@ def Module.unpackLtar (self : Module) (ltar : FilePath) : JobM Unit := do
   ]
   proc (quiet := true) {cmd := (← getLeantar).toString, args}
 
-def Module.recBuildLtar (self : Module) : FetchM (Job FilePath) := do
-  withRegisterJob s!"{self.name}:ltar" <| withCurrPackage self.pkg do
-  (← self.leanArts.fetch).mapM fun arts => do
-    let art ← arts.ltar?.getDM do
-      if (← getNoBuild) then
-        modify ({· with wantsRebuild := true})
-        error "archive does not exist and needs to be built"
-      else
-        updateAction .build
-        self.packLtar arts
-    newTrace s!"{self.name.toString}:ltar"
-    addTrace art.trace
-    return art.path
+def Module.recBuildLtar (mod : Module) : FetchM (Job FilePath) := do
+  withRegisterJob s!"{mod.name}:ltar" <| withCurrPackage mod.pkg do
+  (← mod.presetup.fetch).bindM fun _ => do
+    if (← mod.pkg.isArtifactCacheReadable) then
+      let inputHash := (← getTrace).hash
+      if let some (ltar : Artifact) ← getArtifactsUsingCache? inputHash mod.pkg then
+        if (← mod.pkg.restoreAllArtifacts) then
+          let savedTrace ← readTraceFile mod.traceFile
+          unless (← savedTrace.replayCachedIfUpToDate inputHash) do
+            -- Note: Can race with `leanArts`
+            mod.clearOutputArtifacts
+            removeFileIfExists mod.traceFile
+          let art ← restoreArtifact mod.ltarFile ltar
+          return Job.pure art.path
+        else
+          return Job.pure ltar.path
+    (← mod.leanArts.fetch).mapM fun arts => do
+      let art ← arts.ltar?.getDM do
+        if (← getNoBuild) then
+          modify ({· with wantsRebuild := true})
+          error "archive does not exist and needs to be built"
+        else
+          updateAction .build
+          mod.packLtar arts
+      newTrace s!"{mod.name.toString}:ltar"
+      addTrace art.trace
+      return art.path
 
 /-- The `ModuleFacetConfig` for the builtin `ltarFacet`. -/
 public def Module.ltarFacetConfig : ModuleFacetConfig ltarFacet :=
   mkFacetJobConfig recBuildLtar
 
 def Module.buildLean
-  (mod : Module) (depTrace : BuildTrace) (srcFile : FilePath) (setup : ModuleSetup)
-: JobM ModuleOutputArtifacts := buildAction depTrace mod.traceFile do
+  (mod : Module) (presetup : ModulePreSetup)
+: JobM ModuleOutputArtifacts := buildAction presetup.trace mod.traceFile do
   let args := mod.weakLeanArgs ++ mod.leanArgs
-  let relSrcFile := relPathFrom mod.pkg.dir srcFile
-  let directImports := (← (← mod.input.fetch).await).imports
-  let transImpArts ← fetchTransImportArts directImports setup.importArts !setup.isModule
-  let setup := {setup with importArts := transImpArts}
-  let arts := mod.mkArtifacts srcFile setup.isModule
+  let relSrcFile := relPathFrom mod.pkg.dir presetup.srcFile
+  let setup ← mkModuleSetup mod presetup
+  let arts := mod.mkArtifacts presetup.srcFile presetup.isModule
   mod.clearOutputArtifacts
-  compileLeanModule srcFile relSrcFile setup mod.setupFile arts args
+  compileLeanModule presetup.srcFile relSrcFile setup mod.setupFile arts args
     (← getLeanPath) (← getLean) (← getLeanir)
   mod.clearOutputHashes
   mod.computeArtifacts setup.isModule
-
-def traceOptions (opts : LeanOptions) (caption := "opts") : BuildTrace :=
-  opts.values.foldl (init := .nil caption) fun t n v =>
-    let opt := s!"-D{n}={v.asCliFlagValue}"
-    t.mix <| .ofHash (pureHash opt) opt
 
 /--
 Recursively build a Lean module.
@@ -924,25 +970,14 @@ def Module.recBuildLean (mod : Module) : FetchM (Job ModuleOutputArtifacts) := d
   ensure all logs end up under its caption in the job monitor.
   -/
   withRegisterJob mod.name.toString do
-  let setupJob ← mod.setup.fetch
-  let leanJob ← mod.lean.fetch
-  setupJob.mapM fun setup => do
-    addLeanTrace
-    let srcFile ← leanJob.await
-    let srcTrace := leanJob.getTrace
-    addTrace srcTrace
-    addTrace <| traceOptions setup.options "options"
-    addPureTrace setup.isModule "isModule"
-    addPureTrace mod.name "Module.name"
-    addPureTrace mod.pkg.id? "Package.id?"
-    addPureTrace mod.leanArgs "Module.leanArgs"
-    setTraceCaption s!"{mod.name.toString}:leanArts"
-    let arts ← fetchCore setup srcFile srcTrace
+  let presetupJob ← mod.presetup.fetch
+  presetupJob.mapM fun presetup => do
+    let arts ← fetchCore presetup
     let arts ← trackOutputsIfEnabled arts
     let arts ← adjustMTime arts
     return arts
 where
-  fetchFromCache? setup savedTrace restoreAll : JobM (ModuleOutputArtifacts ⊕ SavedTrace) := do
+  fetchFromCache? presetup savedTrace restoreAll : JobM (ModuleOutputArtifacts ⊕ SavedTrace) := do
     let inputHash := (← getTrace).hash
     let some ltarOrArts ← getArtifacts? inputHash savedTrace mod.pkg
       | return .inr savedTrace
@@ -960,7 +995,7 @@ where
         -- end up in the build directory and, if writable, the cache
         let arts ← mod.restoreAllArtifacts {arts with ltar? := some ltar}
         if (← mod.pkg.isArtifactCacheWritable) then
-          let arts ← mod.cacheOutputArtifacts setup.isModule restoreAll
+          let arts ← mod.cacheOutputArtifacts presetup.isModule restoreAll
           -- Note: Cache service metadata is not preserved on an output update because it would
           -- result in downloading module outputs that are not available on the remote.
           (← getLakeCache).writeOutputs mod.pkg.cacheScope inputHash arts.descrs (overwrite := true)
@@ -979,46 +1014,46 @@ where
         else
           mod.restoreNeededArtifacts arts
       return .inl arts
-  fetchCore setup srcFile srcTrace : JobM ModuleOutputArtifacts := do
+  fetchCore (presetup : ModulePreSetup) : JobM ModuleOutputArtifacts := do
     let depTrace ← getTrace
-    have : GetMTime Module := ⟨Module.getMTime (isModule := setup.isModule)⟩
-    have : CheckExists Module := ⟨Module.checkExists (isModule := setup.isModule)⟩
+    have : GetMTime Module := ⟨Module.getMTime (isModule := presetup.isModule)⟩
+    have : CheckExists Module := ⟨Module.checkExists (isModule := presetup.isModule)⟩
     let savedTrace ← readTraceFile mod.traceFile
     if (← mod.pkg.isArtifactCacheWritable) then
       let restore ← mod.pkg.restoreAllArtifacts
-      match (← fetchFromCache? setup savedTrace restore) with
+      match (← fetchFromCache? presetup savedTrace restore) with
       | .inl arts =>
         return arts
       | .inr savedTrace =>
-        let status ← savedTrace.replayIfUpToDate' (oldTrace := srcTrace.mtime) mod depTrace
+        let status ← savedTrace.replayIfUpToDate' (oldTrace := presetup.srcMTime) mod depTrace
         if status.isUpToDate then
-          unless (← mod.checkArtifactsExist setup.isModule) do
+          unless (← mod.checkArtifactsExist presetup.isModule) do
             mod.unpackLtar mod.ltarFile
         else
-          discard <| mod.buildLean depTrace srcFile setup
+          discard <| mod.buildLean presetup
         if status.isCacheable then
-          let arts ← mod.cacheOutputArtifacts setup.isModule restore
+          let arts ← mod.cacheOutputArtifacts presetup.isModule restore
           (← getLakeCache).writeOutputs mod.pkg.cacheScope depTrace.hash arts.descrs
           return arts
         else
-          mod.computeArtifacts setup.isModule
+          mod.computeArtifacts presetup.isModule
     else
-      if (← savedTrace.replayIfUpToDate (oldTrace := srcTrace.mtime) mod depTrace) then
-        unless (← mod.checkArtifactsExist setup.isModule) do
+      if (← savedTrace.replayIfUpToDate (oldTrace := presetup.srcMTime) mod depTrace) then
+        unless (← mod.checkArtifactsExist presetup.isModule) do
           mod.unpackLtar mod.ltarFile
-        mod.computeArtifacts setup.isModule
+        mod.computeArtifacts presetup.isModule
       else
         if (← mod.pkg.isArtifactCacheReadable) then
-          match (← fetchFromCache? setup savedTrace true) with
+          match (← fetchFromCache? presetup savedTrace true) with
           | .inl arts =>
               return arts
           | .inr savedTrace =>
-            if (← savedTrace.replayIfUpToDate (oldTrace := srcTrace.mtime) mod depTrace) then
-              mod.computeArtifacts setup.isModule
+            if (← savedTrace.replayIfUpToDate (oldTrace := presetup.srcMTime) mod depTrace) then
+              mod.computeArtifacts presetup.isModule
             else
-              mod.buildLean depTrace srcFile setup
+              mod.buildLean presetup
         else
-          mod.buildLean depTrace srcFile setup
+          mod.buildLean presetup
   trackOutputsIfEnabled arts : JobM ModuleOutputArtifacts := do
     if mod.pkg.isRoot then
       if let some ref := (← getBuildContext).outputsRef? then
@@ -1236,7 +1271,9 @@ public def Module.initFacetConfigs : DNameMap ModuleFacetConfig :=
   |>.insert transImportsFacet transImportsFacetConfig
   |>.insert precompileImportsFacet precompileImportsFacetConfig
   |>.insert importInfoFacet importInfoFacetConfig
+  |>.insert presetupFacet presetupFacetConfig
   |>.insert setupFacet setupFacetConfig
+  |>.insert depTraceFacet depTraceFacetConfig
   |>.insert depsFacet depsFacetConfig
   |>.insert leanArtsFacet leanArtsFacetConfig
   |>.insert importArtsFacet importArtsFacetConfig

@@ -518,7 +518,7 @@ stored in the cached input-to-content mapping.
 
 **For internal use only.**
 -/
-@[specialize] def getArtifactsUsingCache?
+@[specialize] public def getArtifactsUsingCache?
   [ResolveOutputs α] (inputHash : Hash) (pkg : Package)
 : JobM (Option α) := do
   if let some out ← (← getLakeCache).readOutputs? pkg.cacheScope inputHash then
@@ -624,6 +624,7 @@ set_option linter.unusedVariables false in
 /-- An artifact equipped with information about whether it is executable. -/
 def XArtifact (exe : Bool) := Artifact
 
+public instance : ResolveOutputs Artifact := ⟨(resolveArtifactOutput (exe := false))⟩
 instance : ResolveOutputs (XArtifact exe) := ⟨(resolveArtifactOutput (exe := exe))⟩
 
 /--

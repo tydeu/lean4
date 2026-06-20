@@ -41,6 +41,12 @@ rm -rf .lake/build
 test_not_out "leantar" build +Test --no-build -v
 test_exp -f .lake/build/ir/Test.ltar
 
+# Test fetching just the ltar from the cache
+rm -rf .lake/build
+test_exp ! -f .lake/build/lib/lean/Test.olean
+test_run build +Test:ltar --no-build -v
+test_exp ! -f .lake/build/lib/lean/Test.olean
+
 # Test unpacking the archive from the cache
 rm -rf .lake/build .lake/cache/artifacts/*.[!l]*
 test_out "leantar" build +Test --no-build -v

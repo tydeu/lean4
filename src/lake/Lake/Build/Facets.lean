@@ -54,6 +54,9 @@ including transitive imports, plugins, and those specified by `needs`.
 -/
 builtin_facet setup : Module => ModuleSetup
 
+/-- The complete dependency trace of a module (as used by a module build). -/
+builtin_facet depTrace : Module => BuildTrace
+
 /--
 This facet builds all of a module's dependencies,
 including transitive imports, plugins, and those specified by `needs`.
