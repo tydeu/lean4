@@ -89,7 +89,8 @@ void lean_notify_assert(const char * fileName, int line, const char * condition)
 
 #define LEAN_BYTE(Var, Index) *(((uint8_t*)&Var)+Index)
 
-#define LeanMaxCtorTag  243
+#define LeanMaxCtorTag  242
+#define LeanFloatScalarArray  243
 #define LeanPromise     244
 #define LeanClosure     245
 #define LeanArray       246
@@ -199,6 +200,8 @@ typedef struct {
     size_t        m_capacity;
     uint8_t       m_data[];
 } lean_sarray_object;
+
+typedef lean_sarray_object lean_farray_object;
 
 typedef struct {
     lean_object m_header;
@@ -588,6 +591,7 @@ static inline bool lean_is_ctor(lean_object * o) { return lean_ptr_tag(o) <= Lea
 static inline bool lean_is_closure(lean_object * o) { return lean_ptr_tag(o) == LeanClosure; }
 static inline bool lean_is_array(lean_object * o) { return lean_ptr_tag(o) == LeanArray; }
 static inline bool lean_is_sarray(lean_object * o) { return lean_ptr_tag(o) == LeanScalarArray; }
+static inline bool lean_is_farray(lean_object * o) { return lean_ptr_tag(o) == LeanFloatScalarArray; }
 static inline bool lean_is_string(lean_object * o) { return lean_ptr_tag(o) == LeanString; }
 static inline bool lean_is_mpz(lean_object * o) { return lean_ptr_tag(o) == LeanMPZ; }
 static inline bool lean_is_thunk(lean_object * o) { return lean_ptr_tag(o) == LeanThunk; }
@@ -604,6 +608,7 @@ static inline lean_ctor_object * lean_to_ctor(lean_object * o) { assert(lean_is_
 static inline lean_closure_object * lean_to_closure(lean_object * o) { assert(lean_is_closure(o)); return (lean_closure_object*)(o); }
 static inline lean_array_object * lean_to_array(lean_object * o) { assert(lean_is_array(o)); return (lean_array_object*)(o); }
 static inline lean_sarray_object * lean_to_sarray(lean_object * o) { assert(lean_is_sarray(o)); return (lean_sarray_object*)(o); }
+static inline lean_farray_object * lean_to_farray(lean_object * o) { assert(lean_is_farray(o)); return (lean_farray_object*)(o); }
 static inline lean_string_object * lean_to_string(lean_object * o) { assert(lean_is_string(o)); return (lean_string_object*)(o); }
 static inline lean_thunk_object * lean_to_thunk(lean_object * o) { assert(lean_is_thunk(o)); return (lean_thunk_object*)(o); }
 static inline lean_task_object * lean_to_task(lean_object * o) { assert(lean_is_task(o)); return (lean_task_object*)(o); }
@@ -1070,6 +1075,38 @@ static inline uint8_t lean_sarray_dec_eq(b_lean_obj_arg a1, b_lean_obj_arg a2) {
 
 /* Remark: expand sarray API after we add better support in the compiler */
 
+/* Array of scalar floats */
+
+static inline bool lean_alloc_farray_would_overflow(unsigned elem_size, size_t capacity) {
+    lean_alloc_sarray_would_overflow(elem_size, capacity);
+}
+
+static inline lean_obj_res lean_alloc_farray(unsigned elem_size, size_t size, size_t capacity) {
+    lean_farray_object * o = (lean_farray_object*)lean_alloc_object(lean_usize_add_checked(sizeof(lean_farray_object), lean_usize_mul_checked(elem_size, capacity)));
+    lean_set_st_header((lean_object*)o, LeanFloatScalarArray, elem_size);
+    o->m_size = size;
+    o->m_capacity = capacity;
+    return (lean_object*)o;
+}
+static inline unsigned lean_farray_elem_size(lean_object * o) {
+    assert(lean_is_farray(o));
+    return lean_ptr_other(o);
+}
+static inline size_t lean_farray_capacity(lean_object * o) { return lean_to_farray(o)->m_capacity; }
+static inline size_t lean_farray_byte_size(lean_object * o) {
+    return sizeof(lean_farray_object) + lean_farray_elem_size(o)*lean_farray_capacity(o);
+}
+static inline size_t lean_farray_size(b_lean_obj_arg o) { return lean_to_farray(o)->m_size; }
+static inline size_t lean_farray_data_byte_size(lean_object * o) {
+    return sizeof(lean_farray_object) + lean_farray_elem_size(o)*lean_farray_size(o);
+}
+static inline void lean_farray_set_size(u_lean_obj_arg o, size_t sz) {
+    assert(lean_is_exclusive(o));
+    assert(sz <= lean_farray_capacity(o));
+    lean_to_farray(o)->m_size = sz;
+}
+static inline uint8_t* lean_farray_cptr(lean_object * o) { return lean_to_farray(o)->m_data; }
+
 /* ByteArray (special case of Array of Scalars) */
 
 LEAN_EXPORT lean_obj_res lean_byte_array_mk(lean_obj_arg a);
@@ -1130,7 +1167,7 @@ static inline lean_obj_res lean_byte_array_fset(lean_obj_arg a, b_lean_obj_arg i
     return lean_byte_array_uset(a, lean_unbox(i), b);
 }
 
-/* FloatArray (special case of Array of Scalars) */
+/* FloatArray (special case of Array of Float Scalars) */
 
 LEAN_EXPORT lean_obj_res lean_float_array_mk(lean_obj_arg a);
 LEAN_EXPORT lean_obj_res lean_float_array_data(lean_obj_arg a);
@@ -1138,15 +1175,15 @@ LEAN_EXPORT lean_obj_res lean_copy_float_array(lean_obj_arg a);
 
 static inline lean_obj_res lean_mk_empty_float_array(b_lean_obj_arg capacity) {
     if (!lean_is_scalar(capacity)) lean_internal_panic_out_of_memory();
-    return lean_alloc_sarray(sizeof(double), 0, lean_unbox(capacity)); // NOLINT
+    return lean_alloc_farray(sizeof(double), 0, lean_unbox(capacity)); // NOLINT
 }
 
 static inline lean_obj_res lean_float_array_size(b_lean_obj_arg a) {
-    return lean_box(lean_sarray_size(a));
+    return lean_box(lean_farray_size(a));
 }
 
 static inline double * lean_float_array_cptr(b_lean_obj_arg a) {
-    return (double*)(lean_sarray_cptr(a)); // NOLINT
+    return (double*)(lean_farray_cptr(a)); // NOLINT
 }
 
 static inline double lean_float_array_uget(b_lean_obj_arg a, size_t i) {
@@ -1160,7 +1197,7 @@ static inline double lean_float_array_fget(b_lean_obj_arg a, b_lean_obj_arg i) {
 static inline double lean_float_array_get(b_lean_obj_arg a, b_lean_obj_arg i) {
     if (lean_is_scalar(i)) {
         size_t idx = lean_unbox(i);
-        return idx < lean_sarray_size(a) ? lean_float_array_uget(a, idx) : 0.0;
+        return idx < lean_farray_size(a) ? lean_float_array_uget(a, idx) : 0.0;
     } else {
         /* The index must be out of bounds. Otherwise we would be out of memory. */
         return 0.0;
@@ -1187,7 +1224,7 @@ static inline lean_obj_res lean_float_array_set(lean_obj_arg a, b_lean_obj_arg i
         return a;
     } else {
         size_t idx = lean_unbox(i);
-        if (idx >= lean_sarray_size(a)) {
+        if (idx >= lean_farray_size(a)) {
             return a;
         } else {
             return lean_float_array_uset(a, idx, d);
