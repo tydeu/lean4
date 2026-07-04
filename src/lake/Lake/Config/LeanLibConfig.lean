@@ -97,7 +97,7 @@ public configuration LeanLibConfig (name : Name) extends LeanConfig where
   `Module.oFacet`. That is, the  object files compiled from the Lean sources,
   potentially with exported Lean symbols.
   -/
-  nativeFacets (shouldExport : Bool) : Array (ModuleFacet FilePath) :=
+  nativeFacets (shouldExport : Bool) : Array (ModuleFacet Artifact) :=
     #[if shouldExport then Module.oExportFacet else Module.oFacet]
 
   /--

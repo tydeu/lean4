@@ -9,6 +9,7 @@ prelude
 public import Lake.Build.Key
 public import Lake.Util.Family
 public import Lake.Config.Dynlib
+public import Lake.Config.Artifact
 public import Lake.Config.Kinds
 public meta import Lake.Config.Kinds
 public meta import Lake.Util.Name
@@ -79,7 +80,7 @@ end OptDataKind
 
 /--
 The open type family which maps a Lake facet to its output type.
-For example, a `FilePath` for the `module.olean` facet.
+For example, an `Artifact` for the `module.olean` facet.
 
 It is an open type, meaning additional mappings can be add lazily
 as needed (via `facet_data`).
@@ -88,7 +89,7 @@ public opaque FacetOut (facet : Name) : Type
 
 /--
 The open type family which maps a Lake facet kind and name to its output type.
-For example, a `FilePath` for the `module` `olean` facet.
+For example, an `Artifact` for the `module` `olean` facet.
 
 It is an open type, meaning additional mappings can be add lazily
 as needed (via `facet_data`).
@@ -103,7 +104,7 @@ public instance [h :  FamilyDef (FacetData kind) facet α] : FamilyDef FacetOut 
 
 /--
 The open type family which maps a module facet's name to its output type.
-For example, a `FilePath` for the module `olean` facet.
+For example, an `Artifact` for the module `olean` facet.
 
 It is an open type, meaning additional mappings can be add lazily
 as needed (via `module_data`).
@@ -121,7 +122,7 @@ public abbrev PackageData := FacetData Package.facetKind
 
 /--
 The open type family which maps a Lean library facet's name to its output type.
-For example, the `FilePath` pf the generated static library for the `static` facet.
+For example, the `Artifact` of the generated static library for the `static` facet.
 
 It is an open type, meaning additional mappings can be add lazily
 as needed (via `library_data`).
@@ -203,6 +204,7 @@ scoped macro (name := dataTypeDecl)
 data_type unit : Unit
 data_type bool : Bool
 data_type filepath : System.FilePath
+data_type artifact : Artifact
 data_type dynlib : Dynlib
 
 /-- Internal macro for declaring new facet within Lake. -/

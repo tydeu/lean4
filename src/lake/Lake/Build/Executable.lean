@@ -19,7 +19,7 @@ open System (FilePath)
 The build function definition for a Lean executable.
 -/
 
-def LeanExe.recBuildExe (self : LeanExe) : FetchM (Job FilePath) :=
+def LeanExe.recBuildExe (self : LeanExe) : FetchM (Job Artifact) :=
   withRegisterJob s!"{self.name}:exe" <| withCurrPackage self.pkg do
   /-
   Remark: We must build the root before we fetch the transitive imports
@@ -56,7 +56,7 @@ def LeanExe.recBuildExe (self : LeanExe) : FetchM (Job FilePath) :=
 public def LeanExe.exeFacetConfig : LeanExeFacetConfig exeFacet :=
   mkFacetJobConfig recBuildExe
 
-def LeanExe.recBuildDefault (lib : LeanExe) : FetchM (Job FilePath) :=
+def LeanExe.recBuildDefault (lib : LeanExe) : FetchM (Job Artifact) :=
   lib.exe.fetch
 
 /-- The facet configuration for the builtin `ExternLib.dynlibFacet`. -/

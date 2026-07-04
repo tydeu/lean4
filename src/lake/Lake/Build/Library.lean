@@ -74,7 +74,7 @@ public def LeanLib.leanArtsFacetConfig : LibraryFacetConfig leanArtsFacet :=
   mkFacetJobConfig LeanLib.recBuildLean
 
 @[specialize] def LeanLib.recBuildStatic
-  (self : LeanLib) (shouldExport : Bool) : FetchM (Job FilePath)
+  (self : LeanLib) (shouldExport : Bool) : FetchM (Job Artifact)
 := do
   let suffix :=
     if (← getIsVerbose) then
@@ -88,8 +88,9 @@ public def LeanLib.leanArtsFacetConfig : LibraryFacetConfig leanArtsFacet :=
   let moreOJobs ← self.moreLinkObjs.mapM (·.fetchIn self.pkg)
   let libFile := if shouldExport then self.staticExportLibFile else self.staticLibFile
   let bootstrap := self.pkg.bootstrap
-  (Job.collectArray (oJobs ++ moreOJobs) "objs").mapM fun oFiles => do
-    let art ← buildArtifactUnlessUpToDate libFile (ext := "a") (restore := true) do
+  (Job.collectArray (oJobs ++ moreOJobs) "objs").mapM fun oArts => do
+    let oFiles := oArts.map (·.path)
+    buildArtifactUnlessUpToDate libFile (ext := "a") (restore := true) do
       if bootstrap then
         -- The Lean core build is not built with the bundled `llvm-ar`,
         -- so it must be special-cased to resolve issues with the system `ar`.
@@ -111,7 +112,6 @@ public def LeanLib.leanArtsFacetConfig : LibraryFacetConfig leanArtsFacet :=
           compileStaticLib libFile oFiles (← getLeanAr)
       else
         compileStaticLib libFile oFiles (← getLeanAr)
-    return art.path
 
 /-- The `LibraryFacetConfig` for the builtin `staticFacet`. -/
 public def LeanLib.staticFacetConfig : LibraryFacetConfig staticFacet :=

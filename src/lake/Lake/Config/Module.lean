@@ -218,5 +218,5 @@ public def dynlibSuffix := "-1"
 @[inline] public def shouldPrecompile (self : Module) : Bool :=
   self.lib.precompileModules
 
-@[inline] public def nativeFacets (self : Module) (shouldExport : Bool) : Array (ModuleFacet FilePath) :=
+@[inline] public def nativeFacets (self : Module) (shouldExport : Bool) : Array (ModuleFacet Artifact) :=
   self.lib.nativeFacets shouldExport

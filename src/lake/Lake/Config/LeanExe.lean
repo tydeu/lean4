@@ -110,7 +110,7 @@ That is, the package's `weakLinkArgs` plus the executable's  `weakLinkArgs`.
   self.pkg.weakLinkArgs ++ self.config.weakLinkArgs
 
 /-- Additional objects (e.g., `.o` files, static libraries) to link to the executable. -/
-@[inline] public def moreLinkObjs (self : LeanExe) : TargetArray FilePath :=
+@[inline] public def moreLinkObjs (self : LeanExe) : TargetArray Artifact :=
   self.config.moreLinkObjs
 
 /-- Additional shared libraries to link to the executable. -/

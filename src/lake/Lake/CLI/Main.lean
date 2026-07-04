@@ -1158,8 +1158,8 @@ protected def exe : CliM PUnit := do
   let config ← mkLoadConfig opts
   let ws ← loadWorkspace config
   let exe ← parseExeTargetSpec ws exeSpec
-  let exeFile ← ws.runBuild exe.fetch (mkBuildConfig opts)
-  exit <| ← (Lake.env exeFile.toString args.toArray).run <| mkLakeContext ws
+  let exe ← ws.runBuild exe.fetch (mkBuildConfig opts)
+  exit <| ← (Lake.env exe.path.toString args.toArray).run <| mkLakeContext ws
 
 protected def lean : CliM PUnit := do
   processOptions lakeOption

@@ -44,7 +44,8 @@ public def Module.inputFacetConfig : ModuleFacetConfig inputFacet :=
 /-- The `ModuleFacetConfig` for the builtin `leanFacet`. -/
 public def Module.leanFacetConfig : ModuleFacetConfig leanFacet :=
   mkFacetJobConfig fun mod =>
-    return (← mod.input.fetch).map (sync := true) (·.path)
+    return (← mod.input.fetch).map (sync := true) fun input =>
+      .ofTrace input.path input.trace "lean"
 
 /-- The `ModuleFacetConfig` for the builtin `headerFacet`. -/
 public def Module.headerFacetConfig : ModuleFacetConfig headerFacet :=
@@ -894,7 +895,7 @@ def Module.unpackLtar (self : Module) (ltar : FilePath) : JobM Unit := do
   ]
   proc (quiet := true) {cmd := (← getLeantar).toString, args}
 
-def Module.recBuildLtar (self : Module) : FetchM (Job FilePath) := do
+def Module.recBuildLtar (self : Module) : FetchM (Job Artifact) := do
   withRegisterJob s!"{self.name}:ltar" <| withCurrPackage self.pkg do
   (← self.leanArts.fetch).mapM fun arts => do
     let art ← arts.ltar?.getDM do
@@ -906,7 +907,7 @@ def Module.recBuildLtar (self : Module) : FetchM (Job FilePath) := do
         self.packLtar arts
     newTrace s!"{self.name.toString}:ltar"
     addTrace art.trace
-    return art.path
+    return art
 
 /-- The `ModuleFacetConfig` for the builtin `ltarFacet`. -/
 public def Module.ltarFacetConfig : ModuleFacetConfig ltarFacet :=
@@ -948,7 +949,7 @@ def Module.recBuildLean (mod : Module) : FetchM (Job ModuleOutputArtifacts) := d
   let leanJob ← mod.lean.fetch
   setupJob.mapM fun setup => do
     addLeanTrace
-    let srcFile ← leanJob.await
+    let srcFile := (← leanJob.await).path
     let srcTrace := leanJob.getTrace
     addTrace srcTrace
     addTrace <| traceOptions setup.options "options"
@@ -1070,7 +1071,7 @@ public def Module.leanArtsFacetConfig : ModuleFacetConfig leanArtsFacet :=
 
 @[inline] def Module.fetchOLeanCore
   (facet : String) (f : ModuleOutputArtifacts → Option Artifact) (errMsg : String) (mod : Module)
-: FetchM (Job FilePath) := do
+: FetchM (Job Artifact) := do
   (← mod.leanArts.fetch).mapM (sync := true) fun arts => do
       let some art := f arts
         | error errMsg
@@ -1081,7 +1082,7 @@ public def Module.leanArtsFacetConfig : ModuleFacetConfig leanArtsFacet :=
       -/
       newTrace s!"{mod.name.toString}:{facet}"
       addTrace art.trace
-      return art.path
+      return art
 
 /-- The `ModuleFacetConfig` for the builtin `oleanFacet`. -/
 public def Module.oleanFacetConfig : ModuleFacetConfig oleanFacet :=
@@ -1109,7 +1110,7 @@ public def Module.ileanFacetConfig : ModuleFacetConfig ileanFacet :=
       -/
       newTrace s!"{mod.name.toString}:ilean"
       addTrace art.trace
-      return art.path
+      return art
 
 /-- The `ModuleFacetConfig` for the builtin `irSigFacet`. -/
 public def Module.irSigFacetConfig : ModuleFacetConfig irSigFacet :=
@@ -1134,7 +1135,7 @@ public def Module.cFacetConfig : ModuleFacetConfig cFacet :=
       newTrace s!"{mod.name.toString}:c"
       addTrace art.trace
       addLeanTrace
-      return art.path
+      return art
 
 /-- The `ModuleFacetConfig` for the builtin `bcFacet`. -/
 public def Module.bcFacetConfig : ModuleFacetConfig bcFacet :=
@@ -1149,13 +1150,13 @@ public def Module.bcFacetConfig : ModuleFacetConfig bcFacet :=
       -/
       newTrace s!"{mod.name.toString}:bc"
       addTrace art.trace
-      return art.path
+      return art
 
 /--
 Recursively build the module's object file from its C file produced by `lean`
 with `-DLEAN_EXPORTING` set, which exports Lean symbols defined within the C files.
 -/
-def Module.recBuildLeanCToOExport (self : Module) : FetchM (Job FilePath) := do
+def Module.recBuildLeanCToOExport (self : Module) : FetchM (Job Artifact) := do
   let suffix := if (← getIsVerbose) then " (with exports)" else ""
   withRegisterJob s!"{self.name}:c.o{suffix}" <| withCurrPackage self.pkg do
   -- TODO: add option to pass a target triplet for cross compilation
@@ -1170,7 +1171,7 @@ public def Module.coExportFacetConfig : ModuleFacetConfig coExportFacet :=
 Recursively build the module's object file from its C file produced by `lean`.
 This version does not export any Lean symbols.
 -/
-def Module.recBuildLeanCToONoExport (self : Module) : FetchM (Job FilePath) := do
+def Module.recBuildLeanCToONoExport (self : Module) : FetchM (Job Artifact) := do
   let suffix := if (← getIsVerbose) then " (without exports)" else ""
   withRegisterJob s!"{self.name}:c.o{suffix}" <| withCurrPackage self.pkg do
   -- TODO: add option to pass a target triplet for cross compilation
@@ -1186,7 +1187,7 @@ public def Module.coFacetConfig : ModuleFacetConfig coFacet :=
     if Platform.isWindows then mod.coNoExport.fetch else mod.coExport.fetch
 
 /-- Recursively build the module's object file from its bitcode file produced by `lean`. -/
-def Module.recBuildLeanBcToO (self : Module) : FetchM (Job FilePath) := do
+def Module.recBuildLeanBcToO (self : Module) : FetchM (Job Artifact) := do
   withRegisterJob s!"{self.name}:bc.o" <| withCurrPackage self.pkg do
   -- TODO: add option to pass a target triplet for cross compilation
   buildLeanO self.bcoFile (← self.bc.fetch) self.weakLeancArgs self.leancArgs

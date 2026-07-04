@@ -26,8 +26,8 @@ public def exe
   let ws ← getWorkspace
   let some exe := ws.findLeanExe? name
     | error s!"unknown executable `{name}`"
-  let exeFile ← ws.runBuild exe.fetch buildConfig
-  env exeFile.toString args
+  let exe ← ws.runBuild exe.fetch buildConfig
+  env exe.path.toString args
 
 public def Package.pack
   (pkg : Package) (file : FilePath := pkg.buildArchiveFile)
@@ -76,8 +76,8 @@ public def Package.test
   if let some script := pkg.scripts.find? driver.toName then
     script.run (cfgArgs.toList ++ args)
   else if let some exe := pkg.findLeanExe? driver.toName  then
-    let exeFile ← runBuild exe.fetch buildConfig
-    env exeFile.toString (cfgArgs ++ args.toArray)
+    let exe ← runBuild exe.fetch buildConfig
+    env exe.path.toString (cfgArgs ++ args.toArray)
   else if let some lib := pkg.findLeanLib? driver.toName then
     unless cfgArgs.isEmpty ∧ args.isEmpty do
       error s!"{pkg.prettyName}: arguments cannot be passed to a library test driver"
@@ -94,8 +94,8 @@ public def Package.lint
   if let some script := pkg.scripts.find? driver.toName then
     script.run (cfgArgs.toList ++ args)
   else if let some exe := pkg.findLeanExe? driver.toName  then
-    let exeFile ← runBuild exe.fetch buildConfig
-    env exeFile.toString (cfgArgs ++ args.toArray)
+    let exe ← runBuild exe.fetch buildConfig
+    env exe.path.toString (cfgArgs ++ args.toArray)
   else
     error s!"{pkg.prettyName}: invalid lint driver: unknown script or executable '{driver}'"
 

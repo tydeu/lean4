@@ -105,17 +105,17 @@ public def LeanLib.fetchFacetJob
 := KConfigDecl.get self
 
 /-- Fetch the build of the Lean executable. -/
-@[inline] public protected def LeanExe.fetch (self : LeanExe) : FetchM (Job FilePath) :=
+@[inline] public protected def LeanExe.fetch (self : LeanExe) : FetchM (Job Artifact) :=
   self.exe.fetch
 
 /-- Fetch the build of the Lean executable. -/
-@[inline] public protected def LeanExeDecl.fetch (self : LeanExeDecl) : FetchM (Job FilePath) := do
+@[inline] public protected def LeanExeDecl.fetch (self : LeanExeDecl) : FetchM (Job Artifact) := do
   (← self.get).fetch
 
 /-! ## Input File / Directory Targets -/
 
 /-- Fetch the input file. -/
-@[inline] public protected def InputFile.fetch (self : InputFile) : FetchM (Job FilePath) :=
+@[inline] public protected def InputFile.fetch (self : InputFile) : FetchM (Job Artifact) :=
   self.default.fetch
 
 /-- Get the input file in the workspace corresponding to this configuration. -/
@@ -124,11 +124,11 @@ public def LeanLib.fetchFacetJob
 := KConfigDecl.get self
 
 /-- Fetch the input file. -/
-@[inline] public protected def InputFileDecl.fetch (self : InputFileDecl) : FetchM (Job FilePath) := do
-  (← self.get).default.fetch
+@[inline] public protected def InputFileDecl.fetch (self : InputFileDecl) : FetchM (Job Artifact) := do
+  (← self.get).fetch
 
 /-- Fetch the files in the input directory. -/
-@[inline] public protected def InputDir.fetch (self : InputDir) : FetchM (Job (Array FilePath)) :=
+@[inline] public protected def InputDir.fetch (self : InputDir) : FetchM (Job (Array Artifact)) :=
   self.default.fetch
 
 /-- Get the input directory in the workspace corresponding to this configuration. -/
@@ -137,5 +137,5 @@ public def LeanLib.fetchFacetJob
 := KConfigDecl.get self
 
 /-- Fetch the files in the input directory. -/
-@[inline] public protected def InputDirDecl.fetch (self : InputDirDecl) : FetchM (Job (Array FilePath)) := do
-  (← self.get).default.fetch
+@[inline] public protected def InputDirDecl.fetch (self : InputDirDecl) : FetchM (Job (Array Artifact)) := do
+  (← self.get).fetch

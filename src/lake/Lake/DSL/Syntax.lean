@@ -355,7 +355,7 @@ Define a new external library target for the package. Has one form:
 
 ```lean
 extern_lib «target-name» (pkg : NPackage _package.name) :=
-  /- build term of type `FetchM (Job FilePath)` -/
+  /- build term of type `FetchM (Job Artifact)` -/
 ```
 
 The `pkg` parameter (and its type specifier) is optional.

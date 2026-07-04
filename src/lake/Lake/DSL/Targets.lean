@@ -209,10 +209,10 @@ def elabInputDirCommand : CommandElab := fun stx => do
 
 public abbrev mkExternLibDecl
   (pkgName name : Name)
-  [FamilyDef (CustomData pkgName) (.str name "static") FilePath]
+  [FamilyDef (CustomData pkgName) (.str name "static") Artifact]
   [FamilyDef (CustomData pkgName) name (ConfigTarget ExternLib.configKind)]
 : ExternLibDecl :=
-  mkConfigDecl pkgName name ExternLib.configKind {getPath := cast (by simp)}
+  mkConfigDecl pkgName name ExternLib.configKind {getArtifact := cast (by simp)}
 
 @[builtin_macro externLibCommand]
 def expandExternLibCommand : Macro := fun stx => do
@@ -228,7 +228,7 @@ def expandExternLibCommand : Macro := fun stx => do
   let targetId := mkIdentFrom id <| id.getId.modifyBase (· ++ `static)
   let name := Name.quoteFrom id id.getId
   let kind := Name.quoteFrom kw ExternLib.configKind
-  `(target $targetId:ident $[$pkg?]? : FilePath := $defn $[$wds?:whereDecls]?
+  `(target $targetId:ident $[$pkg?]? : Artifact := $defn $[$wds?:whereDecls]?
     family_def $id : CustomOut (__name__, $name) := ConfigTarget $kind
     $[$doc?:docComment]? def $id : ExternLibDecl :=
       Lake.DSL.mkExternLibDecl __name__ $name

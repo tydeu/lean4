@@ -764,11 +764,10 @@ If `text := true`, `file` is handled as a text file rather than a binary file.
 @[inline] public def buildFileAfterDep
   (file : FilePath) (dep : Job α) (build : α → JobM PUnit)
   (extraDepTrace : JobM _ := pure BuildTrace.nil) (text := false)
-: SpawnM (Job FilePath) :=
+: SpawnM (Job Artifact) :=
   dep.mapM fun depInfo => do
     addTrace (← extraDepTrace)
-    let art ← buildArtifactUnlessUpToDate file (build depInfo) text
-    return art.path
+    buildArtifactUnlessUpToDate file (build depInfo) text
 
 /-! ## Common Builds -/
 
@@ -777,18 +776,20 @@ A build job for a binary file that is expected to already exist (e.g., a data bl
 
 Any byte difference in a binary file will trigger a rebuild of its dependents.
 -/
-public def inputBinFile (path : FilePath) : SpawnM (Job FilePath) := Job.async do
-  setTrace (← computeTrace path)
-  return path
+public def inputBinFile (path : FilePath) : SpawnM (Job Artifact) := Job.async do
+  let trace ← computeTrace path
+  setTrace trace
+  return .ofTrace path trace (path.extension.getD "art")
 
 /--
 A build job for a text file that is expected to already exist (e.g., a source file).
 
 Text file traces have normalized line endings to avoid unnecessary rebuilds across platforms.
 -/
-public def inputTextFile (path : FilePath) : SpawnM (Job FilePath) := Job.async do
-  setTrace (← computeTrace (TextFilePath.mk path))
-  return path
+public def inputTextFile (path : FilePath) : SpawnM (Job Artifact) := Job.async do
+  let trace ← computeTrace (TextFilePath.mk path)
+  setTrace trace
+  return .ofTrace path trace (path.extension.getD "art")
 
 /--
 A build job for a file that is expected to already exist (e.g., a data blob or source file).
@@ -798,7 +799,7 @@ Any byte difference in a binary file will trigger a rebuild of its dependents.
 In contrast, text file traces have normalized line endings to avoid unnecessary
 rebuilds across platforms.
 -/
-@[inline] public def inputFile (path : FilePath) (text : Bool) : SpawnM (Job FilePath) :=
+@[inline] public def inputFile (path : FilePath) (text : Bool) : SpawnM (Job Artifact) :=
   if text then inputTextFile path else inputBinFile path
 
 /--
@@ -812,7 +813,7 @@ rebuilds across platforms.
 -/
 public def inputDir
   (path : FilePath) (text : Bool) (filter : FilePath → Bool)
-: SpawnM (Job (Array FilePath)) := do
+: SpawnM (Job (Array Artifact)) := do
   let job ← Job.async do
     let ps ← (← path.walkDir).filterM fun p =>
       -- Always filter out directories as they cannot be hashed anyway
@@ -839,53 +840,50 @@ You can add more components to the trace via `extraDepTrace`,
 which will be computed in the resulting `Job` before building.
 -/
 @[inline] public def buildO
-  (oFile : FilePath) (srcJob : Job FilePath)
+  (oFile : FilePath) (srcJob : Job Artifact)
   (weakArgs traceArgs : Array String := #[]) (compiler : FilePath := "cc")
   (extraDepTrace : JobM _ := pure BuildTrace.nil)
-: SpawnM (Job FilePath) :=
+: SpawnM (Job Artifact) :=
   srcJob.mapM fun srcFile => do
     addPlatformTrace -- object files are platform-dependent artifacts
     addPureTrace traceArgs "traceArgs"
     addTrace (← extraDepTrace)
-    let art ← buildArtifactUnlessUpToDate oFile (ext := "o") do
-      compileO oFile srcFile (weakArgs ++ traceArgs) compiler
-    return art.path
+    buildArtifactUnlessUpToDate oFile (ext := "o") do
+      compileO oFile srcFile.path (weakArgs ++ traceArgs) compiler
 
 /--
 Build an object file from a source fie job (i.e, a `lean -c` output)
 using the Lean toolchain's C compiler.
 -/
 public def buildLeanO
-  (oFile : FilePath) (srcJob : Job FilePath)
+  (oFile : FilePath) (srcJob : Job Artifact)
   (weakArgs traceArgs : Array String := #[])
   (leanIncludeDir? : Option FilePath := none)
-: SpawnM (Job FilePath) :=
+: SpawnM (Job Artifact) :=
   srcJob.mapM fun srcFile => do
     addLeanTrace
     addPureTrace traceArgs "traceArgs"
     addPlatformTrace -- object files are platform-dependent artifacts
-    let art ← buildArtifactUnlessUpToDate oFile (ext := "o") do
+    buildArtifactUnlessUpToDate oFile (ext := "o") do
       let lean ← getLeanInstall
       let includeDir := leanIncludeDir?.getD lean.includeDir
       let args := #["-I", includeDir.toString] ++ lean.ccFlags ++ weakArgs ++ traceArgs
-      compileO oFile srcFile args lean.cc
-    return art.path
+      compileO oFile srcFile.path args lean.cc
 
 /-- Build a static library from object file jobs using the Lean toolchain's `ar`. -/
 public def buildStaticLib
-  (libFile : FilePath) (oFileJobs : Array (Job FilePath)) (thin :=  false)
-: SpawnM (Job FilePath) :=
+  (libFile : FilePath) (oFileJobs : Array (Job Artifact)) (thin :=  false)
+: SpawnM (Job Artifact) :=
   (Job.collectArray oFileJobs "objs").mapM fun oFiles => do
-    let art ← buildArtifactUnlessUpToDate libFile (ext := "a") (restore := true) do
-      compileStaticLib libFile oFiles (← getLeanAr) thin
-    return art.path
+    buildArtifactUnlessUpToDate libFile (ext := "a") (restore := true) do
+      compileStaticLib libFile (oFiles.map (·.path)) (← getLeanAr) thin
 
 def mkLinkObjArgs
-  (objs : Array FilePath) (libs : Array Dynlib) : Array String
+  (objs : Array Artifact) (libs : Array Dynlib) : Array String
 := Id.run do
   let mut args := #[]
   for obj in objs do
-    args := args.push obj.toString
+    args := args.push obj.path.toString
   for lib in libs do
     if let some dir := lib.dir? then
       args := args.push s!"-L{dir}"
@@ -921,7 +919,7 @@ using the Lean toolchain's C compiler.
 -/
 public def buildSharedLib
   (libName : String) (libFile : FilePath)
-  (linkObjs : Array (Job FilePath)) (linkLibs : Array (Job Dynlib))
+  (linkObjs : Array (Job Artifact)) (linkLibs : Array (Job Dynlib))
   (weakArgs traceArgs : Array String := #[]) (linker := "c++")
   (extraDepTrace : JobM _ := pure BuildTrace.nil)
   (plugin := false) (linkDeps := Platform.isWindows)
@@ -945,7 +943,7 @@ using `linker`.
 -/
 public def buildLeanSharedLib
   (libName : String) (libFile : FilePath)
-  (linkObjs : Array (Job FilePath)) (linkLibs : Array (Job Dynlib))
+  (linkObjs : Array (Job Artifact)) (linkLibs : Array (Job Dynlib))
   (weakArgs traceArgs : Array String := #[]) (plugin := false)
   (linkDeps := Platform.isWindows)
 : SpawnM (Job Dynlib) :=
@@ -970,18 +968,17 @@ using the Lean toolchain's linker.
 -/
 public def buildLeanExe
   (exeFile : FilePath)
-  (linkObjs : Array (Job FilePath)) (linkLibs : Array (Job Dynlib))
+  (linkObjs : Array (Job Artifact)) (linkLibs : Array (Job Dynlib))
   (weakArgs traceArgs : Array String := #[]) (sharedLean : Bool := false)
-: SpawnM (Job FilePath) :=
+: SpawnM (Job Artifact) :=
   (Job.collectArray linkObjs "linkObjs").bindM (sync := true) fun objs => do
   (Job.collectArray linkLibs "linkLibs").mapM fun libs => do
     addLeanTrace
     addPureTrace traceArgs "traceArgs"
     addPlatformTrace -- executables are platform-dependent artifacts
-    let art ← buildArtifactUnlessUpToDate exeFile (ext := FilePath.exeExtension) (exe := true) (restore := true) do
+    buildArtifactUnlessUpToDate exeFile (ext := FilePath.exeExtension) (exe := true) (restore := true) do
       let lean ← getLeanInstall
       let libs ← mkLinkOrder libs
       let args := mkLinkObjArgs objs libs ++ weakArgs ++ traceArgs ++
         #["-L", lean.leanLibDir.toString] ++ lean.ccLinkFlags sharedLean
       compileExe exeFile args lean.cc
-    return art.path

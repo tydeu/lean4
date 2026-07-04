@@ -333,7 +333,7 @@ public def id? (self : Package) : Option PkgId :=
   self.config.weakLeancArgs
 
 /-- The package's `moreLinkObjs` configuration. -/
-@[inline] public def moreLinkObjs (self : Package) : TargetArray FilePath :=
+@[inline] public def moreLinkObjs (self : Package) : TargetArray Artifact :=
   self.config.moreLinkObjs
 
 /-- The package's `moreLinkLibs` configuration. -/

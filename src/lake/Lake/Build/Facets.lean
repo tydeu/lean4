@@ -41,7 +41,7 @@ public instance [FamilyOut FacetOut facet α] : CoeDep Name facet (ModuleFacet �
   ⟨facet, FamilyOut.fam_eq⟩
 
 /-- The module's Lean source file. -/
-builtin_facet lean : Module => FilePath
+builtin_facet lean : Module => Artifact
 
 /-- The parsed module header of the module's source file. -/
 builtin_facet header : Module => ModuleHeader
@@ -127,59 +127,59 @@ Its trace just includes its dependencies.
 builtin_facet leanArts : Module => ModuleOutputArtifacts
 
 /-- A compressed archive (produced via `leantar`) of the module's build artifacts. -/
-builtin_facet ltar : Module => FilePath
+builtin_facet ltar : Module => Artifact
 
 /-- The `olean` file produced by `lean`. -/
-builtin_facet olean : Module => FilePath
+builtin_facet olean : Module => Artifact
 
 /-- The `olean.server` file produced by `lean` (with the module system enabled). -/
-builtin_facet oleanServerFacet @ olean.server : Module => FilePath
+builtin_facet oleanServerFacet @ olean.server : Module => Artifact
 
 /-- The `olean.private` file produced by `lean` (with the module system enabled). -/
-builtin_facet oleanPrivateFacet @ olean.private : Module => FilePath
+builtin_facet oleanPrivateFacet @ olean.private : Module => Artifact
 
 /-- The `ilean` file produced by `lean`. -/
-builtin_facet ilean : Module => FilePath
+builtin_facet ilean : Module => Artifact
 
 /-- The `ir.sig` file produced by `lean` (with the module system enabled). -/
-builtin_facet irSigFacet @ ir.sig : Module => FilePath
+builtin_facet irSigFacet @ ir.sig : Module => Artifact
 
 /-- The `ir` file produced by `lean` (with the module system enabled). -/
-builtin_facet ir : Module => FilePath
+builtin_facet ir : Module => Artifact
 
 /-- The C file produced by `lean`. -/
-builtin_facet c : Module => FilePath
+builtin_facet c : Module => Artifact
 
 /-- The LLVM bitcode (`bc`) file produced by `lean`. -/
-builtin_facet bc : Module => FilePath
+builtin_facet bc : Module => Artifact
 
 /--
 The object file `.c.o` built from `c`.
 On Windows, this is `c.o.noexport`, on other systems it is `c.o.export`).
 -/
-builtin_facet coFacet @ c.o : Module => FilePath
+builtin_facet coFacet @ c.o : Module => Artifact
 
 /-- The object file `.c.o.export` built from `c` (with `-DLEAN_EXPORTING`). -/
-builtin_facet coExportFacet @ c.o.export : Module => FilePath
+builtin_facet coExportFacet @ c.o.export : Module => Artifact
 
 /-- The object file `.c.o.noexport` built from `c` (without `-DLEAN_EXPORTING`). -/
-builtin_facet coNoExportFacet @ c.o.noexport : Module => FilePath
+builtin_facet coNoExportFacet @ c.o.noexport : Module => Artifact
 
 /-- The object file `.bc.o` built from `bc`. -/
-builtin_facet bcoFacet @ bc.o : Module => FilePath
+builtin_facet bcoFacet @ bc.o : Module => Artifact
 
 /--
 The object file built from `c`/`bc`.
 On Windows with the C backend, no Lean symbols are exported.
 On every other configuration, symbols are exported.
 -/
-builtin_facet o : Module => FilePath
+builtin_facet o : Module => Artifact
 
 /-- The object file built from `c`/`bc` (with Lean symbols exported). -/
-builtin_facet oExportFacet @ o.export : Module => FilePath
+builtin_facet oExportFacet @ o.export : Module => Artifact
 
 /-- The object file built from `c`/`bc` (without Lean symbols exported). -/
-builtin_facet oNoExportFacet @ o.noexport : Module => FilePath
+builtin_facet oNoExportFacet @ o.noexport : Module => Artifact
 
 
 /-! ## Package Facets -/
@@ -232,7 +232,7 @@ builtin_facet default : LeanLib => Unit
 builtin_facet leanArts : LeanLib => Unit
 
 /-- A Lean library's static artifact. -/
-builtin_facet static : LeanLib => FilePath
+builtin_facet static : LeanLib => Artifact
 
 /--
 A Lean library's static artifact (with exported symbols).
@@ -242,7 +242,7 @@ Such libraries are usually used as part of the local build process of some
 shared artifact and not publicly distributed. Standard static libraries are
 much better for distribution.
 -/
-builtin_facet staticExportFacet @ static.export : LeanLib => FilePath
+builtin_facet staticExportFacet @ static.export : LeanLib => Artifact
 
 /-- A Lean library's shared artifact. -/
 builtin_facet shared : LeanLib => Dynlib
@@ -251,28 +251,28 @@ builtin_facet shared : LeanLib => Dynlib
 builtin_facet extraDep : LeanLib => Unit
 
 /-- The executable's default facet (i.e., an alias for `exe`) -/
-builtin_facet default : LeanExe => FilePath
+builtin_facet default : LeanExe => Artifact
 
 /-- A Lean binary executable. -/
-builtin_facet exe : LeanExe => FilePath
+builtin_facet exe : LeanExe => Artifact
 
 /-- The external library's default facet (i.e., an alias for `static`) -/
-builtin_facet default : ExternLib => FilePath
+builtin_facet default : ExternLib => Artifact
 
 /-- A external library's static binary. -/
-builtin_facet static : ExternLib => FilePath
+builtin_facet static : ExternLib => Artifact
 
 /-- A external library's shared binary. -/
-builtin_facet shared : ExternLib => FilePath
+builtin_facet shared : ExternLib => Artifact
 
 /-- A external library's dynlib. -/
 builtin_facet dynlib : ExternLib => Dynlib
 
-/-- The default facet for an input file. Produces the file path. -/
-builtin_facet default : InputFile => FilePath
+/-- The default facet for an input file. Produces the file artifact. -/
+builtin_facet default : InputFile => Artifact
 
 /--
 The default facet for an input directory.
 Produces the matching files in the directory.
 -/
-builtin_facet default : InputDir => Array FilePath
+builtin_facet default : InputDir => Array Artifact

@@ -8,6 +8,7 @@ module
 prelude
 public import Lake.Build.Target.Basic
 public import Lake.Config.Dynlib
+public import Lake.Config.Artifact
 public import Lake.Config.MetaClasses
 public import Init.Data.String.Modify
 meta import all Lake.Config.Meta
@@ -204,7 +205,7 @@ public configuration LeanConfig where
   Additional target objects to use when linking (both static and shared).
   These will come *after* the paths of native facets.
   -/
-  moreLinkObjs : TargetArray FilePath := #[]
+  moreLinkObjs : TargetArray Artifact := #[]
   /--
   Additional target libraries to pass to `leanc` when linking
   (e.g., for shared libraries or binary executables).

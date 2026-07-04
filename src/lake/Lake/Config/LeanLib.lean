@@ -117,7 +117,7 @@ Otherwise, falls back to the package's.
   self.config.defaultFacets
 
 /-- The library's `nativeFacets` configuration. -/
-@[inline] public def nativeFacets (self : LeanLib) (shouldExport : Bool) : Array (ModuleFacet FilePath) :=
+@[inline] public def nativeFacets (self : LeanLib) (shouldExport : Bool) : Array (ModuleFacet Artifact) :=
   self.config.nativeFacets shouldExport
 
 /--
@@ -229,7 +229,7 @@ That is, the package's `weakLeancArgs` plus the library's `weakLeancArgs`.
 Additional target objects to pass to `ar` when linking the static library.
 That is, the package's `moreLinkObjs` plus the library's `moreLinkObjs`.
 -/
-@[inline] public def moreLinkObjs (self : LeanLib) : TargetArray FilePath :=
+@[inline] public def moreLinkObjs (self : LeanLib) : TargetArray Artifact :=
   self.pkg.moreLinkObjs ++ self.config.moreLinkObjs
 
 /--

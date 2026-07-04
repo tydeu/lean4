@@ -7,6 +7,7 @@ module
 
 prelude
 public import Lake.Build.Job.Basic
+public import Lake.Config.Artifact
 
 namespace Lake
 open Lean System
@@ -14,5 +15,5 @@ open Lean System
 /-- A external library's declarative configuration. -/
 public structure ExternLibConfig (pkgName name : Name) where
   /-- The library's build data. -/
-  getPath : Job (CustomData pkgName (.str name "static")) → Job FilePath
+  getArtifact : Job (CustomData pkgName (.str name "static")) → Job Artifact
   deriving Inhabited

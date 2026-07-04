@@ -7,6 +7,7 @@ module
 
 prelude
 public import Lake.Build.Trace
+public import Lake.Config.OutFormat
 
 open System Lean
 
@@ -81,6 +82,13 @@ public structure Artifact extends descr : ArtifactDescr where
 
 namespace Artifact
 
+/--
+Constructs an `Artifact` for `path` from its computed build trace
+(the inverse of `Artifact.trace`).
+-/
+@[inline] public def ofTrace (path : FilePath) (trace : BuildTrace) (ext := "art") : Artifact :=
+  {descr := artifactWithExt trace.hash ext, path, mtime := trace.mtime}
+
 /-- Sets the `name` of the artifact. -/
 @[inline] public def withName (name : String) (self : Artifact) : Artifact :=
   {self with name := name}
@@ -92,3 +100,7 @@ namespace Artifact
 /--The build trace formed from this single artifact. -/
 public def trace (self : Artifact) : BuildTrace :=
   {caption := self.name, mtime := self.mtime, hash := self.hash}
+
+-- Format an artifact as its preferred file system path (e.g., for `lake query`).
+public instance : QueryText Artifact := ⟨(·.path.toString)⟩
+public instance : QueryJson Artifact := ⟨(toJson ·.path)⟩
