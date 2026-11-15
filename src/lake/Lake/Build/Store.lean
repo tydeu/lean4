@@ -25,9 +25,30 @@ namespace Lake
 
 /-! ## Pure State -/
 
+/-- Value type of a key in the Lake build store. -/
+public abbrev BuildStoreCell (k : BuildKey) :=
+  IO.Promise (Job (BuildData k))
+
+/-- Creates a new build store cell. -/
+def BuildStoreCell.new : BaseIO (BuildStoreCell k) :=
+  IO.Promise.new
+
+/-- Returns the job at this cell.  -/
+@[inline] public def BuildStoreCell.get
+  [FamilyOut BuildData k α] (self : BuildStoreCell k)
+: BaseIO (Job α) :=
+  -- The promise should resolve.
+  -- If it does not, then there is another bug and a hang or panic here is acceptable.
+  cast (by simp) <| IO.wait self.result!
+
+/-- Saves {lean}`job` to this cell. Does nothing if there is already one there.  -/
+@[inline] nonrec def BuildStoreCell.resolve
+  [FamilyDef BuildData k α] (job : Job α) (self : BuildStoreCell k)
+: BaseIO Unit := self.resolve <| cast (by simp) job
+
 /-- The type of the Lake build store. -/
 public  abbrev BuildStore :=
-  Std.DTreeMap BuildKey (Job <| BuildData ·) BuildKey.quickCmp
+  Std.DTreeMap BuildKey BuildStoreCell BuildKey.quickCmp
 
 /-- Returns a new empty build store. -/
 @[inline] public def BuildStore.empty : BuildStore := Std.DTreeMap.empty
@@ -65,14 +86,33 @@ Otehrwise, returns {lean}`none`.
 -/
 @[inline] public def fetch?
   (k : BuildKey) [FamilyOut BuildData k α] (r : BuildStoreRef)
-: BaseIO (Option (Job α)) :=
-  r.getMap fun s => cast (by simp) <| s.get? k
+: BaseIO (Option (Job α)) := do
+  let some cell ← r.atomically fun r => return (← r.get).get? k
+    | return none
+  cast (by simp) <| IO.wait cell.result?
+
+/--
+Returns the cell in the build store for key {lean}`k`.
+The {lean}`Bool` indicates whether the cell is new.
+-/
+@[inline] def fetchCell (k : BuildKey) (r : BuildStoreRef) : BaseIO (Bool × BuildStoreCell k) :=
+  r.atomically fun sr => do
+    let s ← unsafe sr.take
+    if let some cell := s.get? k then
+      unsafe sr.put s
+      return (false, cell)
+    else
+      let cell ← BuildStoreCell.new
+      let s := s.insert k cell
+      unsafe sr.put s
+      return (true, cell)
 
 /-- Atomically inserts a new build job into the build store. Does nothing if one already exists. -/
 @[inline] public def store
   (k : BuildKey) [FamilyDef BuildData k α] (v : Job α) (r : BuildStoreRef)
-: BaseIO Unit :=
-  r.modify (·.insertIfNew k (cast (by simp) v))
+: BaseIO Unit := do
+  let (_, cell) ← r.fetchCell k
+  cell.resolve v
 
 /--
 Atomically inserts a new build job into the build store and returns it.
@@ -80,11 +120,11 @@ If one already exists, returns that instead.
 -/
 @[inline] def storeAndReturn
   (k : BuildKey) [FamilyDef BuildData k α] (v : Job α) (r : BuildStoreRef)
-: BaseIO (Job α) :=
-  r.modifyGet fun s =>
-    let v := cast (by simp) v
-    let (v?, s) := s.getThenInsertIfNew? k v
-    (cast (by simp) <| v?.getD v, s)
+: BaseIO (Job α) := do
+  let (_, cell) ← r.fetchCell k
+  let v := cast (by simp) v
+  cell.resolve v
+  cast (by simp) <| IO.wait (cell.resultD v)
 
 /--
 Returns the value of {lean}`k` in the store if it exists.
@@ -95,11 +135,13 @@ Otherwise, runs {lean}`create` to generate it, adds it to the store, and returns
   (k : BuildKey) [FamilyDef BuildData k α] (create : m (Job α))
   (r : BuildStoreRef)
 : m (Job α) := do
-  if let some val ← r.fetch? k then
+  let (new, cell) ← r.fetchCell k
+  if new then
+    let val ← create
+    cell.resolve val
     return val
   else
-    let val ← create
-    r.storeAndReturn k val
+    cell.get
 
 end BuildStoreRef
 

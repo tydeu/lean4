@@ -274,8 +274,8 @@ Otherwise, fetches it through the main build store.
 @[inline] def BuildStore.fetch
   (self : BuildStore) (info : BuildInfo) [FamilyOut BuildData info.key α]
 : FetchM (Job α) := do
-  if let some job := self.get? info.key then
-    return cast (by simp) job
+  if let some cell := self.get? info.key then
+    cell.get
   else info.fetch
 
 partial def fetchTransImportArts
